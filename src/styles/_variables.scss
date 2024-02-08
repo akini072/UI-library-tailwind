@@ -1,0 +1,36 @@
+
+/// Use this file to define common SCSS variables (colors, font, ...etc) instead of hard coding.
+
+// app blue color.
+$blue: #4368E0;
+$light-blue: #F6F9FE;
+$grey: #C5C7D2;
+$dark-grey: #a8aab4;
+$darker-grey: #343338;
+$light-grey: #e4e6f1;
+$light-silver: #f7f7f7;
+$hover-light-blue: rgba(214, 230, 255, 0.54);
+$light-red: #FB595B;
+$dark-hover-light-blue: rgba(214, 230, 255, 0.85);
+
+$hover-grey: #bfc3dc;
+
+$black: #252A32;
+
+$text-dark: #636A7B;
+
+// Default platform font...
+$default-font-family: -apple-system, BlinkMacSystemFont, Roboto, Helvetica Neue, Segoe UI, Helvetica, Arial, sans-serif;
+
+@mixin default-font($font-size:12px, $text-transform:none,$font-weight:500) {
+  // To prevent the page font from replacing it.
+  font-family: $default-font-family;
+  font-size: $font-size;
+  text-transform: $text-transform;
+  font-weight: $font-weight;
+}
+
+$sharp-blue: #116dff;
+
+$mobile: 500px;
+$tablet: 850px;

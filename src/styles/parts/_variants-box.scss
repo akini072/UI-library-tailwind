@@ -1,0 +1,127 @@
+
+.variants-wrap {
+  margin-top: 15px;
+
+  .btn, .button {
+    margin-top: 15px;
+  }
+}
+
+.variant-box {
+  background: #F6F9FE;
+  border-radius: 8px;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+
+  .left {
+    width: calc(45% - 20px);
+  }
+  .right {
+    width: calc(55% - 20px);
+  }
+  .label {
+    letter-spacing: 0.02em;
+    font-weight: 500;
+    font-size: 14px;
+    color: #252A32;
+    margin-bottom: 15px;
+  }
+  .button .label {
+    font-weight: inherit;
+    font-size: inherit;
+    color: inherit;
+    margin-bottom: inherit;
+  }
+  .label.with-icon {
+    display: flex;
+    align-items: center;
+  }
+  .label.with-icon .icon {
+    margin-left: 10px;
+    cursor: pointer;
+    position: relative;
+  }
+  .control-input {
+    padding: 6px 10px;
+    color: #636a7b;
+  }
+  .delete-icon {
+    width: 35px;
+    min-width: 35px;
+    height: 27px;
+    background: #FFFFFF;
+    border: 1px solid #FB595B;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+    svg path {
+      transition: 0.3s;
+    }
+    svg {
+      width: 12px;
+      height: 15px;
+    }
+    &:hover {
+      background-color: #FB595B;
+      svg path {
+        fill: #fff;
+      }
+    }
+  } // .delete-icon
+
+  .msg {
+    font-size: 13px;
+    line-height: 150%;
+    letter-spacing: 0.02em;
+    color: #636A7B;
+    margin: 0;
+    height: 33px;
+    display: flex;
+    align-items: center;
+  }
+  .btn, .button {
+    padding: 4px 10px;
+    font-size: 12px;
+    height: auto;
+  }
+  .label-top-group {
+    display: flex;
+    align-items: center
+  }
+
+  .label-top-group .label:first-child {
+    max-width: 120px;
+    width: 100%;
+    margin-right: 20px;
+  }
+
+  .option-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    .delete-icon {
+      margin-left: 20px;
+    }
+    .control-input {
+      margin-right: 20px;
+    }
+    .switch_checkbox_item {
+      margin-right: 20px;
+    }
+  }
+}
+
+.variant-box+.btn,.variant-box+.button {
+  margin-top: 5px;
+}
+
+

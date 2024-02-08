@@ -1,0 +1,224 @@
+
+.vs__selected .select-option {
+  display: flex;
+  margin-top: -4px;
+}
+
+.vs__selected .select-option .option-column {
+  max-width: 210px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.v-select.vs--disabled {
+  pointer-events: none;
+  .vs__search{
+    background-color: transparent;
+  }
+  .vs__selected {
+    color: $grey;
+  }
+}
+.vs__dropdown-toggle {
+  border-radius: 7px;
+  border: 2px solid #E4E6F1;
+  overflow: hidden;
+  &:hover {
+    border-color: $grey;
+  }
+}
+.vs__dropdown-menu {
+  //width: auto !important;
+  min-width: fit-content;
+  //min-width: 100% !important;
+  overflow-x: hidden;
+  z-index: 10000;
+}
+.vs--open {
+  .vs__open-indicator {
+    transform: rotate(180deg) scale(0.75);
+  }
+}
+.vs__open-indicator {
+  transform: scale(0.75);
+}
+
+.vs__clear {
+  transform: scale(0.9);
+  z-index: 2;
+}
+.vs__dropdown-toggle {
+  //height: 41px;
+  min-height: 41px;
+  &:hover {
+    border-color: $hover-grey;
+  }
+}
+.vs--multiple {
+  .vs__selected-options {
+    padding: 4px 2px; // fixes select multiple
+  }
+}
+.vs__selected-options {
+  z-index: 2;
+  //padding: 3px 2px; causes little shift in editor!
+  padding: 0 2px;
+  position: relative;
+  //overflow: hidden; // causes shift.
+}
+.vs__selected {
+  margin: 0 2px;
+}
+.vs--open {
+  .vs__dropdown-toggle {
+    border-color: $blue;
+  }
+}
+.select2-dropdown {
+  background-color: white;
+  border: 1px solid #e3e6f1;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14), 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+.vs__dropdown-option {
+
+}
+// For groups support on vue-select.
+.grouped .vs__dropdown-option {
+  display: flex;
+  flex: 1;
+  position: relative;
+  width: 100%;
+  padding: 0;
+
+  .select-option {
+    padding: 4px 16px;
+    flex-wrap: wrap;
+    white-space: normal;
+    text-overflow: ellipsis;
+  }
+  .group {
+    padding: 4px 9px;
+    width: 100%;
+    flex: 1;
+    background: #ededed;
+  }
+}
+
+.small.v-select {
+  .vs__dropdown-toggle {
+    border: 1px solid #C5C7D2;
+    border-radius: 4px;
+    height: 26px;
+    overflow: hidden;
+    min-height: 26px;
+    align-items: center;
+    &:hover {
+      border-color: #4368E0;
+    }
+  }
+}
+
+.extra-small.v-select {
+  .vs__dropdown-toggle {
+    border: 1px solid $grey;
+    border-radius: 3px;
+    height: 24px;
+    overflow: hidden;
+    min-height: 24px;
+    font-size: 12px;
+    align-items: center;
+    .vs__selected {
+      color: $darker-grey;
+    }
+
+    &:hover {
+      border-color: #4368E0;
+    }
+  }
+}
+
+.vs--single.vs__search, .vs--single.vs__search:focus {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.vs__dropdown-toggle {
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  input {
+    &::-webkit-input-placeholder {
+      color: #a5a5a5;
+      font-style: italic;
+    }
+    &:-ms-input-placeholder {
+      color: #a5a5a5;
+      font-style: italic;
+    }
+    &::placeholder {
+      color: #a5a5a5;
+      font-style: italic;
+    }
+  }
+}
+
+.v-select {
+  // breaks non-append to body popups
+  //overflow: hidden;
+}
+.vs--single .vs__selected {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.vs--unsearchable.vs--single {
+  .vs__selected {
+    height: 100%;
+  }
+}
+
+.vs__actions {
+  padding: 0 6px 0 3px;
+}
+.ql-snow.ql-toolbar button,
+.ql-snow .ql-toolbar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  float: none !important;
+  height: 24px !important;
+  padding: 3px 5px !important;
+  width: 24px !important;
+  margin: auto !important;
+  align-items: center !important;
+}
+
+.ql-snow.ql-toolbar button svg, .ql-snow .ql-toolbar button svg {
+  float: unset !important;
+  height: unset !important;
+}
+
+.vs__deselect {
+  margin-right: 2px;
+  padding: 5px;
+  border-radius: 3px;
+  &:hover {
+    background: #80808036;
+  }
+}
+
+// This causes for v-select click-outside to break.
+//.vs--unsearchable {
+//  .vs__search {
+//    display: none;
+//  }
+//}
+

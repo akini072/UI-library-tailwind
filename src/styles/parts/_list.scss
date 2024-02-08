@@ -1,0 +1,43 @@
+
+//ul.numbered-list {
+//  list-style: disc outside;
+//  margin-left: 18px;
+//  position: relative;
+//  padding: 0 34px;
+//}
+ul.numbered-list {
+  list-style: none;
+  counter-reset: new-counter;
+  position: relative;
+  padding: 0 0 0 44px;
+  li {
+    counter-increment: new-counter;
+    margin: 0.25rem;
+    position: relative;
+  }
+  li::before {
+    content: counter(new-counter);
+    background: #dbe6f9;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-block;
+    color: #314cff;
+    font-size: 14px;
+    font-weight: 600;
+    vertical-align: middle;
+    padding: 2px;
+    list-style-position: outside;
+    position: absolute;
+    left: -40px;
+    top: -4px;
+    text-align: center;
+    line-height: 150%;
+  }
+  ol ol li::before {
+    background: #dbe6f9;
+  }
+  ol ol ol li::before {
+    background: #dbe6f9;
+  }
+}
