@@ -1,4 +1,4 @@
-import VSpinner from "@/components/VSpinner"
+import VSpinner from "@/components/base/VSpinner"
 import ExternalLink from "./components/base/ExternalLink";
 import Loading from "./components/base/Loading";
 
