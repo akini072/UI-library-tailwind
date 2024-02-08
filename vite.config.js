@@ -12,7 +12,7 @@ export default defineConfig({
       entry: resolve(__dirname, "src/index.js"),
       name: "FunnelishComponentLib",
       // the name of the output files when the build is run (should match package.json main/module/exports)
-      fileName: "fnsh-lib",
+      fileName: "ui-lib",
     },
     // vite uses rollup to compile the code
     rollupOptions: {

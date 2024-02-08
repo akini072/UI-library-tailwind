@@ -1,22 +1,22 @@
 {
-  "name": "fnsh-lib",
+  "name": "@funnelish/ui-lib",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Funnelish/fnsh_base"
+    "url": "https://github.com/funnelish/fnsh_base"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@Funnelish"
+    "registry": "https://npm.pkg.github.com/@funnelish"
   },
   "type": "module",
   "files": [
     "dist"
   ],
-  "main": "./dist/fnsh-lib.umd.cjs",
-  "module": "./dist/fnsh-lib.js",
+  "main": "./dist/ui-lib.umd.cjs",
+  "module": "./dist/ui-lib.js",
   "exports": {
     ".": {
-      "import": "./dist/fnsh-lib.js",
-      "require": "./dist/fnsh-lib.umd.cjs"
+      "import": "./dist/ui-lib.js",
+      "require": "./dist/ui-lib.umd.cjs"
     },
     "./style.css": "./dist/style.css"
   },
