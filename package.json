@@ -1,0 +1,40 @@
+{
+  "name": "@Funnelish/fnsh-lib",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Funnelish/fnsh_base"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@Funnelish"
+  },
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/fnsh-lib.umd.cjs",
+  "module": "./dist/fnsh-lib.js",
+  "exports": {
+    ".": {
+      "import": "./dist/fnsh-lib.js",
+      "require": "./dist/fnsh-lib.umd.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite build",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vite-plugin-css-injected-by-js": "^3.4.0",
+    "vue": "^3.3.11"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.5.2",
+    "vite": "^5.0.8"
+  }
+}
