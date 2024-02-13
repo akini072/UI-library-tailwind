@@ -4,7 +4,7 @@
       <div class="modal-container__header">
         <h3>{{ headerText }}</h3>
         <div class="exit">
-          <VIcon name="exit" />
+          <VIcon name="exit" folder="icons" />
         </div>
       </div>
       <div class="modal-container__sub-header">
