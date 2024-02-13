@@ -4,7 +4,7 @@
       <div class="modal-container__header">
         <h3>{{ headerText }}</h3>
         <div class="exit">
-          <component :is="ExitSvg" @click="modalClose" />
+<!--          <component :is="ExitSvg" @click="modalClose" />-->
         </div>
       </div>
       <div class="modal-container__sub-header">
@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import ExitSvg from "@/assets/icons/exit.svg";
 
 export default {
   props: {
@@ -34,7 +33,7 @@ export default {
   },
   data() {
     return {
-      ExitSvg
+
     }
   },
   mounted() {

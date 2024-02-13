@@ -7,8 +7,8 @@ import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 export default defineConfig({
   plugins: [
       vue(),
-      cssInjectedByJsPlugin(),
       svgLoader(),
+      cssInjectedByJsPlugin(),
   ],
   build: {
     lib: {
