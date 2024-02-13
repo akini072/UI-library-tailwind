@@ -4,7 +4,7 @@
       <div class="modal-container__header">
         <h3>{{ headerText }}</h3>
         <div class="exit">
-<!--          <component :is="ExitSvg" @click="modalClose" />-->
+          <VIcon name="exit" />
         </div>
       </div>
       <div class="modal-container__sub-header">
@@ -23,18 +23,15 @@
 </template>
 
 <script>
+import VIcon from '@/components/VIcon.vue'
 
 export default {
+  components: { VIcon },
   props: {
     isOpen: Boolean,
     headerText: String,
     nextStep: Function,
     modalClose: Function,
-  },
-  data() {
-    return {
-
-    }
   },
   mounted() {
     // Bind click event listener to modal mask when component is mounted
