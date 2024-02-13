@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import VIcon from '@/components/VIcon.vue'
+import VIcon from '@/components/base/VIcon.vue'
 
 export default {
   components: { VIcon },
