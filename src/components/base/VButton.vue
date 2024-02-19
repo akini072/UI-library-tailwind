@@ -1,24 +1,22 @@
 <template>
-  <div :class="$props.class">
-    <button
-      :class="{
-        block: block,
-        disabled: disabled || loading,
-        icon: icon,
-        [colorClass]: true,
-        [variantClass]: true,
-      }"
-      :style="{
-        width,
-        height
-      }"
-    >
-      <div v-if="loading">
-        <v-spinner />
-      </div>
-      <slot v-else />
-    </button>
-  </div>
+  <button
+    :class="{
+      block: block,
+      disabled: disabled || loading,
+      icon: icon,
+      [colorClass]: true,
+      [variantClass]: true
+    }"
+    :style="{
+      width,
+      height
+    }"
+  >
+    <div v-if="loading">
+      <v-spinner />
+    </div>
+    <slot v-else />
+  </button>
 </template>
 
 <script>
@@ -29,9 +27,6 @@ export default {
     VSpinner
   },
   props: {
-    class: {
-      type: String,
-    },
     color: {
       type: String,
       default: ""
@@ -42,7 +37,7 @@ export default {
     },
     icon: {
       type: Boolean,
-      default: false,
+      default: false
     },
     width: {
       type: String,
@@ -70,7 +65,8 @@ export default {
   },
   computed: {
     colorClass() {
-      return `color--${this.color}`
+      if (this.color) return `color--${this.color}`
+      return ""
     },
     variantClass() {
       return this.variant
@@ -81,17 +77,17 @@ export default {
 <style lang="scss" scoped>
 button {
   display: flex;
-	align-items: center;
+  align-items: center;
   justify-content: center;
-	padding: 0px 14px;
+  padding: 0px 14px;
   margin: 0;
   font-size: 14px;
   font-weight: 600;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   letter-spacing: 0.28px;
   border-radius: 8px;
   background-color: #fff;
-  border: 1px solid #D0D5DD;
+  border: 1px solid #d0d5dd;
   color: var(--gray-700);
   height: 36px;
   min-width: fit-content;
@@ -106,13 +102,13 @@ button {
     background-color: var(--primary-500);
     color: #fff;
     &:not(.disabled):not(.text):hover {
-      background: #3A55D6;
+      background: #3a55d6;
     }
-  
+
     svg path {
-      stroke:#fff;
+      stroke: #fff;
     }
-  
+
     &.text {
       color: var(--primary-500);
       svg path {
@@ -142,7 +138,7 @@ button {
       border: 0px;
     }
   }
-  
+
   &.icon {
     border-radius: 100%;
     width: 36px;
@@ -157,7 +153,7 @@ button {
   &.block {
     width: 100%;
   }
-  
+
   &.disabled {
     opacity: 0.6;
     border-color: transparent;
@@ -167,5 +163,4 @@ button {
     pointer-events: none;
   }
 }
-
 </style>
