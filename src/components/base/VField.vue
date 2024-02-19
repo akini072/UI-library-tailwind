@@ -1,38 +1,36 @@
 <template>
-  <div :class="$props.class">
-    <fieldset
-      :class="`${variant} ${isActive ? 'active' : ''}`"
-      :style="{
-        width,
-        height,
-        maxWidth,
-        minWidth
-      }"
-    >
-      <v-icon
-        class="mx-3 my-2"
-        :name="icon"
-        :size="iconSize"
-        :color="isActive ? 'var(--primary-500)' : iconColor"
-      />
-      <input
-        :class="{ 'px-4': !noInputPadding }"
-        :autocomplete="autocomplete"
-        :type="type"
-        :placeholder="placeholder"
-        :value="modelValue"
-        @input="$emit('update:modelValue', $event.target.value)"
-        @focus="isActive = true"
-        @blur="isActive = false"
-      />
-    </fieldset>
-  </div>
+  <fieldset
+    :class="`${$props.class} ${variant} ${isActive ? 'active' : ''}`"
+    :style="{
+      width,
+      height,
+      maxWidth,
+      minWidth
+    }"
+  >
+    <v-icon
+      class="mx-3 my-2"
+      :name="icon"
+      :size="iconSize"
+      :color="isActive ? 'var(--primary-500)' : iconColor"
+    />
+    <input
+      :class="{ 'px-4': !noInputPadding }"
+      :autocomplete="autocomplete"
+      :type="type"
+      :placeholder="placeholder"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+      @focus="isActive = true"
+      @blur="isActive = false"
+    />
+  </fieldset>
 </template>
 <script>
 import VIcon from "./VIcon"
 
 export default {
-  name: 'VField',
+  name: "VField",
   components: { VIcon },
   props: {
     class: {
@@ -103,7 +101,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 fieldset {
   display: flex;
   align-items: center;
@@ -112,13 +110,13 @@ fieldset {
   border-width: 2px;
   border-color: var(--gray-200);
   border-radius: 8px;
-	height: 41px;
-	transition: 0.15s all ease-in-out;
+  height: 41px;
+  transition: 0.15s all ease-in-out;
   padding: 0;
   margin: 0;
-  
+
   &:not(.plain):hover {
-		border: 2px solid var(--gray-300);
+    border: 2px solid var(--gray-300);
   }
   input {
     border-radius: 6px;
@@ -137,7 +135,7 @@ fieldset {
   }
 
   &.active {
-    border-color: var(--primary-500)!important;
+    border-color: var(--primary-500) !important;
   }
 }
 </style>

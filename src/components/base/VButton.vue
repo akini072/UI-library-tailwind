@@ -29,7 +29,7 @@ export default {
   props: {
     color: {
       type: String,
-      default: ""
+      default: null
     },
     height: {
       type: String,
@@ -74,7 +74,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 button {
   display: flex;
   align-items: center;
@@ -93,7 +93,10 @@ button {
   min-width: fit-content;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   transition: background-color 400ms ease;
-
+  &:focus {
+    box-shadow: 0px 0px 0px 4px #F4EBFF, 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+    outline: none;
+  }
   &:not(.disabled):not(.outlined):hover {
     background: var(--gray-100);
   }
@@ -102,7 +105,7 @@ button {
     background-color: var(--primary-500);
     color: #fff;
     &:not(.disabled):not(.text):hover {
-      background: #3a55d6;
+      background: var(--primary-700);
     }
 
     svg path {
