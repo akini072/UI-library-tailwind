@@ -1,46 +1,40 @@
 <template>
-  <router-link class="external-link" target="_blank" :style="{pointerEvents:!href?'none':'auto'}"
-     :to="href">
-    {{ label }}
-    <component :is="LinkIcon"/>
+  <router-link
+    class="external-link__item d-flex align-center py-3"
+    target="_blank"
+    :to="href"
+  >
+    <h6>{{ label }}</h6>
+    <v-icon
+      class="ml-auto pl-4"
+      name="link-external"
+      size="12px"
+      color="var(--gray-500)"
+    />
   </router-link>
 </template>
 
 <script>
-import LinkIcon from "@/assets/img/external_link_icon.svg"
-
-    export default {
-      name: "ExternalLink",
-      data: function (){
-          return {
-            LinkIcon
-          }
-      },
-      props: ["label", "href"],
-    };
-</script>
-<style lang="scss">
-.external-link {
-  position: relative;
-  display: flex;
-  font-weight: 400;
-  font-size: 15px;
-  color: #252A32;
-  margin: 15px 0;
-  >svg {
-    margin-left: 10px;
-    height: 17px;
-    width: 17px;
-    path {
-      fill: #97AACD;
-    }
-  }
-  &:hover {
-    color: #4368E0;
-    >svg path {
-      fill: #4368E0;
+import VIcon from "./VIcon.vue"
+export default {
+  components: { VIcon },
+  props: {
+    label: {
+      type: String
+    },
+    href: {
+      type: String
     }
   }
 }
-
+</script>
+<style lang="scss" scoped>
+.external-link__item:hover {
+  h6 {
+    color: var(--primary-500);
+  }
+  svg path {
+    fill: var(--primary-500);
+  }
+}
 </style>
