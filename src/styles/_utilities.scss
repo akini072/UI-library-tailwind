@@ -1,0 +1,68 @@
+
+$spacing: (
+  "1": 4px,
+  "2": 8px,
+  "3": 12px,
+  "4": 16px,
+  "5": 20px,
+  "6": 24px,
+  "7": 28px,
+  "8": 32px,
+  "10": 40px,
+  "auto": auto,
+);
+
+@each $name, $glyph in $spacing {
+  .ml-#{$name} {
+    margin-left: $glyph;
+  }
+  .mr-#{$name} {
+    margin-right: $glyph;
+  }
+  .mt-#{$name} {
+    margin-top: $glyph;
+  }
+  .mb-#{$name} {
+    margin-bottom: $glyph;
+  }
+  .my-#{$name} {
+    margin-top: $glyph;
+    margin-bottom: $glyph;
+  }
+  .mx-#{$name} {
+    margin-left: $glyph;
+    margin-right: $glyph;
+  }
+  .ma-#{$name} {
+    margin-top: $glyph;
+    margin-bottom: $glyph;
+    margin-left: $glyph;
+    margin-right: $glyph;
+  }
+  .pl-#{$name} {
+    padding-left: $glyph;
+  }
+  .pr-#{$name} {
+    padding-right: $glyph;
+  }
+  .pt-#{$name} {
+    padding-top: $glyph;
+  }
+  .pb-#{$name} {
+    padding-bottom: $glyph;
+  }
+  .px-#{$name} {
+    padding-right: $glyph;
+    padding-left: $glyph;
+  }
+  .py-#{$name} {
+    padding-top: $glyph;
+    padding-bottom: $glyph;
+  }
+  .pa-#{$name} {
+    padding-top: $glyph;
+    padding-bottom: $glyph;
+    padding-left: $glyph;
+    padding-right: $glyph;
+  }
+}

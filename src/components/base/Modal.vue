@@ -4,7 +4,11 @@
       <div class="modal-container__header">
         <h3>{{ headerText }}</h3>
         <div class="exit">
-          <VIcon name="exit" folder="icons" />
+          <v-icon
+            name="close"
+            size="14px"
+            color="var(--gray-500)"
+          />
         </div>
       </div>
       <div class="modal-container__sub-header">
@@ -23,7 +27,7 @@
 </template>
 
 <script>
-import VIcon from '@/components/base/VIcon.vue'
+import VIcon from "./VIcon.vue"
 
 export default {
   components: { VIcon },
@@ -31,25 +35,25 @@ export default {
     isOpen: Boolean,
     headerText: String,
     nextStep: Function,
-    modalClose: Function,
+    modalClose: Function
   },
   mounted() {
     // Bind click event listener to modal mask when component is mounted
-    this.$el.addEventListener('click', this.handleOutsideClick);
+    this.$el.addEventListener("click", this.handleOutsideClick)
   },
   beforeUnmount() {
     // Unbind click event listener when component is unmounted
-    this.$el.removeEventListener('click', this.handleOutsideClick);
+    this.$el.removeEventListener("click", this.handleOutsideClick)
   },
   methods: {
     handleOutsideClick(event) {
       // Check if the click target is outside the modal container
       if (event.target === this.$el) {
-        this.modalClose();
+        this.modalClose()
       }
     }
   }
-};
+}
 </script>
 
 <style scoped lang="scss">

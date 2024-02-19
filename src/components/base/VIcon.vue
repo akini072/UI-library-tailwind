@@ -1,20 +1,55 @@
-<script setup>
-import { defineAsyncComponent } from 'vue'
+<template>
+  <div class="icon-wrapper">
+    <component
+      class="icon"
+      :height="size"
+      :width="size"
+      :color="color || 'var(--gray-700)'"
+      :is="icon"
+    />
+  </div>
+</template>
 
-const props = defineProps({
-  name: {
-    type: String,
-    required: true
+<script>
+import { defineAsyncComponent, markRaw } from "vue"
+export default {
+  name: "VIcon",
+  props: {
+    name: {
+      type: String,
+      required: true
+    },
+    folder: {
+      type: String,
+      default: 'icons'
+    },
+    color: {
+      type: String
+    },
+    size: {
+      type: String,
+      default: "20px"
+    },
   },
-  folder: {
-    type: String,
-    required: true
+  data() {
+    return {
+      icon: markRaw(
+        defineAsyncComponent(() =>
+          import(`../../assets/${this.folder}/${this.name}.svg`)
+        )
+      )
+    }
   }
-})
-
-const Icon = defineAsyncComponent(() => import(`../../assets/${props.folder}/${props.name}.svg`))
+}
 </script>
 
-<template>
-  <Icon />
-</template>
+<style scoped>
+.icon-wrapper {
+  display: flex;
+}
+
+.icon {
+  width: inherit; 
+  height: inherit;
+}
+</style>
