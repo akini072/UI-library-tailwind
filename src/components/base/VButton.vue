@@ -1,22 +1,24 @@
 <template>
-  <button
-    :class="{
-      block: block,
-      disabled: disabled || loading,
-      icon: icon,
-      [colorClass]: true,
-      [variantClass]: true,
-    }"
-    :style="{
-      width,
-      height
-    }"
-  >
-    <div v-if="loading">
-      <v-spinner />
-    </div>
-    <slot v-else />
-  </button>
+  <div :class="$props.class">
+    <button
+      :class="{
+        block: block,
+        disabled: disabled || loading,
+        icon: icon,
+        [colorClass]: true,
+        [variantClass]: true,
+      }"
+      :style="{
+        width,
+        height
+      }"
+    >
+      <div v-if="loading">
+        <v-spinner />
+      </div>
+      <slot v-else />
+    </button>
+  </div>
 </template>
 
 <script>
@@ -27,6 +29,9 @@ export default {
     VSpinner
   },
   props: {
+    class: {
+      type: String,
+    },
     color: {
       type: String,
       default: ""
@@ -73,7 +78,7 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss" scoped>
 button {
   display: flex;
 	align-items: center;
@@ -91,7 +96,7 @@ button {
   height: 36px;
   min-width: fit-content;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-  transition: all 400ms ease;
+  transition: background-color 400ms ease;
 
   &:not(.disabled):not(.outlined):hover {
     background: var(--gray-100);
