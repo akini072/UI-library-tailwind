@@ -12,28 +12,36 @@
       height
     }"
   >
-    <div v-if="loading">
+    <div v-if="loading" class="loading__spinner">
       <v-spinner />
     </div>
-    <slot v-else />
+    <div class="d-flex align-center" :class="{ 'btn-content loading': loading }">
+      <template v-if="label">
+        {{ label }}
+      </template>
+      <slot v-else />
+    </div>
   </button>
 </template>
 
 <script>
-import VSpinner from "./VSpinner"
+import VSpinner from './VSpinner.vue'
 
 export default {
   components: {
     VSpinner
   },
   props: {
+    label: {
+      type: String,
+    },
     color: {
       type: String,
       default: null
     },
     height: {
       type: String,
-      default: "36px"
+      default: '36px'
     },
     icon: {
       type: Boolean,
@@ -41,7 +49,7 @@ export default {
     },
     width: {
       type: String,
-      default: ""
+      default: ''
     },
     block: {
       type: Boolean,
@@ -49,9 +57,9 @@ export default {
     },
     variant: {
       type: String,
-      default: "default",
+      default: 'default',
       validator: function (value) {
-        return ["outlined", "text", "default", "plain"].includes(value)
+        return ['outlined', 'text', 'default', 'plain', 'flat'].includes(value)
       }
     },
     disabled: {
@@ -66,7 +74,7 @@ export default {
   computed: {
     colorClass() {
       if (this.color) return `color--${this.color}`
-      return ""
+      return ''
     },
     variantClass() {
       return this.variant
@@ -74,6 +82,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss">
 button {
   display: flex;
@@ -83,7 +92,7 @@ button {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
-  font-family: "Roboto";
+  font-family: 'Roboto';
   letter-spacing: 0.28px;
   border-radius: 8px;
   background-color: #fff;
@@ -93,19 +102,30 @@ button {
   min-width: fit-content;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   transition: background-color 400ms ease;
-  &:focus {
-    box-shadow: 0px 0px 0px 4px #F4EBFF, 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  &:focus-visible {
+    box-shadow:
+      0px 0px 0px 4px #f4ebff,
+      0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     outline: none;
   }
-  &:not(.disabled):not(.outlined):hover {
+  &:hover {
     background: var(--gray-100);
   }
   &.color--primary {
     border: 0px;
     background-color: var(--primary-500);
     color: #fff;
-    &:not(.disabled):not(.text):hover {
+    &:hover {
+      border: 0px;
       background: var(--primary-700);
+    }
+
+    &.outlined {
+      border: 1px solid var(--primary-500);
+      color: var(--primary-500);
+      &:hover {
+        background-color: var(--primary-50);
+      }
     }
 
     svg path {
@@ -123,6 +143,28 @@ button {
     border-color: white;
     color: white;
   }
+  &.color--red {
+    border: 0px;
+    color: #fff;
+    background-color: var(--error-500);
+    &:hover {
+      border: 0px;
+      background-color: var(--error-600);
+    }
+    &.outlined {
+      border: 1px solid var(--error-500);
+      color: var(--error-500);
+      &:hover {
+        background-color: var(--error-50);
+      }
+    }
+    &.text {
+      color: var(--error-500);
+      &:hover {
+        background-color: var(--error-50);
+      }
+    }
+  }
   &.outlined {
     border: 1px solid;
     border-color: inherit;
@@ -133,6 +175,16 @@ button {
     background: var(--gray-100);
   }
 
+  &.flat {
+    padding: 0px;
+    border: 0;
+    background-color: transparent;
+    box-shadow: none;
+    &:hover {
+      background: var(--gray-100);
+      border: none;
+    }
+  }
   &.text {
     border: 0px;
     background-color: transparent;
@@ -159,11 +211,17 @@ button {
 
   &.disabled {
     opacity: 0.6;
-    border-color: transparent;
+    border-color: transparent !important;
     color: var(--gray-500);
     background-color: var(--gray-200);
     cursor: auto;
     pointer-events: none;
+  }
+  .btn-content.loading {
+    opacity: 0;
+  }
+  .loading__spinner {
+    position: absolute;
   }
 }
 </style>
