@@ -15,7 +15,10 @@
     <div v-if="loading" class="loading__spinner">
       <v-spinner />
     </div>
-    <div class="d-flex align-center" :class="{ 'btn-content loading': loading }">
+    <div
+      class="d-flex align-center"
+      :class="{ 'btn-content loading': loading }"
+    >
       <template v-if="label">
         {{ label }}
       </template>
@@ -25,7 +28,7 @@
 </template>
 
 <script>
-import VSpinner from './VSpinner.vue'
+import VSpinner from "./VSpinner.vue"
 
 export default {
   components: {
@@ -33,7 +36,7 @@ export default {
   },
   props: {
     label: {
-      type: String,
+      type: String
     },
     color: {
       type: String,
@@ -41,7 +44,7 @@ export default {
     },
     height: {
       type: String,
-      default: '36px'
+      default: "36px"
     },
     icon: {
       type: Boolean,
@@ -49,7 +52,7 @@ export default {
     },
     width: {
       type: String,
-      default: ''
+      default: ""
     },
     block: {
       type: Boolean,
@@ -57,9 +60,9 @@ export default {
     },
     variant: {
       type: String,
-      default: 'default',
+      default: "default",
       validator: function (value) {
-        return ['outlined', 'text', 'default', 'plain', 'flat'].includes(value)
+        return ["outlined", "text", "default", "plain", "flat"].includes(value)
       }
     },
     disabled: {
@@ -74,7 +77,7 @@ export default {
   computed: {
     colorClass() {
       if (this.color) return `color--${this.color}`
-      return ''
+      return ""
     },
     variantClass() {
       return this.variant
@@ -92,7 +95,7 @@ button {
   margin: 0;
   font-size: 14px;
   font-weight: 600;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   letter-spacing: 0.28px;
   border-radius: 8px;
   background-color: #fff;
@@ -102,98 +105,18 @@ button {
   min-width: fit-content;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   transition: background-color 400ms ease;
+
+  &.block {
+    width: 100%;
+  }
+
   &:focus-visible {
-    box-shadow:
-      0px 0px 0px 4px #f4ebff,
-      0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+    box-shadow: 0px 0px 0px 4px #f4ebff, 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     outline: none;
   }
   &:hover {
     background: var(--gray-100);
   }
-  &.color--primary {
-    border: 0px;
-    background-color: var(--primary-500);
-    color: #fff;
-    &:hover {
-      border: 0px;
-      background: var(--primary-700);
-    }
-
-    &.outlined {
-      border: 1px solid var(--primary-500);
-      color: var(--primary-500);
-      &:hover {
-        background-color: var(--primary-50);
-      }
-    }
-
-    svg path {
-      stroke: #fff;
-    }
-
-    &.text {
-      color: var(--primary-500);
-      svg path {
-        fill: var(--primary-500);
-      }
-    }
-  }
-  &.color--white {
-    border-color: white;
-    color: white;
-  }
-  &.color--red {
-    border: 0px;
-    color: #fff;
-    background-color: var(--error-500);
-    &:hover {
-      border: 0px;
-      background-color: var(--error-600);
-    }
-    &.outlined {
-      border: 1px solid var(--error-500);
-      color: var(--error-500);
-      &:hover {
-        background-color: var(--error-50);
-      }
-    }
-    &.text {
-      color: var(--error-500);
-      &:hover {
-        background-color: var(--error-50);
-      }
-    }
-  }
-  &.outlined {
-    border: 1px solid;
-    border-color: inherit;
-    background-color: transparent;
-  }
-  &.plain {
-    border: 0px;
-    background: var(--gray-100);
-  }
-
-  &.flat {
-    padding: 0px;
-    border: 0;
-    background-color: transparent;
-    box-shadow: none;
-    &:hover {
-      background: var(--gray-100);
-      border: none;
-    }
-  }
-  &.text {
-    border: 0px;
-    background-color: transparent;
-    box-shadow: none;
-    &:not(.disabled):hover {
-      border: 0px;
-    }
-  }
-
   &.icon {
     border-radius: 100%;
     width: 36px;
@@ -203,10 +126,6 @@ button {
       width: 32px;
       height: 32px;
     }
-  }
-
-  &.block {
-    width: 100%;
   }
 
   &.disabled {
@@ -222,6 +141,93 @@ button {
   }
   .loading__spinner {
     position: absolute;
+  }
+
+  &.color--primary {
+    border: 0px;
+    background-color: var(--primary-500);
+    color: #fff;
+    svg path {
+      stroke: #fff;
+    }
+    &:hover {
+      border: 0px;
+      background: var(--primary-700);
+    }
+
+    &.outlined {
+      background-color: #fff;
+      border: 1px solid var(--primary-500);
+      color: var(--primary-500);
+      &:hover {
+        background-color: var(--primary-25);
+      }
+    }
+
+    &.text {
+      border: none;
+      background-color: transparent;
+      box-shadow: none;
+      svg path {
+        fill: var(--primary-500);
+      }
+      &:hover {
+        background-color: var(--primary-25);
+      }
+    }
+
+    &.plain {
+      background-color: var(--primary-25);
+      border: none;
+      box-shadow: none;
+      color: var(--primary-500);
+      &:hover {
+        color: var(--primary-700)
+      }
+    }
+  }
+  &.color--red {
+    border: 0px;
+    background-color: var(--error-500);
+    color: #fff;
+    svg path {
+      stroke: #fff;
+    }
+    &:hover {
+      border: 0px;
+      background: var(--error-700);
+    }
+
+    &.outlined {
+      background-color: #fff;
+      border: 1px solid var(--error-500);
+      color: var(--error-500);
+      &:hover {
+        background-color: var(--error-50);
+      }
+    }
+
+    &.text {
+      border: none;
+      background-color: transparent;
+      box-shadow: none;
+      svg path {
+        fill: var(--error-500);
+      }
+      &:hover {
+        background-color: var(--error-50);
+      }
+    }
+
+    &.plain {
+      background-color: var(--error-50);
+      border: none;
+      box-shadow: none;
+      color: var(--error-500);
+      &:hover {
+        color: var(--error-700)
+      }
+    }
   }
 }
 </style>
