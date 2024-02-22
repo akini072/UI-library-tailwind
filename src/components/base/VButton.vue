@@ -106,6 +106,24 @@ button {
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   transition: background-color 400ms ease;
 
+  &.plain {
+    background-color: var(--gray-100);
+    border: none;
+    box-shadow: none;
+    &:hover {
+      color: #1d2939;
+    }
+  }
+
+  &.text {
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    &:hover {
+      background-color: var(--gray-100);
+    }
+  }
+
   &.block {
     width: 100%;
   }
@@ -131,8 +149,8 @@ button {
   &.disabled {
     opacity: 0.6;
     border-color: transparent !important;
-    color: var(--gray-500);
-    background-color: var(--gray-200);
+    color: var(--gray-500)!important;
+    background-color: var(--gray-200)!important;
     cursor: auto;
     pointer-events: none;
   }
@@ -182,7 +200,7 @@ button {
       box-shadow: none;
       color: var(--primary-500);
       &:hover {
-        color: var(--primary-700)
+        color: var(--primary-700);
       }
     }
   }
@@ -225,7 +243,28 @@ button {
       box-shadow: none;
       color: var(--error-500);
       &:hover {
-        color: var(--error-700)
+        color: var(--error-700);
+      }
+    }
+  }
+  &.color--white {
+    border: 0px;
+    background-color: #fff;
+    color: var(--gray-700);
+    svg path {
+      stroke: var(--gray-700);
+    }
+    &:hover {
+      border: 0px;
+      background: var(--gray-100);
+    }
+
+    &.outlined {
+      background-color: transparent;
+      border: 1px solid #fff;
+      color: #fff;
+      &:hover {
+        background-color: transparent;
       }
     }
   }
