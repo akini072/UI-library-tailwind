@@ -8,12 +8,45 @@
       minWidth
     }"
   >
+    <legend v-if="label" class="ml-3 d-flex align-center">
+      <span class="ml-1">
+        {{ label }}
+      </span>
+      <span class="font-weight-light" v-if="optional">(optional)</span>
+      <div
+        v-if="!!info"
+        class="info__icon mx-1"
+        v-tippy="{ theme: 'light', placement: 'top' }"
+        :content="info"
+      >
+        <v-icon name="info" size="16px" />
+      </div>
+
+      <tippy v-else-if="!!$slots.info">
+        <template v-slot:trigger>
+          <div class="info__icon">
+            <v-icon name="info" height="18px" color="pink" />
+          </div>
+        </template>
+        <slot name="info" />
+      </tippy>
+    </legend>
     <v-icon
+      v-if="icon"
       class="mx-3 my-2"
       :name="icon"
       :size="iconSize"
       :color="isActive ? 'var(--primary-500)' : iconColor"
     />
+    <div
+      v-if="prepend"
+      class="border-r text--gray-300 px-2 d-flex align-center"
+      style="height: 100%"
+    >
+      <span>
+        {{ prepend }}
+      </span>
+    </div>
     <input
       :class="{ 'px-4': !noInputPadding }"
       :autocomplete="autocomplete"
@@ -33,6 +66,21 @@ export default {
   name: "VField",
   components: { VIcon },
   props: {
+    label: {
+      type: String
+    },
+    prepend: {
+      type: String
+    },
+
+    info: {
+      type: String,
+      default: () => null
+    },
+    optional: {
+      type: Boolean,
+      default: false
+    },
     class: {
       type: String
     },
@@ -114,6 +162,7 @@ fieldset {
   transition: 0.15s all ease-in-out;
   padding: 0;
   margin: 0;
+  position: relative;
 
   &:not(.plain):hover {
     border: 2px solid var(--gray-300);
@@ -130,12 +179,26 @@ fieldset {
     }
   }
 
+  legend {
+    font-size: 12px;
+    font-weight: 500;
+    position: absolute;
+    top: -10px;
+    background-color: #fff;
+    &,
+    svg {
+      color: var(--gray-300);
+    }
+  }
   &.plain {
     border: 0px;
   }
 
   &.active {
     border-color: var(--primary-500) !important;
+    legend {
+      color: var(--primary-500);
+    }
   }
 }
 </style>

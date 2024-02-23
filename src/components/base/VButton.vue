@@ -5,7 +5,8 @@
       disabled: disabled || loading,
       icon: icon,
       [colorClass]: true,
-      [variantClass]: true
+      [variantClass]: true,
+      'no-hover': noHover,
     }"
     :style="{
       width,
@@ -72,6 +73,9 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+    noHover: {
+      type: Boolean,
     }
   },
   computed: {
@@ -267,6 +271,9 @@ button {
         background-color: transparent;
       }
     }
+  }
+  &.no-hover:hover {
+    background-color: inherit;
   }
 }
 </style>
