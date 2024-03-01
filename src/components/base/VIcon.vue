@@ -1,13 +1,5 @@
 <template>
-  <div class="icon-wrapper">
-    <component
-      class="icon"
-      :height="size"
-      :width="size"
-      :color="color || 'var(--gray-700)'"
-      :is="icon"
-    />
-  </div>
+  <component class="icon" :color="color" :height="height" :is="icon" />
 </template>
 
 <script>
@@ -26,7 +18,7 @@ export default {
     color: {
       type: String
     },
-    size: {
+    height: {
       type: String,
       default: "20px"
     },
@@ -42,14 +34,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.icon-wrapper {
-  display: flex;
-}
-
-.icon {
-  width: inherit; 
-  height: inherit;
-}
-</style>

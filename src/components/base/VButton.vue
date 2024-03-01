@@ -6,7 +6,7 @@
       icon: icon,
       [colorClass]: true,
       [variantClass]: true,
-      'no-hover': noHover,
+      'no-hover': noHover
     }"
     :style="{
       width,
@@ -75,7 +75,7 @@ export default {
       default: false
     },
     noHover: {
-      type: Boolean,
+      type: Boolean
     }
   },
   computed: {
@@ -153,8 +153,8 @@ button {
   &.disabled {
     opacity: 0.6;
     border-color: transparent !important;
-    color: var(--gray-500)!important;
-    background-color: var(--gray-200)!important;
+    color: var(--gray-500) !important;
+    background-color: var(--gray-200) !important;
     cursor: auto;
     pointer-events: none;
   }
@@ -169,9 +169,6 @@ button {
     border: 0px;
     background-color: var(--primary-500);
     color: #fff;
-    svg path {
-      stroke: #fff;
-    }
     &:hover {
       border: 0px;
       background: var(--primary-700);
@@ -190,9 +187,6 @@ button {
       border: none;
       background-color: transparent;
       box-shadow: none;
-      svg path {
-        fill: var(--primary-500);
-      }
       &:hover {
         background-color: var(--primary-25);
       }
@@ -212,9 +206,6 @@ button {
     border: 0px;
     background-color: var(--error-500);
     color: #fff;
-    svg path {
-      stroke: #fff;
-    }
     &:hover {
       border: 0px;
       background: var(--error-700);
@@ -233,9 +224,8 @@ button {
       border: none;
       background-color: transparent;
       box-shadow: none;
-      svg path {
-        fill: var(--error-500);
-      }
+
+  
       &:hover {
         background-color: var(--error-50);
       }
@@ -255,9 +245,6 @@ button {
     border: 0px;
     background-color: #fff;
     color: var(--gray-700);
-    svg path {
-      stroke: var(--gray-700);
-    }
     &:hover {
       border: 0px;
       background: var(--gray-100);

@@ -6,6 +6,7 @@ import Modal from "@/components/base/Modal"
 import VIcon from "@/components/base/VIcon"
 import VField from "@/components/base/VField"
 import VButton from "@/components/base/VButton"
+import VSelect from "@/components/base/VSelect"
 
 export {
   VSpinner,
@@ -15,7 +16,8 @@ export {
   Modal,
   VIcon,
   VField,
-  VButton
+  VButton,
+  VSelect,
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)

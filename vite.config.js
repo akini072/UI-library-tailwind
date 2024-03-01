@@ -3,12 +3,14 @@ import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import svgLoader from 'vite-svg-loader';
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
+import ElementPlus from 'unplugin-element-plus/vite'
 
 export default defineConfig({
   plugins: [
       vue(),
       svgLoader(),
       cssInjectedByJsPlugin(),
+      ElementPlus()
   ],
   build: {
     lib: {

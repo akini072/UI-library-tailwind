@@ -8,7 +8,7 @@
     <v-icon
       class="ml-auto pl-4"
       name="link-external"
-      size="12px"
+      height="12px"
       color="var(--gray-500)"
     />
   </router-link>

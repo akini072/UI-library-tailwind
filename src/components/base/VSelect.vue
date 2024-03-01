@@ -1,6 +1,6 @@
 <template>
   <fieldset
-    :class="`${$props.class} ${variant} ${isActive ? 'active' : ''}`"
+    :class="`${variant} ${isActive ? 'active' : ''}`"
     :style="{
       width,
       height,
@@ -47,24 +47,33 @@
         {{ prepend }}
       </span>
     </div>
-    <input
-      :class="{ 'px-4': !noInputPadding }"
-      :autocomplete="autocomplete"
-      :type="type"
+    <el-select
+      :model-value="modelValue"
+      :value-key="valueKey"
       :placeholder="placeholder"
-      :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
+      @change="$emit('update:modelValue', $event)"
       @focus="isActive = true"
       @blur="isActive = false"
-    />
+    >
+      <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+      />
+    </el-select>
   </fieldset>
 </template>
 <script>
-import VIcon from "./VIcon"
+import 'element-plus/es/components/select/style/css'
+import 'element-plus/es/components/option/style/css'
+import VIcon from './VIcon.vue'
+import { ElSelect, ElOption } from 'element-plus'
+
 
 export default {
-  name: "VField",
-  components: { VIcon },
+  name: 'VSelect',
+  components: { VIcon, ElSelect, ElOption },
   props: {
     label: {
       type: String
@@ -72,7 +81,6 @@ export default {
     prepend: {
       type: String
     },
-
     info: {
       type: String,
       default: () => null
@@ -86,9 +94,9 @@ export default {
     },
     variant: {
       type: String,
-      default: "default",
+      default: 'default',
       validator: function (value) {
-        return ["default", "plain"].includes(value)
+        return ['default', 'plain'].includes(value)
       }
     },
     noInputPadding: {
@@ -103,30 +111,20 @@ export default {
     iconColor: {
       type: String,
       required: false,
-      default: "var(--gray-300)"
+      default: 'var(--gray-300)'
     },
     iconSize: {
       type: String,
       required: false,
-      default: "20px"
+      default: '20px'
     },
     placeholder: {
       type: String,
       required: false,
       default: () => null
     },
-    autocomplete: {
-      type: String,
-      required: false,
-      default: () => null
-    },
-    type: {
-      type: String,
-      required: false,
-      default: () => null
-    },
     modelValue: {
-      type: [String, Number],
+      type: [String, Number]
     },
     height: {
       type: String
@@ -139,6 +137,12 @@ export default {
     },
     maxWidth: {
       type: String
+    },
+    options: {
+      type: Array
+    },
+    valueKey: {
+      type: String
     }
   },
   data() {
@@ -150,6 +154,15 @@ export default {
 </script>
 
 <style lang="scss">
+.el-select__wrapper {
+  background-color: transparent;
+  box-shadow: none;
+  min-height: auto !important;
+  &.is-hovering,
+  &.is-focused {
+    box-shadow: none !important;
+  }
+}
 fieldset {
   display: flex;
   align-items: center;
@@ -159,6 +172,7 @@ fieldset {
   border-color: var(--gray-200);
   border-radius: 8px;
   height: 41px;
+  width: 100%;
   transition: 0.15s all ease-in-out;
   padding: 0;
   margin: 0;
@@ -166,17 +180,6 @@ fieldset {
 
   &:not(.plain):hover {
     border: 2px solid var(--gray-300);
-  }
-  input {
-    border-radius: 6px;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex: 1;
-    color: var(--gray-500);
-    &::placeholder {
-      color: var(--gray-300);
-    }
   }
 
   legend {
@@ -195,7 +198,7 @@ fieldset {
   }
 
   &.active {
-    border-color: var(--primary-500) !important;
+    border-color: var(--primary-500);
     legend {
       color: var(--primary-500);
     }

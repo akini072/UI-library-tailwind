@@ -6,7 +6,7 @@
         <div class="exit">
           <v-icon
             name="close"
-            size="14px"
+            height="14px"
             color="var(--gray-500)"
           />
         </div>
