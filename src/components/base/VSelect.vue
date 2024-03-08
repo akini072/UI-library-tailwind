@@ -1,79 +1,100 @@
 <template>
-  <fieldset
-    :class="`${variant} ${isActive ? 'active' : ''}`"
-    :style="{
-      width,
-      height,
-      maxWidth,
-      minWidth
-    }"
-  >
-    <legend v-if="label" class="ml-3 d-flex align-center">
-      <span class="mx-1 text-nowrap">
-        {{ label }}
-      </span>
-      <span class="font-weight-light" v-if="optional">(optional)</span>
-      <div
-        v-if="!!info"
-        class="info__icon mx-1"
-        v-tippy="{ theme: 'light', placement: 'top' }"
-        :content="info"
-      >
-        <v-icon name="info" height="16px" />
+  <div :style="{ 'padding-top': label ? '6px' : '0' }">
+    <fieldset
+      :class="{
+        'v-select': true,
+        loading,
+        [variant]: !!variant,
+        [$props.size]: !!$props.size,
+        active: isActive
+      }"
+      :style="{
+        width,
+        height,
+        maxWidth,
+        minWidth
+      }"
+    >
+      <div v-if="loading">
+        <v-spinner />
+      </div>
+      <legend v-if="label" class="ml-2 d-flex align-center">
+        <span class="mx-1 text-nowrap">
+          {{ label }}
+        </span>
+        <span class="font-weight-light" v-if="optional">(optional)</span>
+        <div
+          v-if="!!info"
+          class="info__icon mx-1"
+          v-tippy="{ theme: 'light', placement: 'top' }"
+          :content="info"
+        >
+          <v-icon name="info" height="16px" />
+        </div>
+
+        <tippy v-else-if="!!$slots.info">
+          <template v-slot:trigger>
+            <div class="info__icon">
+              <v-icon name="info" height="18px" color="pink" />
+            </div>
+          </template>
+          <slot name="info" />
+        </tippy>
+      </legend>
+      <v-icon
+        v-if="icon"
+        class="ml-3 my-2"
+        :name="icon"
+        :height="iconSize"
+        :color="isActive ? 'var(--primary-500)' : iconColor"
+      />
+      <div v-if="prepend" style="height: 100%">
+        <span>
+          {{ prepend }}
+        </span>
       </div>
 
-      <tippy v-else-if="!!$slots.info">
-        <template v-slot:trigger>
-          <div class="info__icon">
-            <v-icon name="info" height="18px" color="pink" />
+      <el-select
+        :model-value="modelValue"
+        :value-key="valueKey"
+        :placeholder="placeholder"
+        :filterable="filterable"
+        :size="size"
+        @change="$emit('update:modelValue', $event)"
+        @focus="isActive = true"
+        @blur="isActive = false"
+      >
+        <el-option
+          v-for="(item, index) in options"
+          style="height: auto"
+          :key="item[valueKey]"
+          :label="item[labelKey]"
+          :value="item[valueKey]"
+        >
+          <div v-if="!!$slots.option" class="py-1">
+            <slot
+              name="option"
+              :label="item[labelKey]"
+              :value="item[valueKey]"
+              :index="index"
+            />
           </div>
-        </template>
-        <slot name="info" />
-      </tippy>
-    </legend>
-    <v-icon
-      v-if="icon"
-      class="ml-3 my-2"
-      :name="icon"
-      :height="iconSize"
-      :color="isActive ? 'var(--primary-500)' : iconColor"
-    />
-    <div
-      v-if="prepend"
-      class="border-r text--gray-300 px-2 d-flex align-center"
-      style="height: 100%"
-    >
-      <span>
-        {{ prepend }}
-      </span>
-    </div>
-    <el-select
-      :model-value="modelValue"
-      :value-key="valueKey"
-      :placeholder="placeholder"
-      @change="$emit('update:modelValue', $event)"
-      @focus="isActive = true"
-      @blur="isActive = false"
-    >
-      <el-option
-        v-for="item in options"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value"
-      />
-    </el-select>
-  </fieldset>
+          <span v-else> {{ item[labelKey] }} </span>
+        </el-option>
+      </el-select>
+    </fieldset>
+  </div>
 </template>
 <script>
-import 'element-plus/es/components/select/style/css'
-import 'element-plus/es/components/option/style/css'
-import VIcon from './VIcon.vue'
-import { ElSelect, ElOption } from 'element-plus'
-
+import "element-plus/es/components/select/style/css"
+import "element-plus/es/components/option/style/css"
+import VIcon from "./VIcon.vue"
+import { ElSelect, ElOption } from "element-plus"
+import VSpinner from "./VSpinner.vue"
 
 export default {
-  name: 'VSelect',
-  components: { VIcon, ElSelect, ElOption },
+  name: "VSelect",
+  components: { VIcon, ElSelect, ElOption, VSpinner },
   props: {
     label: {
       type: String
@@ -89,14 +110,11 @@ export default {
       type: Boolean,
       default: false
     },
-    class: {
-      type: String
-    },
     variant: {
       type: String,
-      default: 'default',
+      default: "default",
       validator: function (value) {
-        return ['default', 'plain'].includes(value)
+        return ["default", "plain"].includes(value)
       }
     },
     noInputPadding: {
@@ -111,12 +129,12 @@ export default {
     iconColor: {
       type: String,
       required: false,
-      default: 'var(--gray-300)'
+      default: "var(--gray-300)"
     },
     iconSize: {
       type: String,
       required: false,
-      default: '20px'
+      default: "20px"
     },
     placeholder: {
       type: String,
@@ -142,7 +160,24 @@ export default {
       type: Array
     },
     valueKey: {
-      type: String
+      type: String,
+      default: "value"
+    },
+    labelKey: {
+      type: String,
+      default: "label"
+    },
+    size: {
+      type: String,
+      default: "default"
+    },
+    filterable: {
+      type: Boolean,
+      default: false
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -157,13 +192,12 @@ export default {
 .el-select__wrapper {
   background-color: transparent;
   box-shadow: none;
-  min-height: auto !important;
   &.is-hovering,
   &.is-focused {
     box-shadow: none !important;
   }
 }
-fieldset {
+.v-select {
   display: flex;
   align-items: center;
   background-color: #fff;
@@ -174,24 +208,49 @@ fieldset {
   height: 41px;
   width: 100%;
   transition: 0.15s all ease-in-out;
-  padding: 0;
-  margin: 0;
   position: relative;
+  margin: 0;
+  padding: 0;
 
+  &.loading {
+    .spinner {
+      height: 18px;
+      width: 18px;
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+    .el-select {
+      opacity: 0.2;
+      pointer-events: none;
+    }
+  }
   &:not(.plain):hover {
     border: 2px solid var(--gray-300);
+  }
+
+  &.small {
+    height: 28px;
+    .prepend__icon {
+      height: 15px;
+    }
   }
 
   legend {
     font-size: 12px;
     font-weight: 500;
     position: absolute;
-    top: -12px;
+    top: -9px;
+    line-height: 12px;
     background-color: #fff;
     &,
     svg {
       color: var(--gray-300);
     }
+  }
+  input {
+    padding: 0;
   }
   &.plain {
     border: 0px;

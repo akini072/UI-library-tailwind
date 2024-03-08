@@ -1,70 +1,58 @@
 <template>
-  <fieldset
-    :class="`${$props.class} ${variant} ${isActive ? 'active' : ''}`"
-    :style="{
-      width,
-      height,
-      maxWidth,
-      minWidth
-    }"
-  >
-    <legend v-if="label" class="ml-3 d-flex align-center">
-      <span class="mx-1 text-nowrap">
-        {{ label }}
-      </span>
-      <span class="font-weight-light" v-if="optional">(optional)</span>
-      <div
-        v-if="!!info"
-        class="info__icon mx-1"
-        v-tippy="{ theme: 'light', placement: 'top' }"
-        :content="info"
-      >
-        <v-icon name="info" height="16px" />
-      </div>
-
-      <tippy v-else-if="!!$slots.info">
-        <template v-slot:trigger>
-          <div class="info__icon">
-            <v-icon name="info" height="18px" color="pink" />
-          </div>
-        </template>
-        <slot name="info" />
-      </tippy>
-    </legend>
-    <v-icon
-      v-if="icon"
-      class="ml-3 my-2"
-      :name="icon"
-      :height="iconSize"
-      :color="isActive ? 'var(--primary-500)' : iconColor"
-    />
-    <div
-      v-if="prepend"
-      class="border-r text--gray-300 px-2 d-flex align-center"
-      style="height: 100%"
+  <div :style="{'padding-top': label ? '6px' : '0'}">
+    <fieldset
+      :class="`v-field ${$props.size} ${variant} ${isActive ? 'active' : ''}`"
+      :style="{
+        width,
+        height,
+        maxWidth,
+        minWidth
+      }"
     >
-      <span>
-        {{ prepend }}
-      </span>
-    </div>
-    <input
-      :class="{ 'px-4': !noInputPadding }"
-      :autocomplete="autocomplete"
-      :type="type"
-      :placeholder="placeholder"
-      :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
-      @focus="isActive = true"
-      @blur="isActive = false"
-    />
-  </fieldset>
+      <legend v-if="label" class="ml-2 d-flex align-center">
+        <span class="mx-1 text-nowrap">
+          {{ label }}
+        </span>
+        <span class="font-weight-light mr-1" v-if="optional">(optional)</span>
+        <info-icon v-if="$slots.info" :info="info" class="mr-1">
+          <slot name="info" />
+        </info-icon>
+      </legend>
+      <v-icon
+        v-if="icon"
+        class="ml-3 my-2 prepend__icon"
+        :name="icon"
+        :color="isActive ? 'var(--primary-500)' : iconColor"
+      />
+      <div
+        v-if="prepend"
+        class="border-r text--gray-300 px-2 d-flex align-center"
+        style="height: 100%"
+      >
+        <span>
+          {{ prepend }}
+        </span>
+      </div>
+      <input
+        :class="{ 'px-4': !noInputPadding }"
+        :autocomplete="autocomplete"
+        :type="type"
+        :placeholder="placeholder"
+        :value="modelValue"
+        @input="$emit('update:modelValue', $event.target.value)"
+        @focus="isActive = true"
+        @blur="$emit('blur'), (isActive = false)"
+      />
+    </fieldset>
+  </div>
 </template>
 <script>
-import VIcon from "./VIcon"
+import VIcon from './VIcon'
+import InfoIcon from './InfoIcon'
 
 export default {
-  name: "VField",
-  components: { VIcon },
+  name: 'VField',
+  components: { VIcon, InfoIcon },
   props: {
     label: {
       type: String
@@ -81,14 +69,11 @@ export default {
       type: Boolean,
       default: false
     },
-    class: {
-      type: String
-    },
     variant: {
       type: String,
-      default: "default",
+      default: 'default',
       validator: function (value) {
-        return ["default", "plain"].includes(value)
+        return ['default', 'plain'].includes(value)
       }
     },
     noInputPadding: {
@@ -103,12 +88,7 @@ export default {
     iconColor: {
       type: String,
       required: false,
-      default: "var(--gray-300)"
-    },
-    iconSize: {
-      type: String,
-      required: false,
-      default: "20px"
+      default: 'var(--gray-300)'
     },
     placeholder: {
       type: String,
@@ -126,7 +106,7 @@ export default {
       default: () => null
     },
     modelValue: {
-      type: [String, Number],
+      type: [String, Number]
     },
     height: {
       type: String
@@ -139,6 +119,10 @@ export default {
     },
     maxWidth: {
       type: String
+    },
+    size: {
+      type: String,
+      default: 'default'
     }
   },
   data() {
@@ -150,7 +134,7 @@ export default {
 </script>
 
 <style lang="scss">
-fieldset {
+.v-field {
   display: flex;
   align-items: center;
   background-color: #fff;
@@ -160,14 +144,15 @@ fieldset {
   border-radius: 8px;
   height: 41px;
   transition: 0.15s all ease-in-out;
+  position: relative;
   padding: 0;
   margin: 0;
-  position: relative;
 
   &:not(.plain):hover {
     border: 2px solid var(--gray-300);
   }
   input {
+    font-size: 14px;
     border-radius: 6px;
     height: 100%;
     width: 100%;
@@ -183,12 +168,16 @@ fieldset {
     font-size: 12px;
     font-weight: 500;
     position: absolute;
-    top: -12px;
+    top: -9px;
+    line-height: 12px;
     background-color: #fff;
     &,
     svg {
       color: var(--gray-300);
     }
+  }
+  .prepend__icon {
+    height: 20px;
   }
   &.plain {
     border: 0px;
@@ -198,6 +187,24 @@ fieldset {
     border-color: var(--primary-500) !important;
     legend {
       color: var(--primary-500);
+    }
+  }
+
+  &.small {
+    height: 28px;
+    input {
+      font-size: 12px;
+      padding: 0px 8px;
+    }
+    .prepend__icon {
+      height: 15px;
+    }
+  }
+
+  &.medium {
+    height: 34px;
+    input {
+      font-size: 12px;
     }
   }
 }

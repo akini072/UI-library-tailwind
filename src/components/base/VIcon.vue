@@ -3,33 +3,29 @@
 </template>
 
 <script>
-import { defineAsyncComponent, markRaw } from "vue"
+import { defineAsyncComponent, markRaw } from 'vue'
 export default {
-  name: "VIcon",
+  name: 'VIcon',
   props: {
     name: {
       type: String,
       required: true
-    },
-    folder: {
-      type: String,
-      default: 'icons'
     },
     color: {
       type: String
     },
     height: {
       type: String,
-      default: "20px"
+      default: '20px',
     },
+    folder: {
+      type: String,
+      default: 'icons'
+    }
   },
   data() {
     return {
-      icon: markRaw(
-        defineAsyncComponent(() =>
-          import(`../../assets/${this.folder}/${this.name}.svg`)
-        )
-      )
+      icon: markRaw(defineAsyncComponent(() => import(`../../assets/${this.folder}/${this.name}.svg`)))
     }
   }
 }

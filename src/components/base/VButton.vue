@@ -4,6 +4,7 @@
       block: block,
       disabled: disabled || loading,
       icon: icon,
+      [size]: true,
       [colorClass]: true,
       [variantClass]: true,
       'no-hover': noHover
@@ -32,6 +33,7 @@
 import VSpinner from "./VSpinner.vue"
 
 export default {
+  name: "VButton",
   components: {
     VSpinner
   },
@@ -44,8 +46,7 @@ export default {
       default: null
     },
     height: {
-      type: String,
-      default: "36px"
+      type: String
     },
     icon: {
       type: Boolean,
@@ -76,6 +77,9 @@ export default {
     },
     noHover: {
       type: Boolean
+    },
+    size: {
+      type: String
     }
   },
   computed: {
@@ -109,7 +113,28 @@ button {
   min-width: fit-content;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   transition: background-color 400ms ease;
+  position: relative;
+  &.small {
+    border-radius: 6.567px;
+    height: 25px;
+    font-size: 11.493px;
+    line-height: 16.418px;
 
+    .spinner {
+      height: 18px;
+      width: 18px;
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+  &.medium {
+    border-radius: 6.567px;
+    height: 28px;
+    font-size: 11.493px;
+    line-height: 16.418px;
+  }
   &.plain {
     background-color: var(--gray-100);
     border: none;
@@ -140,13 +165,26 @@ button {
     background: var(--gray-100);
   }
   &.icon {
-    border-radius: 100%;
     width: 36px;
     height: 36px;
     padding: 0px;
-    .small {
-      width: 32px;
-      height: 32px;
+    &.medium {
+      min-width: 28px;
+      min-height: 28px;
+      width: 28px;
+      height: 28px;
+    }
+    &.small {
+      min-width: 25px;
+      min-height: 25px;
+      width: 25px;
+      height: 25px;
+    }
+
+    &:hover {
+      svg {
+        color: var(--gray-600);
+      }
     }
   }
 
@@ -161,6 +199,7 @@ button {
   .btn-content.loading {
     opacity: 0;
   }
+
   .loading__spinner {
     position: absolute;
   }
@@ -204,7 +243,7 @@ button {
   }
   &.color--red {
     border: 0px;
-    background-color: var(--error-500);
+    background-color: var(--error-700);
     color: #fff;
     &:hover {
       border: 0px;
@@ -213,10 +252,10 @@ button {
 
     &.outlined {
       background-color: #fff;
-      border: 1px solid var(--error-500);
-      color: var(--error-500);
+      border: 1px solid var(--error-200);
+      color: var(--error-700);
       &:hover {
-        background-color: var(--error-50);
+        background-color: var(--error-25);
       }
     }
 
@@ -224,18 +263,18 @@ button {
       border: none;
       background-color: transparent;
       box-shadow: none;
+      color: var(--error-700);
 
-  
       &:hover {
-        background-color: var(--error-50);
+        background-color: var(--error-25);
       }
     }
 
     &.plain {
-      background-color: var(--error-50);
+      background-color: var(--error-25);
       border: none;
       box-shadow: none;
-      color: var(--error-500);
+      color: var(--error-700);
       &:hover {
         color: var(--error-700);
       }
