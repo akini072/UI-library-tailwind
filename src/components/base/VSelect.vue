@@ -53,47 +53,49 @@
           {{ prepend }}
         </span>
       </div>
-
-      <el-select
-        :model-value="modelValue"
-        :value-key="valueKey"
-        :placeholder="placeholder"
-        :filterable="filterable"
-        :size="size"
-        @change="$emit('update:modelValue', $event)"
-        @focus="isActive = true"
-        @blur="isActive = false"
-      >
-        <el-option
-          v-for="(item, index) in options"
-          style="height: auto"
-          :key="item[valueKey]"
-          :label="item[labelKey]"
-          :value="item[valueKey]"
+      <div class="d-flex flex-grow">
+        <el-select
+          :model-value="modelValue"
+          :value-key="valueKey"
+          :filterable="filterable"
+          :size="size"
+          placeholder=""
+          @change="$emit('update:modelValue', $event)"
+          @focus="isActive = true"
+          @blur="isActive = false"
         >
-          <div v-if="!!$slots.option" class="py-1">
-            <slot
-              name="option"
-              :label="item[labelKey]"
-              :value="item[valueKey]"
-              :index="index"
-            />
-          </div>
-          <span v-else> {{ item[labelKey] }} </span>
-        </el-option>
-      </el-select>
+          <el-option
+            v-for="(item, index) in options"
+            style="height: auto"
+            :key="index"
+            :label="item[labelKey]"
+            :value="item[valueKey]"
+          >
+            <div v-if="!!$slots.option" class="py-1">
+              <slot
+                name="option"
+                :option="item"
+                :label="item[labelKey]"
+                :value="item[valueKey]"
+                :index="index"
+              />
+            </div>
+            <span v-else> {{ item[labelKey] }} </span>
+          </el-option>
+        </el-select>
+      </div>
     </fieldset>
   </div>
 </template>
 <script>
-import "element-plus/es/components/select/style/css"
-import "element-plus/es/components/option/style/css"
-import VIcon from "./VIcon.vue"
-import { ElSelect, ElOption } from "element-plus"
-import VSpinner from "./VSpinner.vue"
+import 'element-plus/es/components/select/style/css'
+import 'element-plus/es/components/option/style/css'
+import VIcon from './VIcon.vue'
+import { ElSelect, ElOption } from 'element-plus'
+import VSpinner from './VSpinner'
 
 export default {
-  name: "VSelect",
+  name: 'VSelect',
   components: { VIcon, ElSelect, ElOption, VSpinner },
   props: {
     label: {
@@ -112,9 +114,9 @@ export default {
     },
     variant: {
       type: String,
-      default: "default",
+      default: 'default',
       validator: function (value) {
-        return ["default", "plain"].includes(value)
+        return ['default', 'plain'].includes(value)
       }
     },
     noInputPadding: {
@@ -129,12 +131,12 @@ export default {
     iconColor: {
       type: String,
       required: false,
-      default: "var(--gray-300)"
+      default: 'var(--gray-300)'
     },
     iconSize: {
       type: String,
       required: false,
-      default: "20px"
+      default: '20px'
     },
     placeholder: {
       type: String,
@@ -161,15 +163,15 @@ export default {
     },
     valueKey: {
       type: String,
-      default: "value"
+      default: 'value'
     },
     labelKey: {
       type: String,
-      default: "label"
+      default: 'label'
     },
     size: {
       type: String,
-      default: "default"
+      default: 'default'
     },
     filterable: {
       type: Boolean,
@@ -249,6 +251,7 @@ export default {
       color: var(--gray-300);
     }
   }
+
   input {
     padding: 0;
   }

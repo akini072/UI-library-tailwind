@@ -7,11 +7,12 @@
       [size]: true,
       [colorClass]: true,
       [variantClass]: true,
-      'no-hover': noHover
+      link: isLink,
+      'no-hover': noHover,
     }"
     :style="{
       width,
-      height
+      height,
     }"
   >
     <div v-if="loading" class="loading__spinner">
@@ -30,68 +31,72 @@
 </template>
 
 <script>
-import VSpinner from "./VSpinner.vue"
+import VSpinner from "./VSpinner.vue";
 
 export default {
   name: "VButton",
   components: {
-    VSpinner
+    VSpinner,
   },
   props: {
     label: {
-      type: String
+      type: String,
     },
     color: {
       type: String,
-      default: null
+      default: null,
     },
     height: {
-      type: String
+      type: String,
     },
     icon: {
       type: Boolean,
-      default: false
+      default: false,
     },
     width: {
       type: String,
-      default: ""
+      default: "",
     },
     block: {
       type: Boolean,
-      default: false
+      default: false,
     },
     variant: {
       type: String,
       default: "default",
       validator: function (value) {
-        return ["outlined", "text", "default", "plain", "flat"].includes(value)
-      }
+        return ["outlined", "text", "default", "plain", "flat"].includes(value);
+      },
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     loading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     noHover: {
-      type: Boolean
+      type: Boolean,
     },
     size: {
-      type: String
-    }
+      type: String,
+    },
+    isLink: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     colorClass() {
-      if (this.color) return `color--${this.color}`
-      return ""
+      if (this.color) return `color--${this.color}`;
+      return "";
     },
     variantClass() {
-      return this.variant
-    }
-  }
-}
+      return this.variant;
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -180,21 +185,17 @@ button {
       width: 25px;
       height: 25px;
     }
-
-    &:hover {
-      svg {
-        color: var(--gray-600);
-      }
-    }
   }
 
   &.disabled {
     opacity: 0.6;
-    border-color: transparent !important;
-    color: var(--gray-500) !important;
-    background-color: var(--gray-200) !important;
+    border-color: transparent;
+    color: var(--gray-500);
     cursor: auto;
     pointer-events: none;
+  }
+  &.disabled:not(.outlined) {
+    background-color: var(--gray-200) !important;
   }
   .btn-content.loading {
     opacity: 0;
@@ -218,7 +219,11 @@ button {
       border: 1px solid var(--primary-500);
       color: var(--primary-500);
       &:hover {
-        background-color: var(--primary-25);
+        background-color: var(--primary-50);
+        color: var(--primary-500);
+        svg {
+          color: var(--primary-500);
+        }
       }
     }
 
@@ -226,8 +231,13 @@ button {
       border: none;
       background-color: transparent;
       box-shadow: none;
+      color: var(--primary-500);
       &:hover {
-        background-color: var(--primary-25);
+        background-color: var(--primary-50);
+        color: var(--primary-500);
+        svg {
+          color: var(--primary-500);
+        }
       }
     }
 
@@ -252,10 +262,14 @@ button {
 
     &.outlined {
       background-color: #fff;
-      border: 1px solid var(--error-200);
+      border: 1px solid var(--error-300);
       color: var(--error-700);
       &:hover {
         background-color: var(--error-25);
+        color: var(--error-700);
+        svg {
+          color: var(--error-700);
+        }
       }
     }
 
@@ -263,10 +277,14 @@ button {
       border: none;
       background-color: transparent;
       box-shadow: none;
-      color: var(--error-700);
+      color: var(--error-500);
 
       &:hover {
-        background-color: var(--error-25);
+        background-color: var(--error-100);
+        color: var(--error-500);
+        svg {
+          color: var(--error-500);
+        }
       }
     }
 
@@ -276,7 +294,11 @@ button {
       box-shadow: none;
       color: var(--error-700);
       &:hover {
+        background-color: var(--error-25);
         color: var(--error-700);
+        svg {
+          color: var(--error-700);
+        }
       }
     }
   }
@@ -300,6 +322,25 @@ button {
   }
   &.no-hover:hover {
     background-color: inherit;
+  }
+  &.link {
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    color: var(--primary-500);
+    .icon {
+      margin-left: 0;
+      transition: all 0.2s ease-in-out;
+    }
+    &:hover {
+      text-decoration: underline;
+      background: none;
+      .icon {
+        &.right {
+          margin-left: 3px;
+        }
+      }
+    }
   }
 }
 </style>

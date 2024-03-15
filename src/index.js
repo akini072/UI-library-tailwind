@@ -7,6 +7,10 @@ import VIcon from "@/components/base/VIcon"
 import VField from "@/components/base/VField"
 import VButton from "@/components/base/VButton"
 import VSelect from "@/components/base/VSelect"
+import VPopup from "@/components/base/VPopup"
+import VRadio from "@/components/base/VRadio"
+import ConfirmationPopup from "@/components/base/ConfirmationPopup"
+import SelectButton from "@/components/base/SelectButton"
 
 export {
   VSpinner,
@@ -18,6 +22,10 @@ export {
   VField,
   VButton,
   VSelect,
+  VPopup,
+  VRadio,
+  ConfirmationPopup,
+  SelectButton,
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)

@@ -1,19 +1,19 @@
 <template>
-  <div :style="{'padding-top': label ? '6px' : '0'}">
+  <div :style="{ 'padding-top': label ? '6px' : '0' }">
     <fieldset
       :class="`v-field ${$props.size} ${variant} ${isActive ? 'active' : ''}`"
       :style="{
         width,
         height,
         maxWidth,
-        minWidth
+        minWidth,
       }"
     >
       <legend v-if="label" class="ml-2 d-flex align-center">
         <span class="mx-1 text-nowrap">
           {{ label }}
         </span>
-        <span class="font-weight-light mr-1" v-if="optional">(optional)</span>
+        <span class="font-weight-regular mr-1" v-if="optional">(optional)</span>
         <info-icon v-if="$slots.info" :info="info" class="mr-1">
           <slot name="info" />
         </info-icon>
@@ -39,98 +39,171 @@
         :type="type"
         :placeholder="placeholder"
         :value="modelValue"
+        :readonly="readonly"
+        :step="step"
+        :maxlength="maxLength"
         @input="$emit('update:modelValue', $event.target.value)"
         @focus="isActive = true"
         @blur="$emit('blur'), (isActive = false)"
       />
+      <div v-if="copyButton">
+        <v-button
+          v-tippy="{ hideOnClick: false, duration: [350, 400] }"
+          ref="shareUrlCopyButton"
+          :content="copyTooltip"
+          class="mr-2"
+          variant="text"
+          size="medium"
+          icon
+          @click="copyToClipboard(shareUrl)"
+        >
+          <v-icon name="copy_link" height="16px" color="var(--gray-500)" />
+        </v-button>
+      </div>
+      <slot v-if="!!$slots.append" name="append" />
+      <div
+        v-if="append"
+        class="d-flex align-center text--gray-300 px-2"
+        style="height: 100%"
+      >
+        <span>
+          {{ append }}
+        </span>
+      </div>
+      <span
+        class="max-length"
+        v-if="maxLength > 0"
+        :class="{ error: length >= maxLength }"
+      >
+        {{ length }} / {{ maxLength }}
+      </span>
+
+      <h6 class="__hint">
+        {{ hint }}
+      </h6>
     </fieldset>
   </div>
 </template>
 <script>
-import VIcon from './VIcon'
-import InfoIcon from './InfoIcon'
+import VIcon from "./VIcon";
+import InfoIcon from "./InfoIcon";
+import VButton from "./VButton.vue";
 
 export default {
-  name: 'VField',
-  components: { VIcon, InfoIcon },
+  name: "VField",
+  components: { VIcon, InfoIcon, VButton },
   props: {
     label: {
-      type: String
+      type: String,
+    },
+    step: {
+      type: Number,
     },
     prepend: {
-      type: String
+      type: String,
     },
-
+    append: {
+      type: String,
+    },
     info: {
       type: String,
-      default: () => null
+      default: () => null,
     },
     optional: {
       type: Boolean,
-      default: false
+      default: false,
+    },
+    readonly: {
+      type: Boolean,
+      default: false,
     },
     variant: {
       type: String,
-      default: 'default',
+      default: "default",
       validator: function (value) {
-        return ['default', 'plain'].includes(value)
-      }
+        return ["default", "plain"].includes(value);
+      },
     },
     noInputPadding: {
       type: Boolean,
-      default: false
+      default: false,
     },
     icon: {
       type: String,
       required: false,
-      default: () => null
+      default: () => null,
     },
     iconColor: {
       type: String,
       required: false,
-      default: 'var(--gray-300)'
+      default: "var(--gray-300)",
     },
     placeholder: {
       type: String,
       required: false,
-      default: () => null
+      default: () => null,
     },
     autocomplete: {
       type: String,
       required: false,
-      default: () => null
+      default: () => null,
     },
     type: {
       type: String,
       required: false,
-      default: () => null
+      default: () => null,
     },
     modelValue: {
-      type: [String, Number]
+      type: [String, Number],
     },
     height: {
-      type: String
+      type: String,
     },
     width: {
-      type: String
+      type: String,
     },
     minWidth: {
-      type: String
+      type: String,
     },
     maxWidth: {
-      type: String
+      type: String,
     },
     size: {
       type: String,
-      default: 'default'
-    }
+      default: "default",
+    },
+    hint: {
+      type: String,
+      default: "",
+    },
+    maxLength: {
+      type: Number,
+      default: null,
+    },
+    copyButton: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
-      isActive: false
-    }
-  }
-}
+      isActive: false,
+      copyTooltip: "Copy",
+    };
+  },
+  computed: {
+    length() {
+      return (this.modelValue || "").length;
+    },
+  },
+  methods: {
+    async copyToClipboard() {
+      this.copyTooltip = "Copied!";
+      navigator.clipboard.writeText(this.modelValue);
+      setTimeout(() => (this.copyTooltip = "Copy"), 1500);
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -162,13 +235,17 @@ export default {
     &::placeholder {
       color: var(--gray-300);
     }
+    &:focus + .__hint {
+      opacity: 1;
+      bottom: -22px;
+    }
   }
 
   legend {
     font-size: 12px;
     font-weight: 500;
     position: absolute;
-    top: -9px;
+    top: -7px;
     line-height: 12px;
     background-color: #fff;
     &,
@@ -184,7 +261,7 @@ export default {
   }
 
   &.active {
-    border-color: var(--primary-500) !important;
+    border-color: var(--primary-500);
     legend {
       color: var(--primary-500);
     }
@@ -192,12 +269,16 @@ export default {
 
   &.small {
     height: 28px;
+    legend {
+      top: -9px;
+    }
     input {
       font-size: 12px;
       padding: 0px 8px;
     }
     .prepend__icon {
-      height: 15px;
+      height: 12px;
+      margin-left: 8px;
     }
   }
 
@@ -205,6 +286,28 @@ export default {
     height: 34px;
     input {
       font-size: 12px;
+    }
+  }
+  .__hint {
+    color: var(--gray-400);
+    position: absolute;
+    bottom: -18px;
+    margin-left: 6px;
+    opacity: 0;
+    transition: all 200ms ease;
+  }
+
+  .max-length {
+    border-radius: 5px 0 5px 0;
+    border-top: 1px solid whitesmoke;
+    border-left: 1px solid whitesmoke;
+    border-right: none;
+    padding: 0px 8px;
+    font-size: 10px;
+    margin-top: auto;
+    color: var(--gray-400);
+    &.error {
+      color: var(--error-400);
     }
   }
 }
