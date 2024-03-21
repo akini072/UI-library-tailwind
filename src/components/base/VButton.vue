@@ -119,6 +119,7 @@ button {
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   transition: background-color 400ms ease;
   position: relative;
+  white-space: nowrap;
   &.small {
     border-radius: 6.567px;
     height: 25px;
@@ -185,17 +186,6 @@ button {
       width: 25px;
       height: 25px;
     }
-  }
-
-  &.disabled {
-    opacity: 0.6;
-    border-color: transparent;
-    color: var(--gray-500);
-    cursor: auto;
-    pointer-events: none;
-  }
-  &.disabled:not(.outlined) {
-    background-color: var(--gray-200) !important;
   }
   .btn-content.loading {
     opacity: 0;
@@ -341,6 +331,16 @@ button {
         }
       }
     }
+  }
+  &.disabled {
+    opacity: 0.6;
+    border-color: transparent;
+    color: var(--gray-500);
+    cursor: auto;
+    pointer-events: none;
+  }
+  &.disabled:not(.outlined) {
+    background-color: var(--gray-200);
   }
 }
 </style>

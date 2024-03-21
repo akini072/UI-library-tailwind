@@ -53,34 +53,42 @@
           {{ prepend }}
         </span>
       </div>
-      <div class="d-flex flex-grow">
+      <div class="d-flex flex-grow align-center" style="height: 100%;">
         <el-select
           :model-value="modelValue"
           :value-key="valueKey"
           :filterable="filterable"
+          :multiple="multiple"
           :size="size"
-          placeholder=""
+          :allow-create="allowCreate"
+          :reserve-keyword="reserveKeyword"
+          :default-first-option="allowCreate"
+          :clearable="clearable"
+          :placeholder="placeholder"
           @change="$emit('update:modelValue', $event)"
           @focus="isActive = true"
           @blur="isActive = false"
         >
+          <template v-slot:empty>
+            <slot name="empty"/>
+          </template>
           <el-option
             v-for="(item, index) in options"
             style="height: auto"
             :key="index"
-            :label="item[labelKey]"
-            :value="item[valueKey]"
+            :label="isObjectValue ? item[labelKey] : item"
+            :value="isObjectValue ? item[valueKey] : item"
           >
             <div v-if="!!$slots.option" class="py-1">
               <slot
                 name="option"
-                :option="item"
-                :label="item[labelKey]"
-                :value="item[valueKey]"
+                :option="item"  
+                :label="isObjectValue ? item[labelKey] : item"
+                :value="isObjectValue ? item[valueKey] : item"
                 :index="index"
               />
             </div>
-            <span v-else> {{ item[labelKey] }} </span>
+            <span v-else> {{ item[labelKey] || item }} </span>
           </el-option>
         </el-select>
       </div>
@@ -141,10 +149,10 @@ export default {
     placeholder: {
       type: String,
       required: false,
-      default: () => null
+      default: ''
     },
     modelValue: {
-      type: [String, Number]
+      type: [String, Number, Array]
     },
     height: {
       type: String
@@ -180,11 +188,32 @@ export default {
     loading: {
       type: Boolean,
       default: false
-    }
+    },
+    multiple: {
+      type: Boolean,
+      default: false
+    },
+    allowCreate: {
+      type: Boolean,
+      default: false
+    },
+    reserveKeyword: {
+      type: Boolean,
+      default: false
+    },
+    clearable: {
+      type: Boolean,
+      default: false
+    },
   },
   data() {
     return {
       isActive: false
+    }
+  },
+  computed: {
+    isObjectValue() {
+      return typeof this.options[0] === 'object'
     }
   }
 }
@@ -193,7 +222,7 @@ export default {
 <style lang="scss">
 .el-select__wrapper {
   background-color: transparent;
-  box-shadow: none;
+  box-shadow: none!important;
   &.is-hovering,
   &.is-focused {
     box-shadow: none !important;
@@ -207,7 +236,8 @@ export default {
   border-width: 2px;
   border-color: var(--gray-200);
   border-radius: 8px;
-  height: 41px;
+  min-height: 41px;
+  height: 100%;
   width: 100%;
   transition: 0.15s all ease-in-out;
   position: relative;
@@ -228,12 +258,12 @@ export default {
       pointer-events: none;
     }
   }
-  &:not(.plain):hover {
+  &:not(.plain):not(.active):hover {
     border: 2px solid var(--gray-300);
   }
 
   &.small {
-    height: 28px;
+    min-height: 28px;
     .prepend__icon {
       height: 15px;
     }

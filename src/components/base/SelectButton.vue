@@ -2,7 +2,8 @@
   <div
     v-tippy="{ theme: 'light', content: info }"
     class="select__button border rounded pa-2 d-flex flex-column align-center"
-    :class="{ selected }"
+    :class="{ selected: modelValue === value }"
+    @click="$emit('update:model-value', value)"
   >
     <v-icon
       v-if="icon"
@@ -17,43 +18,52 @@
     >
       {{ title }}
     </p>
-    <h6 v-if="subtitle" class="mt-1 text--primary text-nowrap font-weight-medium">
+    <h6
+      v-if="subtitle"
+      class="mt-1 text--primary text-nowrap font-weight-medium"
+    >
       {{ subtitle }}
     </h6>
   </div>
 </template>
 
 <script>
-import VIcon from './VIcon.vue'
+import VIcon from "./VIcon.vue";
 
 export default {
   components: { VIcon },
   props: {
     selected: {
-      type: Boolean
+      type: Boolean,
     },
     icon: {
-      type: String
+      type: String,
     },
     title: {
-      type: String
+      type: String,
     },
     subtitle: {
-      type: String
+      type: String,
     },
     info: {
-      type: String
+      type: String,
     },
     iconSize: {
       type: String,
-      default: '40px'
+      default: "40px",
     },
     bold: {
       type: Boolean,
-      default: false
-    }
-  }
-}
+      default: false,
+    },
+    value: {
+      default: null,
+    },
+    modelValue: {
+      default: null,
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -221,7 +221,7 @@ export default {
   padding: 0;
   margin: 0;
 
-  &:not(.plain):hover {
+  &:not(.plain):not(.active):hover {
     border: 2px solid var(--gray-300);
   }
   input {
@@ -255,13 +255,14 @@ export default {
   }
   .prepend__icon {
     height: 20px;
+    width: 20px;
   }
   &.plain {
     border: 0px;
   }
 
   &.active {
-    border-color: var(--primary-500);
+    border: 2px solid var(--primary-500);
     legend {
       color: var(--primary-500);
     }
