@@ -14,14 +14,23 @@
           {{ label }}
         </span>
         <span class="font-weight-regular mr-1" v-if="optional">(optional)</span>
-        <info-icon v-if="$slots.info" :info="info" class="mr-1">
+        <div
+          v-if="!!info"
+          class="info__icon"
+          v-tippy="{ theme: 'light', placement: 'top' }"
+          :content="info"
+        >
+          <v-icon name="info" height="16px" />
+        </div>
+        <info-icon class="info__icon" v-else-if="!!$slots.info">
           <slot name="info" />
         </info-icon>
       </legend>
       <v-icon
         v-if="icon"
-        class="ml-3 my-2 prepend__icon"
+        class="ml-3 mr-1 my-2"
         :name="icon"
+        :height="iconSize"
         :color="isActive ? 'var(--primary-500)' : iconColor"
       />
       <div
@@ -34,7 +43,7 @@
         </span>
       </div>
       <input
-        :class="{ 'px-4': !noInputPadding }"
+        :class="{ 'pl-2 pr-2': !noInputPadding }"
         :autocomplete="autocomplete"
         :type="type"
         :placeholder="placeholder"
@@ -53,7 +62,7 @@
           :content="copyTooltip"
           class="mr-2"
           variant="text"
-          size="medium"
+          :size="size === 'default' ? 'medium' : 'small'"
           icon
           @click="copyToClipboard(shareUrl)"
         >
@@ -137,6 +146,11 @@ export default {
       type: String,
       required: false,
       default: "var(--gray-300)",
+    },
+    iconSize: {
+      type: String,
+      required: false,
+      default: "20px",
     },
     placeholder: {
       type: String,
@@ -253,15 +267,12 @@ export default {
       color: var(--gray-300);
     }
   }
-  .prepend__icon {
-    height: 20px;
-    width: 20px;
-  }
+
   &.plain {
     border: 0px;
   }
 
-  &.active {
+  &:not(.plain).active {
     border: 2px solid var(--primary-500);
     legend {
       color: var(--primary-500);
@@ -276,10 +287,6 @@ export default {
     input {
       font-size: 12px;
       padding: 0px 8px;
-    }
-    .prepend__icon {
-      height: 12px;
-      margin-left: 8px;
     }
   }
 
@@ -310,6 +317,14 @@ export default {
     &.error {
       color: var(--error-400);
     }
+  }
+
+  .info__icon {
+    position: absolute;
+    right: -20px;
+    top: -3px;
+    background: #fff;
+    padding: 0px 4px;
   }
 }
 </style>

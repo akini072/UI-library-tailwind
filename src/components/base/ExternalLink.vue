@@ -1,8 +1,8 @@
 <template>
-  <router-link
+  <a
     class="external-link__item d-flex align-center py-3"
     target="_blank"
-    :to="href"
+    @click="redirect"
   >
     <h6>{{ label }}</h6>
     <v-icon
@@ -11,7 +11,7 @@
       height="12px"
       color="var(--gray-500)"
     />
-  </router-link>
+</a>
 </template>
 
 <script>
@@ -24,6 +24,11 @@ export default {
     },
     href: {
       type: String
+    }
+  },
+  methods: {
+    redirect() {
+      window.open(this.href, '_blank')
     }
   }
 }

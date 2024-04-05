@@ -6,13 +6,13 @@
         loading,
         [variant]: !!variant,
         [$props.size]: !!$props.size,
-        active: isActive
+        active: isActive,
       }"
       :style="{
         width,
         height,
         maxWidth,
-        minWidth
+        minWidth,
       }"
     >
       <div v-if="loading">
@@ -31,15 +31,9 @@
         >
           <v-icon name="info" height="16px" />
         </div>
-
-        <tippy v-else-if="!!$slots.info">
-          <template v-slot:trigger>
-            <div class="info__icon">
-              <v-icon name="info" height="18px" color="pink" />
-            </div>
-          </template>
+        <info-icon class="info__icon" v-else-if="!!$slots.info">
           <slot name="info" />
-        </tippy>
+        </info-icon>
       </legend>
       <v-icon
         v-if="icon"
@@ -53,7 +47,7 @@
           {{ prepend }}
         </span>
       </div>
-      <div class="d-flex flex-grow align-center" style="height: 100%;">
+      <div class="d-flex flex-grow align-center" style="height: 100%">
         <el-select
           :model-value="modelValue"
           :value-key="valueKey"
@@ -70,7 +64,8 @@
           @blur="isActive = false"
         >
           <template v-slot:empty>
-            <slot name="empty"/>
+            <slot name="empty" v-if="!!$slots.empty" />
+            <h6 v-else>Sorry, no matching options.</h6>
           </template>
           <el-option
             v-for="(item, index) in options"
@@ -78,11 +73,12 @@
             :key="index"
             :label="isObjectValue ? item[labelKey] : item"
             :value="isObjectValue ? item[valueKey] : item"
+            :disabled="item.disabled"
           >
             <div v-if="!!$slots.option" class="py-1">
               <slot
                 name="option"
-                :option="item"  
+                :option="item"
                 :label="isObjectValue ? item[labelKey] : item"
                 :value="isObjectValue ? item[valueKey] : item"
                 :index="index"
@@ -96,133 +92,134 @@
   </div>
 </template>
 <script>
-import 'element-plus/es/components/select/style/css'
-import 'element-plus/es/components/option/style/css'
-import VIcon from './VIcon.vue'
-import { ElSelect, ElOption } from 'element-plus'
-import VSpinner from './VSpinner'
+import "element-plus/es/components/select/style/css";
+import "element-plus/es/components/option/style/css";
+import VIcon from "./VIcon.vue";
+import { ElSelect, ElOption } from "element-plus";
+import InfoIcon from "./InfoIcon";
+import VSpinner from "./VSpinner";
 
 export default {
-  name: 'VSelect',
-  components: { VIcon, ElSelect, ElOption, VSpinner },
+  name: "VSelect",
+  components: { VIcon, ElSelect, ElOption, InfoIcon, VSpinner },
   props: {
     label: {
-      type: String
+      type: String,
     },
     prepend: {
-      type: String
+      type: String,
     },
     info: {
       type: String,
-      default: () => null
+      default: () => null,
     },
     optional: {
       type: Boolean,
-      default: false
+      default: false,
     },
     variant: {
       type: String,
-      default: 'default',
+      default: "default",
       validator: function (value) {
-        return ['default', 'plain'].includes(value)
-      }
+        return ["default", "plain"].includes(value);
+      },
     },
     noInputPadding: {
       type: Boolean,
-      default: false
+      default: false,
     },
     icon: {
       type: String,
       required: false,
-      default: () => null
+      default: () => null,
     },
     iconColor: {
       type: String,
       required: false,
-      default: 'var(--gray-300)'
+      default: "var(--gray-300)",
     },
     iconSize: {
       type: String,
       required: false,
-      default: '20px'
+      default: "20px",
     },
     placeholder: {
       type: String,
       required: false,
-      default: ''
+      default: "",
     },
     modelValue: {
-      type: [String, Number, Array]
+      type: [String, Number, Array, Object],
     },
     height: {
-      type: String
+      type: String,
     },
     width: {
-      type: String
+      type: String,
     },
     minWidth: {
-      type: String
+      type: String,
     },
     maxWidth: {
-      type: String
+      type: String,
     },
     options: {
-      type: Array
+      type: Array,
     },
     valueKey: {
       type: String,
-      default: 'value'
+      default: "value",
     },
     labelKey: {
       type: String,
-      default: 'label'
+      default: "label",
     },
     size: {
       type: String,
-      default: 'default'
+      default: "large",
     },
     filterable: {
       type: Boolean,
-      default: false
+      default: false,
     },
     loading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     multiple: {
       type: Boolean,
-      default: false
+      default: false,
     },
     allowCreate: {
       type: Boolean,
-      default: false
+      default: false,
     },
     reserveKeyword: {
       type: Boolean,
-      default: false
+      default: false,
     },
     clearable: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   data() {
     return {
-      isActive: false
-    }
+      isActive: false,
+    };
   },
   computed: {
     isObjectValue() {
-      return typeof this.options[0] === 'object'
-    }
-  }
-}
+      return typeof this.options[0] === "object";
+    },
+  },
+};
 </script>
 
 <style lang="scss">
 .el-select__wrapper {
   background-color: transparent;
-  box-shadow: none!important;
+  box-shadow: none !important;
   &.is-hovering,
   &.is-focused {
     box-shadow: none !important;
@@ -236,8 +233,7 @@ export default {
   border-width: 2px;
   border-color: var(--gray-200);
   border-radius: 8px;
-  min-height: 41px;
-  height: 100%;
+  height: 41px;
   width: 100%;
   transition: 0.15s all ease-in-out;
   position: relative;
@@ -263,7 +259,7 @@ export default {
   }
 
   &.small {
-    min-height: 28px;
+    height: 28px;
     .prepend__icon {
       height: 15px;
     }
