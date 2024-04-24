@@ -1,107 +1,47 @@
+.tippy-box[data-theme~='small-black'] {
+  background-color: #404042 !important;
+  border: 1px solid var(--gray-700);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  box-shadow: 0 3px 5px rgba(0,0,0,.08);
 
-.tippy-tooltip {
-  line-height: 1.4;
-  text-align: left;
-  border: 1px solid #ddd;
-  color: #333;
-  padding: .5rem 1rem;
-//  position: absolute;
-  max-width: 400px;
-  border-radius: 5px;
-  box-shadow: 0 5px 10px rgba(0,0,0,.08);
-  font-size: 13px;
-  background-color: white !important;
-  background: white !important;
-  &.transparent-theme {
-    background-color: white !important;
-    border: none;
-    //    box-shadow: none;
+  .tippy-content {
     padding: 0;
-    border-radius: 12px;
-    overflow: visible;
-  }
-  &.workflow-theme {
-    background-color: #fff !important;
-    padding: 0;
-    border-radius: 8px;
-  }
-  &.red-theme {
-    background-color: #ed4343 !important;
-    padding: 5px 10px;
-    color: white;
-    border-radius: 6px;
-  }
-  &.menu-theme {
-    padding: 5px 0;
-  }
-  &.small-theme {
-    //background-color: whitesmoke !important;
-    //border: none;
-    color: $darker-grey;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 12px;
-    box-shadow: 0 3px 5px rgba(0,0,0,.08);
-  }
-  &.leftbar-theme {
-    background-color: white !important;
-    border: 1px solid #ddd;
-    color: #333;
-    padding: 5px 15px;
-    border-radius: 4px;
-    font-size: 14px;
-    font-weight: 500;
-    box-shadow: 0 5px 10px rgba(0,0,0,.08);
-  }
-  &.small-black-theme {
-    background-color: #404042 !important;
-    border: 1px solid $darker-grey;
-    color: white;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 12px;
-    box-shadow: 0 3px 5px rgba(0,0,0,.08);
-  }
-  &.red-small-theme {
-    font-size: 12px;
-    box-shadow: 0 3px 5px rgba(0,0,0,.08);
-    background-color: #ed4343 !important;
-    padding: 5px 10px;
-    color: white;
-    border-radius: 6px;
-  }
-  &.search-results-theme {
-    max-width: 800px;
-    background-color: white !important;
-    //border: none;
-    //    box-shadow: none;
-    border: 1px solid #ddd;
-    padding: 0;
-    border-radius: 8px;
-    overflow: hidden;
-    width: 500px;
   }
 }
 
-.tippy-popper[x-placement^=bottom] {
-  .red-theme {
-    .tippy-arrow {
-      border-bottom-color: #ed4343;
-    }
+.tippy-box[data-theme~='light'] {
+  background-color: #fff !important;
+  border: 1px solid var(--gray-100);
+  color: var(--gray-700);
+  border-radius: 4px;
+  font-size: 12px;
+  box-shadow: 0 3px 5px rgba(0,0,0,.08);
+  
+  .tippy-content {
+    padding: 0;
   }
 }
-
-.tippy-backdrop {
-  background-color: transparent;
-  visibility: hidden;
-  &.transparent-theme {
-    background: transparent !important;
-  }
-  &.small-theme {
-    background: transparent !important;
-  }
+.tippy-box[data-theme~='light-padding'] {
+  background-color: #fff !important;
+  border: 1px solid var(--gray-100);
+  color: var(--gray-700);
+  border-radius: 4px;
+  font-size: 12px;
+  box-shadow: 0 3px 5px rgba(0,0,0,.08);
 }
 
-.tippy-popper[x-placement^=bottom] .tippy-arrow {
-  z-index: 1;
+.tippy-box[data-theme~='transparent'] {
+  background-color: #fff !important;
+  border: none;
+  color: var(--gray-700);
+  border-radius: 4px;
+  font-size: 12px;
+  box-shadow: 0 3px 5px rgba(0,0,0,.08);
+
+  .tippy-content {
+    padding: 0;
+  }
 }

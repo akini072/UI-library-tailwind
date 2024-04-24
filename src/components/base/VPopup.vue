@@ -2,16 +2,19 @@
   <div
     class="popup-container"
     :style="{
-      display: show ? 'block' : 'none'
+      display: show ? 'block' : 'none',
     }"
   >
     <div
       class="content rounded"
       :style="{
-        width
+        width,
       }"
     >
-      <div class="d-flex justify-space-between align-center px-5 py-4">
+      <div
+        v-if="!noHeader"
+        class="d-flex justify-space-between align-center px-5 py-2"
+      >
         <h5>
           {{ title }}
         </h5>
@@ -30,28 +33,33 @@
   </div>
 </template>
 <script>
-import VIcon from './VIcon.vue'
-import VButton from './VButton.vue'
+import VIcon from "./VIcon.vue";
+import VButton from "./VButton.vue";
 
 export default {
   components: {
     VButton,
-    VIcon
+    VIcon,
   },
   props: {
     show: {
-      type: Boolean
+      type: Boolean,
+      default: true
     },
     width: {
       type: String,
-      default: '1380px'
+      default: "1380px",
     },
     title: {
       type: String,
-      default: ''
-    }
-  }
-}
+      default: "",
+    },
+    noHeader: {
+      type: Boolean,
+      default: false,
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .popup-container {

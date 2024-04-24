@@ -1,49 +1,55 @@
 <template>
-  <div :style="{ 'padding-top': label ? '6px' : '0' }">
+  <div>
+    <label v-if="label" class="d-flex align-center text--gray-600">
+      <span class="text-nowrap font-weight-medium">
+        {{ label }}
+      </span>
+      <span class="font-weight-regular ml-2" v-if="optional">(optional)</span>
+      <info-icon
+        class="info__icon ml-2"
+        :info="info"
+        v-if="!!info || !!$slots.info"
+      >
+        <slot name="info" />
+      </info-icon>
+    </label>
     <fieldset
-      :class="`v-field ${$props.size} ${variant} ${isActive ? 'active' : ''}`"
+      :class="`v-input__fieldset ${$props.size} ${variant} ${
+        isActive ? 'active' : ''
+      }`"
       :style="{
         width,
         height,
         maxWidth,
         minWidth,
+        margin: label ? '6px 0 0' : '0',
       }"
     >
-      <legend v-if="label" class="ml-2 d-flex align-center">
-        <span class="mx-1 text-nowrap">
-          {{ label }}
-        </span>
-        <span class="font-weight-regular mr-1" v-if="optional">(optional)</span>
-        <div
-          v-if="!!info"
-          class="info__icon"
-          v-tippy="{ theme: 'light', placement: 'top' }"
-          :content="info"
-        >
-          <v-icon name="info" height="16px" />
-        </div>
-        <info-icon class="info__icon" v-else-if="!!$slots.info">
-          <slot name="info" />
-        </info-icon>
-      </legend>
       <v-icon
         v-if="icon"
         class="ml-3 mr-1 my-2"
         :name="icon"
         :height="iconSize"
+        :width="iconSize"
         :color="isActive ? 'var(--primary-500)' : iconColor"
       />
       <div
-        v-if="prepend"
-        class="border-r text--gray-300 px-2 d-flex align-center"
+        v-if="prepend || $slots.prepend"
+        class="pl-3 d-flex align-center"
         style="height: 100%"
       >
-        <span>
+        <div
+          v-if="prepend"
+          class="text--gray-300 pr-2 border-r d-flex align-center"
+          style="height: 100%"
+        >
           {{ prepend }}
-        </span>
+        </div>
+        <slot v-else name="prepend" />
       </div>
       <input
-        :class="{ 'pl-2 pr-2': !noInputPadding }"
+        ref="input"
+        :class="{ 'px-3': !noInputPadding }"
         :autocomplete="autocomplete"
         :type="type"
         :placeholder="placeholder"
@@ -54,10 +60,11 @@
         @input="$emit('update:modelValue', $event.target.value)"
         @focus="isActive = true"
         @blur="$emit('blur'), (isActive = false)"
+        @dblclick="$refs.input.select"
       />
       <div v-if="copyButton">
         <v-button
-          v-tippy="{ hideOnClick: false, duration: [350, 400] }"
+          v-tippy="{ hideOnClick: false, duration: [350, 400], visible: true }"
           ref="shareUrlCopyButton"
           :content="copyTooltip"
           class="mr-2"
@@ -72,7 +79,7 @@
       <slot v-if="!!$slots.append" name="append" />
       <div
         v-if="append"
-        class="d-flex align-center text--gray-300 px-2"
+        class="d-flex align-center text--gray-600 px-2"
         style="height: 100%"
       >
         <span>
@@ -86,7 +93,6 @@
       >
         {{ length }} / {{ maxLength }}
       </span>
-
       <h6 class="__hint">
         {{ hint }}
       </h6>
@@ -94,9 +100,9 @@
   </div>
 </template>
 <script>
-import VIcon from "./VIcon";
-import InfoIcon from "./InfoIcon";
-import VButton from "./VButton.vue";
+import VButton from "./VButton"
+import VIcon from "./VIcon"
+import InfoIcon from "./InfoIcon"
 
 export default {
   name: "VField",
@@ -130,7 +136,7 @@ export default {
       type: String,
       default: "default",
       validator: function (value) {
-        return ["default", "plain"].includes(value);
+        return ["default", "plain"].includes(value)
       },
     },
     noInputPadding: {
@@ -203,41 +209,42 @@ export default {
     return {
       isActive: false,
       copyTooltip: "Copy",
-    };
+    }
   },
   computed: {
     length() {
-      return (this.modelValue || "").length;
+      return (this.modelValue || "").length
     },
   },
   methods: {
     async copyToClipboard() {
-      this.copyTooltip = "Copied!";
-      navigator.clipboard.writeText(this.modelValue);
-      setTimeout(() => (this.copyTooltip = "Copy"), 1500);
+      this.copyTooltip = "Copied!"
+      navigator.clipboard.writeText(this.modelValue)
+      setTimeout(() => (this.copyTooltip = "Copy"), 1500)
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
-.v-field {
+.v-input__fieldset {
   display: flex;
   align-items: center;
   background-color: #fff;
   border-style: solid;
-  border-width: 2px;
-  border-color: var(--gray-200);
+  border-width: 1px;
+  border-color: var(--gray-300);
   border-radius: 8px;
-  height: 41px;
   transition: 0.15s all ease-in-out;
   position: relative;
   padding: 0;
-  margin: 0;
+  height: 40px;
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 
   &:not(.plain):not(.active):hover {
-    border: 2px solid var(--gray-300);
+    border: 1px solid var(--primary-300);
   }
+
   input {
     font-size: 14px;
     border-radius: 6px;
@@ -245,9 +252,9 @@ export default {
     width: 100%;
     display: flex;
     flex: 1;
-    color: var(--gray-500);
+    color: var(--gray-900);
     &::placeholder {
-      color: var(--gray-300);
+      color: var(--gray-400);
     }
     &:focus + .__hint {
       opacity: 1;
@@ -255,46 +262,26 @@ export default {
     }
   }
 
-  legend {
-    font-size: 12px;
-    font-weight: 500;
-    position: absolute;
-    top: -7px;
-    line-height: 12px;
-    background-color: #fff;
-    &,
-    svg {
-      color: var(--gray-300);
-    }
-  }
-
   &.plain {
     border: 0px;
+    box-shadow: none;
   }
 
-  &:not(.plain).active {
-    border: 2px solid var(--primary-500);
-    legend {
-      color: var(--primary-500);
-    }
+  &:not(.plain).active,
+  &:focus {
+    border: 1px solid var(--primary-300);
+    box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05), 0px 0px 0px 4px #c6d5f7;
   }
 
   &.small {
     height: 28px;
-    legend {
-      top: -9px;
-    }
     input {
-      font-size: 12px;
       padding: 0px 8px;
     }
   }
 
   &.medium {
     height: 34px;
-    input {
-      font-size: 12px;
-    }
   }
   .__hint {
     color: var(--gray-400);

@@ -81,6 +81,7 @@ export default {
     },
     size: {
       type: String,
+      default: ''
     },
     isLink: {
       type: Boolean,
@@ -107,8 +108,8 @@ button {
   padding: 0px 14px;
   margin: 0;
   font-size: 14px;
-  font-weight: 600;
-  font-family: "Roboto";
+  font-weight: 500;
+  font-family: var(--font-family);
   letter-spacing: 0.28px;
   border-radius: 8px;
   background-color: #fff;
@@ -288,6 +289,28 @@ button {
         color: var(--error-700);
         svg {
           color: var(--error-700);
+        }
+      }
+    }
+  }
+  &.color--red-light {
+    border: 0px;
+    background-color: var(--error-500);
+    color: #fff;
+    &:hover {
+      border: 0px;
+      background: var(--error-500);
+    }
+
+    &.outlined {
+      background-color: #fff;
+      border: 1px solid var(--error-200);
+      color: var(--error-500);
+      &:hover {
+        background-color: var(--error-25);
+        color: var(--error-500);
+        svg {
+          color: var(--error-500);
         }
       }
     }

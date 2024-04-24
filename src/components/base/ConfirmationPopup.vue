@@ -1,5 +1,5 @@
 <template>
-  <v-popup width="500px" :title="title" :show="show" @close="$emit('cancel')">
+  <v-popup width="500px" :title="title" @close="$emit('cancel')">
     <template v-slot:body>
       <div class="pa-5">
         {{ content }}
@@ -47,9 +47,6 @@ export default {
       type: Boolean,
       default: false
     },
-    show: {
-      type: Boolean
-    }
   }
 }
 </script>

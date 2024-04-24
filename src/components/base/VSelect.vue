@@ -1,184 +1,126 @@
 <template>
-  <div :style="{ 'padding-top': label ? '6px' : '0' }">
-    <fieldset
-      :class="{
-        'v-select': true,
-        loading,
-        [variant]: !!variant,
-        [$props.size]: !!$props.size,
-        active: isActive,
+  <div class="custom__select" ref="element">
+    <label v-if="label" class="d-flex align-center custom-select__label">
+      <span class="text-nowrap font-weight-medium">
+        {{ label }}
+      </span>
+      <span class="font-weight-regular ml-2" v-if="optional">(optional)</span>
+      <info-icon
+        class="info__icon ml-2"
+        :info="info"
+        v-if="!!info || !!$slots.info"
+      >
+        <slot name="info" />
+      </info-icon>
+    </label>
+    <Multiselect
+      ref="multiselect"
+      :class="{ [size]: true }"
+      :classes="{
+        dropdown: `multiselect-dropdown ${size} ${
+          minDropdownWidth ? 'dropdown-min-width' : ''
+        }`,
+        singleLabel: `multiselect-single-label ${
+          selectWidth < 100 ? 'no-label-padding' : ''
+        }`,
       }"
-      :style="{
-        width,
-        height,
-        maxWidth,
-        minWidth,
-      }"
+      :value="modelValue || null"
+      :options="options"
+      :searchable="searchable"
+      :label="labelKey"
+      :loading="loading"
+      :value-prop="valueKey"
+      :can-clear="clearable"
+      :create-option="allowCreate"
+      :mode="mode"
+      :placeholder="placeholder"
+      append-to-body
+      :can-deselect="false"
+      @change="$emit('update:model-value', $event)"
+      @click="toggleDropdown"
+      @close="isOpen = false"
+      @click.stop
     >
-      <div v-if="loading">
-        <v-spinner />
-      </div>
-      <legend v-if="label" class="ml-2 d-flex align-center">
-        <span class="mx-1 text-nowrap">
-          {{ label }}
-        </span>
-        <span class="font-weight-light" v-if="optional">(optional)</span>
-        <div
-          v-if="!!info"
-          class="info__icon mx-1"
-          v-tippy="{ theme: 'light', placement: 'top' }"
-          :content="info"
-        >
-          <v-icon name="info" height="16px" />
+      <template v-slot:spinner>
+        <div v-if="loading">
+          <v-spinner class="__spinner" />
         </div>
-        <info-icon class="info__icon" v-else-if="!!$slots.info">
-          <slot name="info" />
-        </info-icon>
-      </legend>
-      <v-icon
-        v-if="icon"
-        class="ml-3 my-2"
-        :name="icon"
-        :height="iconSize"
-        :color="isActive ? 'var(--primary-500)' : iconColor"
-      />
-      <div v-if="prepend" style="height: 100%">
-        <span>
-          {{ prepend }}
-        </span>
-      </div>
-      <div class="d-flex flex-grow align-center" style="height: 100%">
-        <el-select
-          :model-value="modelValue"
-          :value-key="valueKey"
-          :filterable="filterable"
-          :multiple="multiple"
-          :size="size"
-          :allow-create="allowCreate"
-          :reserve-keyword="reserveKeyword"
-          :default-first-option="allowCreate"
-          :clearable="clearable"
-          :placeholder="placeholder"
-          @change="$emit('update:modelValue', $event)"
-          @focus="isActive = true"
-          @blur="isActive = false"
-        >
-          <template v-slot:empty>
-            <slot name="empty" v-if="!!$slots.empty" />
-            <h6 v-else>Sorry, no matching options.</h6>
-          </template>
-          <el-option
-            v-for="(item, index) in options"
-            style="height: auto"
-            :key="index"
-            :label="isObjectValue ? item[labelKey] : item"
-            :value="isObjectValue ? item[valueKey] : item"
-            :disabled="item.disabled"
-          >
-            <div v-if="!!$slots.option" class="py-1">
-              <slot
-                name="option"
-                :option="item"
-                :label="isObjectValue ? item[labelKey] : item"
-                :value="isObjectValue ? item[valueKey] : item"
-                :index="index"
-              />
-            </div>
-            <span v-else> {{ item[labelKey] || item }} </span>
-          </el-option>
-        </el-select>
-      </div>
-    </fieldset>
+      </template>
+      <template v-slot:singlelabel="{ value }">
+        <slot v-if="$slots.singlelabel" name="singlelabel" :value="value" />
+      </template>
+      <template v-slot:option="{ option }">
+        <slot v-if="$slots.option" name="option" :option="option" />
+      </template>
+      <template v-slot:nooptions>
+        <slot v-if="$slots.empty" name="empty" />
+        <h6 v-else class="ma-2 mx-auto text-nowrap">
+          Sorry, no matching options.
+        </h6>
+      </template>
+      <template v-slot:noresults>
+        <div class="pa-2">
+          <h6 class="mx-auto text-nowrap">Sorry, no matching options.</h6>
+        </div>
+      </template>
+      <template v-slot:caret="{ isOpen }">
+        <v-icon
+          class="arrow mr-2"
+          height="14px"
+          name="arrow-bottom"
+          color="var(--gray-400)"
+          :class="{ open: isOpen }"
+          :style="{ 'pointer-events': isOpen ? 'none' : 'auto' }"
+        />
+      </template>
+      <template v-slot:clear="{ clear }">
+        <v-icon
+          class="arrow mr-2"
+          height="14px"
+          name="close"
+          color="var(--gray-400)"
+          @mousedown="clear"
+        />
+      </template>
+    </Multiselect>
   </div>
 </template>
+
 <script>
-import "element-plus/es/components/select/style/css";
-import "element-plus/es/components/option/style/css";
-import VIcon from "./VIcon.vue";
-import { ElSelect, ElOption } from "element-plus";
-import InfoIcon from "./InfoIcon";
-import VSpinner from "./VSpinner";
+import VSpinner from "./VSpinner"
+import VIcon from "./VIcon"
+import Multiselect from "@vueform/multiselect"
+import InfoIcon from "./InfoIcon"
+import { onMounted, ref } from "vue"
 
 export default {
-  name: "VSelect",
-  components: { VIcon, ElSelect, ElOption, InfoIcon, VSpinner },
+  components: { Multiselect, VSpinner, InfoIcon, VIcon },
   props: {
-    label: {
-      type: String,
+    minDropdownWidth: {
+      type: Boolean,
+      required: false,
     },
-    prepend: {
-      type: String,
+    modelValue: {
+      type: [Number, String, Array, Object],
     },
     info: {
       type: String,
       default: () => null,
     },
-    optional: {
-      type: Boolean,
-      default: false,
-    },
-    variant: {
-      type: String,
-      default: "default",
-      validator: function (value) {
-        return ["default", "plain"].includes(value);
-      },
-    },
-    noInputPadding: {
-      type: Boolean,
-      default: false,
-    },
-    icon: {
-      type: String,
-      required: false,
-      default: () => null,
-    },
-    iconColor: {
-      type: String,
-      required: false,
-      default: "var(--gray-300)",
-    },
-    iconSize: {
-      type: String,
-      required: false,
-      default: "20px",
-    },
-    placeholder: {
-      type: String,
-      required: false,
-      default: "",
-    },
-    modelValue: {
-      type: [String, Number, Array, Object],
-    },
-    height: {
-      type: String,
-    },
-    width: {
-      type: String,
-    },
-    minWidth: {
-      type: String,
-    },
-    maxWidth: {
-      type: String,
-    },
-    options: {
-      type: Array,
-    },
-    valueKey: {
-      type: String,
-      default: "value",
-    },
-    labelKey: {
-      type: String,
-      default: "label",
-    },
     size: {
       type: String,
       default: "large",
     },
-    filterable: {
+    mode: {
+      type: String,
+      default: "single",
+    },
+    optional: { type: Boolean, default: false },
+    options: {
+      type: Array,
+      default: () => [],
+    },
+    searchable: {
       type: Boolean,
       default: false,
     },
@@ -186,7 +128,19 @@ export default {
       type: Boolean,
       default: false,
     },
-    multiple: {
+    labelKey: {
+      type: String,
+      default: "label",
+    },
+    valueKey: {
+      type: String,
+      default: "value",
+    },
+    placeholder: {
+      type: String,
+      default: "",
+    },
+    clearable: {
       type: Boolean,
       default: false,
     },
@@ -194,54 +148,107 @@ export default {
       type: Boolean,
       default: false,
     },
-    reserveKeyword: {
-      type: Boolean,
-      default: false,
+    label: {
+      type: String,
+      default: "",
     },
-    clearable: {
-      type: Boolean,
-      default: false,
-    },
+  },
+  setup() {
+    const element = ref(null)
+    let selectWidth = ref(0)
+
+    onMounted(() => {
+      if (element.value) {
+        selectWidth.value = element.value.clientWidth
+      }
+    })
+
+    return {
+      element,
+      selectWidth,
+    }
   },
   data() {
     return {
-      isActive: false,
-    };
+      isOpen: false,
+    }
   },
-  computed: {
-    isObjectValue() {
-      return typeof this.options[0] === "object";
+  methods: {
+    toggleDropdown() {
+      if (!this.searchable) return
+      this.isOpen = !this.isOpen
+      if (this.isOpen) this.$refs.multiselect.open()
+      else this.$refs.multiselect.close()
     },
   },
-};
-</script>
-
-<style lang="scss">
-.el-select__wrapper {
-  background-color: transparent;
-  box-shadow: none !important;
-  &.is-hovering,
-  &.is-focused {
-    box-shadow: none !important;
-  }
 }
-.v-select {
-  display: flex;
-  align-items: center;
-  background-color: #fff;
-  border-style: solid;
-  border-width: 2px;
-  border-color: var(--gray-200);
-  border-radius: 8px;
-  height: 41px;
-  width: 100%;
-  transition: 0.15s all ease-in-out;
-  position: relative;
-  margin: 0;
-  padding: 0;
+</script>
+<style src="@vueform/multiselect/themes/default.css"></style>
+<style lang="scss">
+:root {
+  --ms-border-color: var(--gray-300);
+  --ms-border-color-active: var(--primary-300);
+  --ms-radius: 8px;
+  --ms-ring-color: #c6d5f7;
+  --ms-placeholder-color: var(--gray-400);
+  --ms-spinner-color: var(--primary-500);
+  --ms-tag-bg: var(--gray-200);
+  --ms-tag-color: var(--gray-500);
+  --ms-tag-font-weight: 500;
+  --ms-dropdown-border-color: var(--gray-300);
+  --ms-option-bg-selected: var(--primary-25);
+  --ms-option-color-selected: var(--primary-500);
+  --ms-option-bg-selected: var(--primary-25);
+  --ms-option-bg-selected-pointed: var(--primary-25);
+  --ms-option-color-selected-pointed: var(--primary-500);
+}
+.custom-select__label {
+  margin-bottom: 6px;
+  color: var(--gray-600);
+}
 
-  &.loading {
-    .spinner {
+.multiselect {
+  &:hover {
+    border: 1px solid var(--primary-300);
+  }
+
+  &.large {
+    min-height: 40px;
+    font-size: 14px;
+    height: 40px;
+  }
+
+  &.medium {
+    min-height: 34px;
+    font-size: 14px;
+    height: 34px;
+  }
+
+  &.small {
+    min-height: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  .multiselect-wrapper {
+    min-height: 100%;
+
+    .multiselect-search:focus ~ .multiselect-single-label {
+      opacity: 0.7;
+    }
+
+    .multiselect-multiple-label,
+    .multiselect-placeholder,
+    .multiselect-single-label {
+      padding: 0 56px 0 8px;
+    }
+    .arrow {
+      z-index: 1;
+      &.open {
+        transform: rotate(180deg);
+      }
+    }
+
+    .__spinner {
       height: 18px;
       width: 18px;
       svg {
@@ -249,46 +256,21 @@ export default {
         height: 18px;
       }
     }
-    .el-select {
-      opacity: 0.2;
-      pointer-events: none;
-    }
   }
-  &:not(.plain):not(.active):hover {
-    border: 2px solid var(--gray-300);
-  }
-
+}
+.dropdown-min-width {
+  min-width: 200px;
+}
+.no-label-padding {
+  padding-right: 0px !important;
+}
+.multiselect-dropdown {
+  overflow-y: overlay!important;
   &.small {
-    height: 28px;
-    .prepend__icon {
-      height: 15px;
-    }
-  }
-
-  legend {
-    font-size: 12px;
-    font-weight: 500;
-    position: absolute;
-    top: -9px;
-    line-height: 12px;
-    background-color: #fff;
-    &,
-    svg {
-      color: var(--gray-300);
-    }
-  }
-
-  input {
-    padding: 0;
-  }
-  &.plain {
-    border: 0px;
-  }
-
-  &.active {
-    border-color: var(--primary-500);
-    legend {
-      color: var(--primary-500);
+    .multiselect-options {
+      .multiselect-option {
+        font-size: 12px;
+      }
     }
   }
 }
