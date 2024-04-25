@@ -15,7 +15,8 @@
     </label>
     <Multiselect
       ref="multiselect"
-      :class="{ [size]: true }"
+      :append-to-body="appendToBody"
+      :class="{ [size]: true, disabled }"
       :classes="{
         dropdown: `multiselect-dropdown ${size} ${
           minDropdownWidth ? 'dropdown-min-width' : ''
@@ -34,8 +35,8 @@
       :create-option="allowCreate"
       :mode="mode"
       :placeholder="placeholder"
-      append-to-body
       :can-deselect="false"
+      :disabled="disabled"
       @change="$emit('update:model-value', $event)"
       @click="toggleDropdown"
       @close="isOpen = false"
@@ -48,6 +49,14 @@
       </template>
       <template v-slot:singlelabel="{ value }">
         <slot v-if="$slots.singlelabel" name="singlelabel" :value="value" />
+      </template>
+      <template v-slot:tag="{ option, handleTagRemove }">
+        <slot
+          v-if="$slots.tag"
+          name="tag"
+          :option="option"
+          :handleTagRemove="handleTagRemove"
+        />
       </template>
       <template v-slot:option="{ option }">
         <slot v-if="$slots.option" name="option" :option="option" />
@@ -148,6 +157,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    appendToBody: {
+      type: Boolean,
+      default: true,
+    },
     label: {
       type: String,
       default: "",
@@ -208,25 +225,26 @@ export default {
 }
 
 .multiselect {
-  &:hover {
+  &:not(.disabled):hover {
     border: 1px solid var(--primary-300);
+  }
+
+  &.disabled {
+    opacity: 0.7;
   }
 
   &.large {
     min-height: 40px;
     font-size: 14px;
-    height: 40px;
   }
 
   &.medium {
     min-height: 34px;
     font-size: 14px;
-    height: 34px;
   }
 
   &.small {
     min-height: 28px;
-    height: 28px;
     font-size: 12px;
   }
   .multiselect-wrapper {
@@ -265,7 +283,8 @@ export default {
   padding-right: 0px !important;
 }
 .multiselect-dropdown {
-  overflow-y: overlay!important;
+  z-index: 500;
+  overflow-y: overlay !important;
   &.small {
     .multiselect-options {
       .multiselect-option {

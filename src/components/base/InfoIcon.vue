@@ -6,7 +6,7 @@
     :content="info"
     v-tippy="{ theme }"
   >
-    <v-icon :name="iconName" :color="iconColor" />
+    <v-icon :name="iconName" :color="iconColor" height="16px" />
   </div>
   <tippy
     v-else-if="!!$slots"
@@ -17,8 +17,8 @@
     animation="fade"
   >
     <template #default>
-      <div class="info-icon" :class="{ warn, small }">
-        <v-icon :name="iconName" :color="iconColor" />
+      <div class="d-flex align-center" :class="{ warn, small }">
+        <v-icon :name="iconName" :color="iconColor" height="16px" />
       </div>
     </template>
     <template #content>
@@ -40,7 +40,7 @@ export default {
     },
     theme: {
       type: String,
-      default: "white"
+      default: "light-padding"
     },
     warn: {
       type: Boolean,
@@ -65,7 +65,7 @@ export default {
   },
   computed: {
     iconName() {
-      return this.warn ? "warning_icon" : "info"
+      return this.warn ? "warning_icon" : "help_icon"
     }
   }
 }

@@ -124,7 +124,7 @@ button {
   &.small {
     border-radius: 6.567px;
     height: 25px;
-    font-size: 11.493px;
+    font-size: 12px;
     line-height: 16.418px;
 
     .spinner {
@@ -139,7 +139,7 @@ button {
   &.medium {
     border-radius: 6.567px;
     height: 28px;
-    font-size: 11.493px;
+    font-size: 12px;
     line-height: 16.418px;
   }
   &.plain {
@@ -356,14 +356,11 @@ button {
     }
   }
   &.disabled {
-    opacity: 0.6;
-    border-color: transparent;
-    color: var(--gray-500);
     cursor: auto;
     pointer-events: none;
-  }
-  &.disabled:not(.outlined) {
-    background-color: var(--gray-200);
+    background-color: var(--gray-100)!important;
+    color: var(--gray-400)!important;
+    border-color: transparent!important;
   }
 }
 </style>
