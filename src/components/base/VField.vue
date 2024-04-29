@@ -100,9 +100,9 @@
   </div>
 </template>
 <script>
-import VButton from "./VButton"
-import VIcon from "./VIcon"
-import InfoIcon from "./InfoIcon"
+import VButton from "./VButton";
+import VIcon from "./VIcon";
+import InfoIcon from "./InfoIcon";
 
 export default {
   name: "VField",
@@ -136,7 +136,7 @@ export default {
       type: String,
       default: "default",
       validator: function (value) {
-        return ["default", "plain"].includes(value)
+        return ["default", "plain"].includes(value);
       },
     },
     noInputPadding: {
@@ -209,21 +209,21 @@ export default {
     return {
       isActive: false,
       copyTooltip: "Copy",
-    }
+    };
   },
   computed: {
     length() {
-      return (this.modelValue || "").length
+      return (this.modelValue || "").length;
     },
   },
   methods: {
     async copyToClipboard() {
-      this.copyTooltip = "Copied!"
-      navigator.clipboard.writeText(this.modelValue)
-      setTimeout(() => (this.copyTooltip = "Copy"), 1500)
+      this.copyTooltip = "Copied!";
+      navigator.clipboard.writeText(this.modelValue);
+      setTimeout(() => (this.copyTooltip = "Copy"), 1500);
     },
   },
-}
+};
 </script>
 
 <style lang="scss">
@@ -281,7 +281,7 @@ export default {
   }
 
   &.medium {
-    height: 34px;
+    height: 30px;
   }
   .__hint {
     color: var(--gray-400);

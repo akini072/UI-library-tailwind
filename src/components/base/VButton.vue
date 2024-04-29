@@ -81,7 +81,7 @@ export default {
     },
     size: {
       type: String,
-      default: ''
+      default: "",
     },
     isLink: {
       type: Boolean,
@@ -115,7 +115,7 @@ button {
   background-color: #fff;
   border: 1px solid #d0d5dd;
   color: var(--gray-700);
-  height: 36px;
+  height: 30px;
   min-width: fit-content;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   transition: background-color 400ms ease;
@@ -358,9 +358,9 @@ button {
   &.disabled {
     cursor: auto;
     pointer-events: none;
-    background-color: var(--gray-100)!important;
-    color: var(--gray-400)!important;
-    border-color: transparent!important;
+    background-color: var(--gray-100) !important;
+    color: var(--gray-400) !important;
+    border-color: transparent !important;
   }
 }
 </style>
