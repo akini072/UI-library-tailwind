@@ -125,7 +125,6 @@ button {
     border-radius: 6.567px;
     height: 25px;
     font-size: 12px;
-    line-height: 16.418px;
 
     .spinner {
       height: 18px;
@@ -140,7 +139,6 @@ button {
     border-radius: 6.567px;
     height: 28px;
     font-size: 12px;
-    line-height: 16.418px;
   }
   &.plain {
     background-color: var(--gray-100);

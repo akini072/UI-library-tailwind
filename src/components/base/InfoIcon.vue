@@ -13,11 +13,11 @@
     interactive
     :animate-fill="false"
     :placement="placement"
-    theme="light"
+    theme="light-padding"
     animation="fade"
   >
     <template #default>
-      <div class="d-flex align-center" :class="{ warn, small }">
+      <div class="d-flex align-center info-icon" :class="{ warn, small }">
         <v-icon :name="iconName" :color="iconColor" height="16px" />
       </div>
     </template>
@@ -56,7 +56,7 @@ export default {
     },
     placement: {
       type: String,
-      default: "bottom-end"
+      default: "bottom-start"
     },
     iconColor: {
       type: String,
@@ -72,6 +72,7 @@ export default {
 </script>
 <style lang="scss">
 .info-icon {
+  cursor: pointer;
   &:hover {
     svg {
       color: var(--primary-500);

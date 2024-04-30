@@ -13,7 +13,7 @@ import VRadio from "@/components/base/VRadio"
 import ConfirmationPopup from "@/components/base/ConfirmationPopup"
 import SelectButton from "@/components/base/SelectButton"
 
-import '@/styles/parts/tooltips.scss'
+import '@/styles/global.scss'
 
 export {
   VSpinner,
