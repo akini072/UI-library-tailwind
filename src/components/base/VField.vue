@@ -234,11 +234,12 @@ export default {
   border-style: solid;
   border-width: 1px;
   border-color: var(--gray-300);
-  border-radius: 8px;
+  border-radius: 6px;
   transition: 0.15s all ease-in-out;
   position: relative;
   padding: 0;
   height: 32px;
+  // height: 40px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 
   &:not(.plain):not(.active):hover {

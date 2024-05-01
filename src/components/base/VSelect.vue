@@ -96,11 +96,11 @@
 </template>
 
 <script>
-import VSpinner from "./VSpinner"
-import VIcon from "./VIcon"
-import Multiselect from "@vueform/multiselect"
-import InfoIcon from "./InfoIcon"
-import { onMounted, ref } from "vue"
+import VSpinner from "./VSpinner";
+import VIcon from "./VIcon";
+import Multiselect from "@vueform/multiselect";
+import InfoIcon from "./InfoIcon";
+import { onMounted, ref } from "vue";
 
 export default {
   components: { Multiselect, VSpinner, InfoIcon, VIcon },
@@ -171,34 +171,34 @@ export default {
     },
   },
   setup() {
-    const element = ref(null)
-    let selectWidth = ref(0)
+    const element = ref(null);
+    let selectWidth = ref(0);
 
     onMounted(() => {
       if (element.value) {
-        selectWidth.value = element.value.clientWidth
+        selectWidth.value = element.value.clientWidth;
       }
-    })
+    });
 
     return {
       element,
       selectWidth,
-    }
+    };
   },
   data() {
     return {
       isOpen: false,
-    }
+    };
   },
   methods: {
     toggleDropdown() {
-      if (!this.searchable) return
-      this.isOpen = !this.isOpen
-      if (this.isOpen) this.$refs.multiselect.open()
-      else this.$refs.multiselect.close()
+      if (!this.searchable) return;
+      this.isOpen = !this.isOpen;
+      if (this.isOpen) this.$refs.multiselect.open();
+      else this.$refs.multiselect.close();
     },
   },
-}
+};
 </script>
 <style src="@vueform/multiselect/themes/default.css"></style>
 <style lang="scss">
@@ -234,7 +234,8 @@ export default {
   }
 
   &.large {
-    min-height: 40px;
+    min-height: 32px;
+    // min-height: 40px;
     font-size: 14px;
   }
 
