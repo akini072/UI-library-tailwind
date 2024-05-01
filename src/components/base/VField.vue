@@ -238,7 +238,7 @@ export default {
   transition: 0.15s all ease-in-out;
   position: relative;
   padding: 0;
-  height: 40px;
+  height: 32px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 
   &:not(.plain):not(.active):hover {
