@@ -1,0 +1,47 @@
+.tippy-box[data-theme~='small-black'] {
+  background-color: #404042 !important;
+  border: 1px solid var(--gray-700);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  box-shadow: 0 3px 5px rgba(0,0,0,.08);
+
+  .tippy-content {
+    padding: 0;
+  }
+}
+
+.tippy-box[data-theme~='light'] {
+  background-color: #fff !important;
+  border: 1px solid var(--gray-100);
+  color: var(--gray-700);
+  border-radius: 4px;
+  font-size: 12px;
+  box-shadow: 0 3px 5px rgba(0,0,0,.08);
+  
+  .tippy-content {
+    padding: 0;
+  }
+}
+.tippy-box[data-theme~='light-padding'] {
+  background-color: #fff !important;
+  border: 1px solid var(--gray-100);
+  color: var(--gray-700);
+  border-radius: 4px;
+  font-size: 12px;
+  box-shadow: 0 3px 5px rgba(0,0,0,.08);
+}
+
+.tippy-box[data-theme~='transparent'] {
+  background-color: #fff !important;
+  border: none;
+  color: var(--gray-700);
+  border-radius: 4px;
+  font-size: 12px;
+  box-shadow: 0 3px 5px rgba(0,0,0,.08);
+
+  .tippy-content {
+    padding: 0;
+  }
+}

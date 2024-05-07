@@ -18,9 +18,9 @@
       "import": "./dist/ui-lib.js",
       "require": "./dist/ui-lib.umd.cjs"
     },
-    "./style.css": "./dist/style.css"
+    "./global.scss": "./dist/styles/global.scss"
   },
-  "version": "1.7.4",
+  "version": "1.8.0",
   "scripts": {
     "dev": "vite build",
     "build": "vite build",

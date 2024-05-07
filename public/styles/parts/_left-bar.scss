@@ -1,0 +1,77 @@
+
+.account_menu_dropdown {
+  display: block;
+  position: relative;
+  min-width: 180px;
+  background: #FFFFFF;
+  border-radius: 5px;
+  padding: 5px;
+  transition: 0.15s all ease-in-out;
+  box-shadow: 0 5px 10px rgba(0,0,0,.08);
+  border: 1px solid #e5e5e5;
+  gap: 3px;
+
+  ul:not(:last-child) {
+    border-bottom: 1px solid #EBEFF6;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+  }
+  ul li a {
+    justify-content: flex-start;
+    height: initial;
+    padding: 8px 15px;
+    display: flex;
+    align-items: center;
+    border-radius: 6px;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 150%;
+    letter-spacing: 0.02em;
+    color: #636A7B;
+    white-space: nowrap;
+    &:hover {
+      background: #f7f7f7;
+    }
+    .icon {
+      flex: initial;
+      position: initial;
+      padding: 0;
+      left: auto;
+      transform: none;
+      background: transparent;
+      min-width: 20px;
+      min-height: 20px;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 0;
+      margin-right: 15px;
+
+    }
+  }
+}
+
+
+
+//@media(max-height: 700px) {
+//  //.left-bar {
+//  //  //overflow-x: hidden;
+//  //  //overflow-y: auto;
+//  //}
+//}
+//
+//.collapsed .list-nav li a.router-link-exact-active:before {
+//  display: block;
+//  content: "";
+//  width: 44px;
+//  height: 44px;
+//  background: #F6F9FE;
+//  border-radius: 10px;
+//  position: absolute;
+//  top: 50%;
+//  left: 50%;
+//  transform: translate(-50%, -50%);
+//  z-index: -1;
+//}

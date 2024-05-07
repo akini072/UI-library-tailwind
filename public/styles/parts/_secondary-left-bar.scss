@@ -1,0 +1,57 @@
+
+.secondary-left-bar {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  min-width: 240px;
+  padding: 30px 30px;
+  background: #F9FBFD;
+  border-right: 2px solid #F0F4FB;
+
+  h3 {
+    font-size: 20px;
+    font-weight: 500;
+  }
+  .secondary-bar-items {
+    margin-top: 50px;
+
+    .item {
+      display: flex;
+      flex-direction: row;
+      padding: 5px 0;
+      margin: 20px 0;
+      color: #62758C;
+      font-size: 14px;
+      font-weight: 400;
+
+      &.router-link-active {
+        color: $blue;
+      }
+      span {
+        //display: flex;
+        flex: 1;
+      }
+      svg {
+        height: 20px;
+        width: 20px;
+        margin-right: 10px;
+      }
+      .lock {
+        width: 14px;
+        height: 14px;
+        float: right;
+        display: none;
+      }
+      &.locked {
+        pointer-events: none;
+        color: $dark-grey;
+        .lock {
+          display: block;
+        }
+      }
+      &:hover {
+        color: $blue;
+      }
+    }
+  }
+}

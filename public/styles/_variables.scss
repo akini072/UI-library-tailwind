@@ -1,0 +1,49 @@
+:root {
+  --font-family: -apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,Segoe UI,Helvetica,Arial,sans-serif;
+  //element-plus
+  --el-color-primary: var(--primary-500);
+
+  //shadcn
+  --foreground: var(--gray-700);
+
+  //design system
+  --gray-25: #FCFCFD;
+  --gray-50: #F9FAFB;
+  --gray-100: #F2F4F7;
+  --gray-200: #EAECF0;
+  --gray-300: #D0D5DD;
+  --gray-400: #98A2B3;
+  --gray-500: #667085;
+  --gray-600: #475467;
+  --gray-700: #344054;
+  --gray-900: #101828;
+  --primary-25: #F1F4FD;
+  --primary-50: #DFE7FA;
+  --primary-100: #c6d5f7;
+  --primary-200: #9EBAF2;
+  --primary-300: #7095EA;
+  --primary-500: #4368E0;
+  --primary-700: #3143C4;
+  --error-25: #FFFBFA;
+  --error-50: #FEF3F2;
+  --error-100: #FEE4E2;
+  --error-200: #FECDCA;
+  --error-300: #FDA29B;
+  --error-400: #F97066;
+  --error-500: #F04438;
+  --error-600: #D92D20;
+  --error-700: #B42318;
+  --success-50: #ECFDF3;
+  --success-200: #ABEFC6;
+  --success-300: #75E0A7;
+  --success-500: #17B26A;
+  --success-700: #067647;
+  --warning-50: #FFFAEB;
+  --warning-200: #FEDF89;
+  --warning-300: #FEC84B;
+  --warning: #ED9135;
+  --warning-100: #FEF0C7;
+  --warning-600: #DC6803;
+  --warning-700: #B54708;
+  --warning-800: #93370D;
+}

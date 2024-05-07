@@ -1,0 +1,315 @@
+@mixin default-icons {
+    display: block;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 15px;
+    height: 15px;
+}
+
+@mixin icon-name($name) {
+    background-image: url(./assets/icons/#{$name}.svg);
+}
+
+@mixin responsive-icons {
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+@mixin undo-redo-icons {
+    width: 18px;
+    height: 18px;
+}
+
+@mixin toolset-icons {
+    width: 22px;
+    height: 22px;
+}
+
+.app-page-editor .icon,
+.f-icon {
+    @include default-icons;
+    &-n-drag,
+    &-drag {
+        @include icon-name('drag');
+    }
+    &-edit {
+        @include icon-name('edit');
+    }
+    &-clone {
+        @include icon-name('clone');
+    }
+    &-delete {
+        @include icon-name('delete');
+    }
+    &-plus {
+        width: 8px;
+        height: 8px;
+        pointer-events: none;
+        @include icon-name('plus');
+    }
+    &-undo {
+        @include undo-redo-icons;
+        @include icon-name('undo');
+    }
+    &-redo {
+        @include undo-redo-icons;
+        @include icon-name('redo');
+    }
+    &-back {
+        @include icon-name('back');
+    }
+    &-mobile {
+        @include responsive-icons;
+        @include icon-name('mobile');
+    }
+    &-tablet {
+        @include responsive-icons;
+        @include icon-name('tablet');
+    }
+    &-desktop {
+        @include responsive-icons;
+        @include icon-name('desktop');
+    }
+    &-t-bold {
+        @include icon-name('t-bold');
+        opacity: 0.3;
+    }
+    &-t-italic {
+        @include icon-name('t-italic');
+        opacity: 0.3;
+    }
+    &-t-strike {
+        @include icon-name('t-strike');
+        opacity: 0.3;
+    }
+    &-t-justify {
+        @include icon-name('t-justify');
+        opacity: 0.3;
+    }
+    &-t-left {
+        @include icon-name('t-left');
+        opacity: 0.3;
+    }
+    &-t-center {
+        @include icon-name('t-center');
+        opacity: 0.3;
+    }
+    &-t-right {
+        @include icon-name('t-right');
+        opacity: 0.3;
+    }
+    &-t-underline {
+        @include icon-name('t-underline');
+        opacity: 0.3;
+    }
+    &-t-number-list {
+        @include icon-name('t-number-list');
+        opacity: 0.3;
+    }
+    &-t-bullet-list {
+        @include icon-name('t-bullet-list');
+        opacity: 0.3;
+    }
+    &-t-clear-style {
+        @include icon-name('t-clear-style');
+        opacity: 0.3;
+    }
+    &-t-link {
+        @include icon-name('t-link');
+        opacity: 0.3;
+    }
+    &-t-image {
+        @include icon-name('t-image');
+        opacity: 0.3;
+    }
+    &-t-close {
+        @include icon-name('t-close');
+        width: 10px;
+        height: 10px;
+        opacity: 0.3;
+    }
+    &-t-unlink {
+        @include icon-name('t-unlink');
+    }
+    &-t-link-w {
+        @include icon-name('t-link-w');
+    }
+    &-burger {
+        @include icon-name('burger');
+    }
+    &-sub {
+        @include icon-name('sub');
+        width: 10px;
+        height: 10px;
+    }
+    &-add {
+        @include icon-name('add');
+        width: 10px;
+        height: 10px;
+    }
+    &-el-section {
+        @include toolset-icons;
+        @include icon-name('section');
+    }
+    &-el-row {
+        @include toolset-icons;
+        @include icon-name('row');
+    }
+    &-el-spacer {
+        @include toolset-icons;
+        @include icon-name('spacer');
+    }
+    &-el-headline {
+        @include toolset-icons;
+        @include icon-name('headline');
+    }
+    &-el-paragraph {
+        @include toolset-icons;
+        @include icon-name('paragraph');
+    }
+    &-el-image {
+        @include toolset-icons;
+        @include icon-name('image');
+    }
+    &-el-video {
+        @include toolset-icons;
+        @include icon-name('video');
+    }
+    &-el-button {
+        @include toolset-icons;
+        @include icon-name('button');
+    }
+    &-el-link {
+        @include toolset-icons;
+        @include icon-name('link');
+    }
+    &-el-paymentForm {
+        @include toolset-icons;
+        @include icon-name('paymentForm');
+    }
+    &-el-twoStepForm {
+        @include toolset-icons;
+        @include icon-name('twoStepForm');
+    }
+    &-el-formElement {
+        @include toolset-icons;
+        @include icon-name('formElement');
+    }
+    &-el-social {
+        @include toolset-icons;
+        @include icon-name('social');
+    }
+    &-el-progressBar {
+        @include toolset-icons;
+        @include icon-name('progressBar');
+    }
+    &-el-menu {
+        @include toolset-icons;
+        @include icon-name('menu');
+    }
+    &-el-timer {
+        @include toolset-icons;
+        @include icon-name('timer');
+    }
+    &-el-productList {
+        @include toolset-icons;
+        @include icon-name('productList');
+    }
+    &-el-custom {
+        @include toolset-icons;
+        @include icon-name('custom');
+    }
+    &-el-container {
+        @include toolset-icons;
+        @include icon-name('container');
+    }
+    &-el-orderSummary {
+        @include toolset-icons;
+        @include icon-name('orderSummary');
+    }
+    &-el-imageSlider {
+        @include toolset-icons;
+        @include icon-name('imageSlider');
+    }
+    &-el-orderBump {
+        @include toolset-icons;
+        @include icon-name('orderBump');
+    }
+    &-el-faq {
+        @include toolset-icons;
+        @include icon-name('faq');
+    }
+    &-el-beforeAfterSlider {
+        @include toolset-icons;
+        @include icon-name('beforeAfterSlider');
+    }
+    &-popup-close {
+        width: 20px;
+        height: 20px;
+        @include icon-name('popup-close');
+    }
+    &-toggle-back {
+        width: 10px;
+        height: 10px;
+        @include icon-name('toggle-back');
+    }
+    &-toggle-forward {
+        width: 10px;
+        height: 10px;
+        @include icon-name('toggle-forward');
+    }
+    &-info {
+        width: 20px;
+        height: 20px;
+        @include icon-name('info');
+    }
+    &-settings {
+        width: 15px;
+        height: 15px;
+        @include icon-name('settings');
+    }
+    &-s-circle-dismiss {
+        @include icon-name('s-circle-dismiss');
+        width: 10px;
+        height: 10px;
+    }
+    &-s-circle-save {
+        @include icon-name('s-circle-save');
+        width: 8px;
+        height: 8px;
+    }
+    &-s-plus {
+        @include icon-name('s-plus');
+        width: 8px;
+        height: 8px;
+    }
+    &-s-success-check {
+        @include icon-name('s-success-check');
+        width: 21px;
+        height: 21px;
+    }
+    &-s-drag {
+        @include icon-name('s-drag');
+        width: 10px;
+        height: 10px;
+    }
+    &-s-delete {
+        @include icon-name('s-delete');
+        width: 10px;
+        height: 10px;
+    }
+    &-s-edit {
+        @include icon-name('s-edit');
+        width: 10px;
+        height: 10px;
+    }
+}
+
+.active> {
+    & .icon {
+        opacity: 1;
+    }
+}

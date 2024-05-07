@@ -16,6 +16,7 @@
     <Multiselect
       ref="multiselect"
       :append-to-body="appendToBody"
+      :style="{ width }"
       :class="{ [size]: true, disabled }"
       :classes="{
         dropdown: `multiselect-dropdown ${size} ${
@@ -118,11 +119,14 @@ export default {
     },
     size: {
       type: String,
-      default: "large",
+      default: 'large',
+    },
+    width: {
+      type: String,
     },
     mode: {
       type: String,
-      default: "single",
+      default: 'single',
     },
     optional: { type: Boolean, default: false },
     options: {
@@ -139,15 +143,15 @@ export default {
     },
     labelKey: {
       type: String,
-      default: "label",
+      default: 'label',
     },
     valueKey: {
       type: String,
-      default: "value",
+      default: 'value',
     },
     placeholder: {
       type: String,
-      default: "",
+      default: '',
     },
     clearable: {
       type: Boolean,
@@ -167,7 +171,7 @@ export default {
     },
     label: {
       type: String,
-      default: "",
+      default: '',
     },
   },
   setup() {

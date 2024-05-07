@@ -1,0 +1,62 @@
+.vue-notification-wrapper {
+  overflow: visible !important;
+}
+.vue-notification-group {
+  margin-top: 15px;
+}
+.notification {
+  padding: 15px 20px;
+  margin: 0 10px 10px;
+  color: #148870;
+  background: #d7f9f2;
+  box-shadow: 0px 5px 20px rgba(37, 42, 50, 0.2);
+  border-radius: 12px;
+  position: relative;
+  //height: 80px;
+  width: 340px;
+  cursor: pointer;
+  opacity: .94;
+  &:hover {
+    opacity: 1;
+  }
+
+  .icon {
+    margin: auto;
+  }
+  .title {
+    font-size: 13px;
+    margin: auto 10px;
+    letter-spacing: 0.02em;
+    line-height: 170%;
+  }
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    width: 20px;
+    height: 20px;
+    > svg path {
+      fill: #15D7AE;
+    }
+  }
+  &.warn {
+    background: #FDF1E3;
+    color: #ED9135;
+    svg path {
+      fill: #ED9135;
+    }
+  }
+
+  &.error {
+    background: #FCEBEB;
+    color: #FB595B;
+    svg path {
+      fill: #FB595B;
+    }
+  }
+
+  &.update {
+    background: black;
+    color: white;
+  }
+}
