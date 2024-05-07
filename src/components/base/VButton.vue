@@ -115,6 +115,7 @@ button {
   background-color: #fff;
   border: 1px solid #d0d5dd;
   color: var(--gray-700);
+  height: 36px;
   min-width: fit-content;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   transition: background-color 400ms ease;
