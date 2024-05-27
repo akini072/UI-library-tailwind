@@ -1,9 +1,9 @@
 @import 'variables';
 
 $aligns: (
-  "left": left,
-  "right": right,
-  "center": center,
+  'left': left,
+  'right': right,
+  'center': center,
 );
 
 @each $name, $glyph in $aligns {
@@ -13,10 +13,10 @@ $aligns: (
 }
 
 $weights: (
-  "light": 300,
-  "regular": 400,
-  "medium": 500,
-  "bold": 600,
+  'light': 300,
+  'regular': 400,
+  'medium': 500,
+  'bold': 600,
 );
 
 @each $name, $glyph in $weights {
@@ -42,6 +42,10 @@ $weights: (
 
 .text-nowrap {
   text-wrap: nowrap;
+}
+
+.text-center {
+  text-align: center;
 }
 
 p,

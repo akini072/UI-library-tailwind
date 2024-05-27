@@ -1,7 +1,7 @@
 <template>
   <div
     v-tippy="{ theme: 'light', content: info }"
-    class="select__button border rounded pa-2 d-flex flex-column align-center"
+    class="select__button border rounded pa-2 d-flex flex-column align-center pointer"
     :class="{ selected: modelValue === value }"
     @click="$emit('update:model-value', value)"
   >

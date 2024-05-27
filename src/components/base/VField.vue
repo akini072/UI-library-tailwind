@@ -8,15 +8,20 @@
       <info-icon
         class="info__icon ml-2"
         :info="info"
+        :info-icon-hover-effect="infoIconHoverEffect"
         v-if="!!info || !!$slots.info"
       >
         <slot name="info" />
       </info-icon>
     </label>
     <fieldset
-      :class="`v-input__fieldset ${$props.size} ${variant} ${
-        isActive ? 'active' : ''
-      }`"
+      class="v-input__fieldset"
+      :class="{
+        [$props.size]: true,
+        [variant]: true,
+        active: isActive,
+        disabled,
+      }"
       :style="{
         width,
         height,
@@ -49,7 +54,10 @@
       </div>
       <input
         ref="input"
-        :class="{ 'px-3': !noInputPadding }"
+        :class="{
+          'px-3': !noInputPadding && !copyButton,
+          'pl-3': copyButton,
+        }"
         :autocomplete="autocomplete"
         :type="type"
         :placeholder="placeholder"
@@ -57,7 +65,7 @@
         :readonly="readonly"
         :step="step"
         :maxlength="maxLength"
-        @input="$emit('update:modelValue', $event.target.value)"
+        @input="onInput"
         @focus="isActive = true"
         @blur="$emit('blur'), (isActive = false)"
         @dblclick="$refs.input.select"
@@ -100,12 +108,12 @@
   </div>
 </template>
 <script>
-import VButton from "./VButton";
-import VIcon from "./VIcon";
-import InfoIcon from "./InfoIcon";
+import VButton from './VButton'
+import VIcon from './VIcon'
+import InfoIcon from './InfoIcon'
 
 export default {
-  name: "VField",
+  name: 'VField',
   components: { VIcon, InfoIcon, VButton },
   props: {
     label: {
@@ -134,9 +142,9 @@ export default {
     },
     variant: {
       type: String,
-      default: "default",
+      default: 'default',
       validator: function (value) {
-        return ["default", "plain"].includes(value);
+        return ['default', 'plain'].includes(value)
       },
     },
     noInputPadding: {
@@ -151,12 +159,12 @@ export default {
     iconColor: {
       type: String,
       required: false,
-      default: "var(--gray-300)",
+      default: 'var(--gray-300)',
     },
     iconSize: {
       type: String,
       required: false,
-      default: "20px",
+      default: '20px',
     },
     placeholder: {
       type: String,
@@ -190,11 +198,11 @@ export default {
     },
     size: {
       type: String,
-      default: "default",
+      default: 'default',
     },
     hint: {
       type: String,
-      default: "",
+      default: '',
     },
     maxLength: {
       type: Number,
@@ -204,26 +212,37 @@ export default {
       type: Boolean,
       default: false,
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    infoIconHoverEffect: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
       isActive: false,
-      copyTooltip: "Copy",
-    };
+      copyTooltip: 'Copy',
+    }
   },
   computed: {
     length() {
-      return (this.modelValue || "").length;
+      return (this.modelValue || '').length
     },
   },
   methods: {
     async copyToClipboard() {
-      this.copyTooltip = "Copied!";
-      navigator.clipboard.writeText(this.modelValue);
-      setTimeout(() => (this.copyTooltip = "Copy"), 1500);
+      this.copyTooltip = 'Copied!'
+      navigator.clipboard.writeText(this.modelValue)
+      setTimeout(() => (this.copyTooltip = 'Copy'), 1500)
+    },
+    onInput($event) {
+      this.$emit('update:modelValue', $event.target.value)
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
@@ -238,11 +257,10 @@ export default {
   transition: 0.15s all ease-in-out;
   position: relative;
   padding: 0;
-  height: 32px;
-  // height: 40px;
+  height: 40px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 
-  &:not(.plain):not(.active):hover {
+  &:not(.active):not(.plain):hover {
     border: 1px solid var(--primary-300);
   }
 
@@ -283,6 +301,10 @@ export default {
 
   &.medium {
     height: 30px;
+  }
+  &.disabled {
+    opacity: 0.6;
+    pointer-events: none;
   }
   .__hint {
     color: var(--gray-400);

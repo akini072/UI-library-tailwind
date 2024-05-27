@@ -1,0 +1,39 @@
+.tag {
+  font-size: 10px;
+  font-weight: 500;
+  font-family: "Inter";
+  border-radius: 5.486px;
+  border: 0.914px solid var(--gray-200);
+
+  &.disabled {
+    border-color: var(--gray-200);
+    color: var(--gray-400);
+    background-color: var(--gray-200);
+  }
+  &.green {
+    border-color: var(--success-200);
+    color: var(--success-700);
+    background-color: var(--success-50);
+  }
+  &.blue {
+    border-color: var(--primary-500);
+    color: #fff;
+    background-color: var(--primary-500);
+    &.light {
+      border-color: var(--primary-25);
+      background-color: var(--primary-50);
+      color: var(--primary-500);
+    }
+  }
+  &.font-weight-bold {
+    font-weight: 600;
+  }
+
+  &.rounded-sm {
+    border-radius: 4px;
+  }
+  
+  &.rounded {
+    border-radius: 8px;
+  }
+}

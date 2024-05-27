@@ -8,7 +8,6 @@
     </template>
     <template v-slot:actions>
       <v-button
-        class="mr-4"
         color="red"
         variant="outlined"
         :label="confirmButton"

@@ -72,6 +72,7 @@ $spacing: (
   "10": 40px,
   "n4": -16px,
   "n5": -20px,
+  "n6": -24px,
   "auto": auto,
 );
 
@@ -199,6 +200,9 @@ $spacing: (
 .pointer {
   cursor: pointer;
 }
+.cursor-grab {
+  cursor: grab;
+}
 
 $colors: (
   "gray-50": var(--gray-50),
@@ -211,6 +215,7 @@ $colors: (
   "gray-700": var(--gray-700),
   "primary-25": var(--primary-25),
   "primary-50": var(--primary-50),
+  "primary-700": var(--primary-700),
   "primary": var(--primary-500),
   "error-400": var(--error-400),
   "error": var(--error-500),
@@ -239,8 +244,9 @@ $colors: (
   }
 
   .hover-bg--#{$name} {
+    transition: background 200ms ease;
     &:hover {
-      background-color: $glyph;
+      background-color: $glyph!important;
     }
   }
 }
@@ -252,3 +258,6 @@ $colors: (
   content: " ";
 }
 
+.overflow--hidden {
+  overflow: hidden;
+}

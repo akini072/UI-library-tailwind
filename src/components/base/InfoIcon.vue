@@ -1,8 +1,8 @@
 <template>
   <div
     v-if="!!info"
-    class="info-icon"
-    :class="{ warn, small }"
+    class="info-icon__wrapper"
+    :class="{ warn, small, '--hover-effect': infoIconHoverEffect }"
     :content="info"
     v-tippy="{ theme }"
   >
@@ -17,7 +17,14 @@
     animation="fade"
   >
     <template #default>
-      <div class="d-flex align-center info-icon" :class="{ warn, small }">
+      <div
+        class="d-flex align-center info-icon__wrapper"
+        :class="{
+          warn,
+          small,
+          '--hover-effect': infoIconHoverEffect,
+        }"
+      >
         <v-icon :name="iconName" :color="iconColor" height="16px" />
       </div>
     </template>
@@ -28,59 +35,70 @@
 </template>
 
 <script>
-import VIcon from "./VIcon.vue"
+import VIcon from './VIcon.vue'
 
 export default {
-  name: "InfoIcon",
+  name: 'InfoIcon',
   components: { VIcon },
   props: {
     small: {
       type: Boolean,
-      default: false
+      default: false,
     },
     theme: {
       type: String,
-      default: "light-padding"
+      default: 'light-padding',
     },
     warn: {
       type: Boolean,
-      default: false
+      default: false,
     },
     interactive: {
       type: Boolean,
-      default: false
+      default: false,
     },
     info: {
       type: String,
-      default: () => null
+      default: () => null,
     },
     placement: {
       type: String,
-      default: "bottom-start"
+      default: 'bottom-start',
     },
     iconColor: {
       type: String,
-      default: "var(--gray-300)"
-    }
+      default: 'var(--gray-300)',
+    },
+    hoverIconColor: {
+      type: String,
+      default: 'var(--primary-500)',
+    },
+    infoIconHoverEffect: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     iconName() {
-      return this.warn ? "warning_icon" : "help_icon"
-    }
-  }
+      return this.warn ? 'warning_icon' : 'help_icon'
+    },
+  },
 }
 </script>
 <style lang="scss">
-.info-icon {
+.info-icon__wrapper {
   cursor: pointer;
-  &:hover {
-    svg {
-      color: var(--primary-500);
+
+  &.--hover-effect {
+    &:hover {
+      svg {
+        color: var(--primary-500);
+      }
     }
-  }
-  &.warn:hover {
-    svg {
-      color: var(--warning);
+    &.warn:hover {
+      svg {
+        color: var(--warning);
+      }
     }
   }
   &.small {

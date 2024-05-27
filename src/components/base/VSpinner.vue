@@ -38,8 +38,8 @@
         display: block;
         shape-rendering: auto;
       "
-      width="28px"
-      height="28px"
+      :width="size"
+      :height="size"
       viewBox="0 0 100 100"
       preserveAspectRatio="xMidYMid"
     >
@@ -77,13 +77,17 @@ export default {
       type: String,
       default: "#fff",
     },
+    size: {
+      type: String,
+      default: '28px'
+    }
   },
 };
 </script>
 <style lang="scss">
 .spinner {
-  height: 28px;
-  width: 28px;
+  height: auto;
+  width: auto;
   display: block;
   justify-content: center;
   align-items: center;

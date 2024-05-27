@@ -1,0 +1,21 @@
+.no-header-padding {
+  .el-drawer__header {
+    --el-drawer-padding-primary: 0px !important;
+  }
+}
+
+.el-drawer {
+
+  .el-drawer__header {
+    margin-bottom: 0px;
+    --el-drawer-padding-primary: 20px 28px 0px;
+  }
+
+  .el-drawer__body {
+    --el-drawer-padding-primary: 20px 0px;
+  }
+
+  .el-drawer__footer {
+    --el-drawer-padding-primary: 0px;
+  }
+}

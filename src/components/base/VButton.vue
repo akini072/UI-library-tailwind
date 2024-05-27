@@ -31,10 +31,10 @@
 </template>
 
 <script>
-import VSpinner from "./VSpinner.vue";
+import VSpinner from './VSpinner.vue'
 
 export default {
-  name: "VButton",
+  name: 'VButton',
   components: {
     VSpinner,
   },
@@ -55,7 +55,7 @@ export default {
     },
     width: {
       type: String,
-      default: "",
+      default: '',
     },
     block: {
       type: Boolean,
@@ -63,9 +63,9 @@ export default {
     },
     variant: {
       type: String,
-      default: "default",
+      default: 'default',
       validator: function (value) {
-        return ["outlined", "text", "default", "plain", "flat"].includes(value);
+        return ['outlined', 'text', 'default', 'plain', 'flat'].includes(value)
       },
     },
     disabled: {
@@ -81,7 +81,7 @@ export default {
     },
     size: {
       type: String,
-      default: "",
+      default: 'medium',
     },
     isLink: {
       type: Boolean,
@@ -90,14 +90,14 @@ export default {
   },
   computed: {
     colorClass() {
-      if (this.color) return `color--${this.color}`;
-      return "";
+      if (this.color) return `color--${this.color}`
+      return ''
     },
     variantClass() {
-      return this.variant;
+      return this.variant
     },
   },
-};
+}
 </script>
 
 <style lang="scss">
@@ -178,6 +178,14 @@ button {
       min-height: 28px;
       width: 28px;
       height: 28px;
+
+      .loading__spinner {
+        .spinner,
+        svg {
+          height: 22px;
+          width: 22px;
+        }
+      }
     }
     &.small {
       min-width: 25px;
@@ -237,6 +245,42 @@ button {
       color: var(--primary-500);
       &:hover {
         color: var(--primary-700);
+      }
+    }
+  }
+  &.color--success {
+    border: 0px;
+    background-color: var(--success-500);
+    color: #fff;
+    &:hover {
+      border: 0px;
+      background: var(--success-700);
+    }
+
+    &.outlined {
+      background-color: #fff;
+      border: 1px solid var(--success-500);
+      color: var(--success-500);
+      &:hover {
+        background-color: var(--success-50);
+        color: var(--success-500);
+        svg {
+          color: var(--success-500);
+        }
+      }
+    }
+
+    &.text {
+      border: none;
+      background-color: transparent;
+      box-shadow: none;
+      color: var(--success-500);
+      &:hover {
+        background-color: var(--success-50);
+        color: var(--success-500);
+        svg {
+          color: var(--success-500);
+        }
       }
     }
   }

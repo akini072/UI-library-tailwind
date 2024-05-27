@@ -8,6 +8,7 @@
       <info-icon
         class="info__icon ml-2"
         :info="info"
+        :info-icon-hover-effect="infoIconHoverEffect"
         v-if="!!info || !!$slots.info"
       >
         <slot name="info" />
@@ -165,6 +166,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    infoIconHoverEffect: {
+      type: Boolean,
+      default: false,
+    },
     appendToBody: {
       type: Boolean,
       default: true,
@@ -238,8 +243,7 @@ export default {
   }
 
   &.large {
-    min-height: 32px;
-    // min-height: 40px;
+    min-height: 38px;
     font-size: 14px;
   }
 
