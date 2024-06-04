@@ -21,6 +21,7 @@
         [variant]: true,
         active: isActive,
         disabled,
+        textarea
       }"
       :style="{
         width,
@@ -52,7 +53,26 @@
         </div>
         <slot v-else name="prepend" />
       </div>
+      <textarea
+        v-if="textarea"
+        ref="input"
+        :class="{
+          'px-3': !noInputPadding && !copyButton,
+          'pl-3': copyButton,
+          'has-max-length': !!maxLength
+        }"
+        :placeholder="placeholder"
+        :value="modelValue"
+        :readonly="readonly"
+        :rows="rows"
+        :maxlength="maxLength"
+        @input="onInput"
+        @focus="isActive = true"
+        @blur="$emit('blur'), (isActive = false)"
+        @dblclick="$refs.input.select"
+      />
       <input
+        v-else
         ref="input"
         :class="{
           'px-3': !noInputPadding && !copyButton,
@@ -218,8 +238,16 @@ export default {
     },
     infoIconHoverEffect: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
+    textarea: {
+      type: Boolean,
+      default: false,
+    },
+    rows: {
+      type: Number,
+      default: 1,
+    },
   },
   data() {
     return {
@@ -260,11 +288,26 @@ export default {
   height: 40px;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 
+  &.textarea {
+    height: auto;
+    overflow: hidden;
+
+    textarea {
+      flex: 1;
+      height: auto;
+      padding: 10px 12px;
+
+      &.has-max-length {
+        resize: none;
+      }
+    }
+  }
+
   &:not(.active):not(.plain):hover {
     border: 1px solid var(--primary-300);
   }
 
-  input {
+  input, textarea {
     font-size: 14px;
     border-radius: 6px;
     height: 100%;

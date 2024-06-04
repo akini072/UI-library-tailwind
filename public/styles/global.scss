@@ -120,20 +120,20 @@ input::-webkit-inner-spin-button {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--gray-200);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--gray-200);
 }
 
 ::-webkit-scrollbar-track {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: var(--gray-50);
 }
 
 ::-webkit-scrollbar-track:hover {
-  background-color: rgba(255, 255, 255, 1);
+  background-color: var(--gray-200);
 }
 
 ::-webkit-scrollbar-corner {
