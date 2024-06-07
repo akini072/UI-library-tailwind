@@ -13,6 +13,7 @@
 
 * {
   box-sizing: border-box;
+  user-select: none;
 }
 
 :root {
@@ -133,7 +134,7 @@ input::-webkit-inner-spin-button {
 }
 
 ::-webkit-scrollbar-track:hover {
-  background-color: var(--gray-200);
+  background-color: var(--gray-100);
 }
 
 ::-webkit-scrollbar-corner {
