@@ -50,8 +50,8 @@
         </div>
       </template>
       <template v-slot:singlelabel="{ value }">
-        <div class="multiselect-single-label">
-          <slot v-if="$slots.singlelabel" name="singlelabel" :value="value" />
+        <div v-if="$slots.singlelabel" class="multiselect-single-label">
+          <slot name="singlelabel" :value="value" />
         </div>
       </template>
       <template v-slot:tag="{ option, handleTagRemove }">
