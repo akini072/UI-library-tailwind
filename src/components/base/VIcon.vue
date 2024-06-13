@@ -1,56 +1,46 @@
 <template>
-  <div class="icon d-flex" v-html="styledSvgContent" />
+  <div class="icon d-flex">
+    <component
+      :is="icon"
+      :color="color"
+      :height="height"
+      :width="width || height"
+    />
+  </div>
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
+
 export default {
   name: 'VIcon',
   props: {
     name: {
       type: String,
-      required: true
+      required: true,
     },
     color: {
-      type: String
+      type: String,
     },
     height: {
       type: String,
-      default: '20px'
+      default: '20px',
     },
     width: {
       type: String,
-      default: ''
+      default: '',
     },
     folder: {
       type: String,
-      default: 'icons'
-    }
-  },
-  data() {
-    return {
-      svgContent: ''
-    }
+      default: 'icons',
+    },
   },
   computed: {
-    styledSvgContent() {
-      return this.svgContent.replace(
-        '<svg',
-        `<svg color="${this.color || 'none'}" height="${this.height}" width="${this.width || this.height}"`
+    icon() {
+      return defineAsyncComponent(() =>
+        import(`@/assets/icons/${this.name}.svg`),
       )
-    }
-  },
-  methods: {
-    getUrl(name) {
-      return new URL(`../../assets/icons/${this.name}.svg`, import.meta.url)
-    }
-  },
-  async mounted() {
-    try {
-      const response = await fetch(this.getUrl())
-      this.svgContent = await response.text()
-    } catch (error) {
-      this.$error(error)
-    }
+    },
   }
 }
 </script>
