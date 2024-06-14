@@ -1,7 +1,7 @@
+import '@/assets/global.scss'
 import VSpinner from '@/components/base/VSpinner'
 import ExternalLink from '@/components/base/ExternalLink'
 import Loading from '@/components/base/Loading'
-import Tooltip from '@/components/base/Tooltip'
 import Modal from '@/components/base/Modal'
 import VIcon from '@/components/base/VIcon'
 import InfoIcon from '@/components/base/InfoIcon'
@@ -13,12 +13,12 @@ import VRadio from '@/components/base/VRadio'
 import ConfirmationPopup from '@/components/base/ConfirmationPopup'
 import SelectButton from '@/components/base/SelectButton'
 import QuickActionsBtn from '@/components/base/QuickActionsBtn'
+import ShadSelect from '@/components/shadcn/ShadSelect'
 
 export {
   VSpinner,
   ExternalLink,
   Loading,
-  Tooltip,
   Modal,
   VIcon,
   VField,
@@ -30,12 +30,5 @@ export {
   SelectButton,
   InfoIcon,
   QuickActionsBtn,
-}
-
-// plugin to register globally for app.use(optional depending on how we want to use the components)
-export default {
-  install: (app, options) => {
-    // set the name of the component
-    // app.component("VSpinner", VSpinner);
-  },
+  ShadSelect
 }
