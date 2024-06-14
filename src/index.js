@@ -1,3 +1,6 @@
+import '@/assets/index.css'
+import '@/assets/styles/global.scss'
+
 import VSpinner from '@/components/base/VSpinner'
 import ExternalLink from '@/components/base/ExternalLink'
 import Loading from '@/components/base/Loading'
@@ -12,6 +15,16 @@ import VRadio from '@/components/base/VRadio'
 import ConfirmationPopup from '@/components/base/ConfirmationPopup'
 import SelectButton from '@/components/base/SelectButton'
 import QuickActionsBtn from '@/components/base/QuickActionsBtn'
+import { ScrollArea, ScrollBar } from '@/components/shadcn/scroll-area'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/shadcn/carousel'
+import Lazy from '@/components/base/Lazy'
+import VSwitch from '@/components/base/VSwitch'
 
 export {
   VSpinner,
@@ -28,4 +41,13 @@ export {
   SelectButton,
   InfoIcon,
   QuickActionsBtn,
+  ScrollArea,
+  ScrollBar,
+  Lazy,
+  VSwitch,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
 }
