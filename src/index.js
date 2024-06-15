@@ -14,6 +14,7 @@ import ConfirmationPopup from '@/components/base/ConfirmationPopup'
 import SelectButton from '@/components/base/SelectButton'
 import QuickActionsBtn from '@/components/base/QuickActionsBtn'
 import ShadSelect from '@/components/shadcn/ShadSelect'
+import ShadPopOver from '@/components/shadcn/ShadPopOver'
 
 export {
   VSpinner,
@@ -30,7 +31,8 @@ export {
   SelectButton,
   InfoIcon,
   QuickActionsBtn,
-  ShadSelect
+  ShadSelect,
+  ShadPopOver
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
