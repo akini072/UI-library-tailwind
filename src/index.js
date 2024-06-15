@@ -15,6 +15,15 @@ import SelectButton from '@/components/base/SelectButton'
 import QuickActionsBtn from '@/components/base/QuickActionsBtn'
 import ShadSelect from '@/components/shadcn/ShadSelect'
 import ShadPopOver from '@/components/shadcn/ShadPopOver'
+import ShadNavigationMenu from '@/components/shadcn/ShadNavigationMenu'
+import {
+  NavigationMenu,
+  // NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  // NavigationMenuTrigger,
+} from '@/components/shadcn/navigation-menu'
 
 export {
   VSpinner,
@@ -32,7 +41,12 @@ export {
   InfoIcon,
   QuickActionsBtn,
   ShadSelect,
-  ShadPopOver
+  ShadPopOver,
+  ShadNavigationMenu,
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
