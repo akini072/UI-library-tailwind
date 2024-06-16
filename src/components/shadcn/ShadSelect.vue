@@ -13,7 +13,8 @@ const props = defineProps({
     placeholder: { type: String, required: false },
     defaultValue: { type: String, required: false },
     triggerClass: { type: String, required: false },
-    itemClass: { type: String, required: false }
+    itemClass: { type: String, required: false },
+    icon: {type: Object, required: false}
 });
 
 const selectedOption = defineModel('selected:value');
@@ -29,7 +30,7 @@ const selectedOption = defineModel('selected:value');
                 <SelectItem :class="itemClass" v-for="option in options" :key="option.value" :value="option.value">
                     <div class="flex items-center">
                         <div class="mr-2 flex select-icon">
-                            <component :is="option.icon" />
+                            <component :is="icon" />
                         </div>
                         {{ option.name }}
                     </div>
