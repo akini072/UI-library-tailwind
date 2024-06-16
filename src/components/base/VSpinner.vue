@@ -95,6 +95,7 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
+  padding-left: 20px;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
