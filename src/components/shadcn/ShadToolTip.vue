@@ -6,19 +6,18 @@ import {
     TooltipTrigger
 } from '@/components/shadcn/tooltip'
 const props = defineProps({
-    tooltip: { type: String, required: true },
-    trigger: { type: Object, required: true }
+    tooltip: { type: String, required: true }
 })
 </script>
 
 <template>
     <TooltipProvider>
-        <Tooltip>
+        <Tooltip :delay-duration="0">
             <TooltipTrigger>
-                <component :is="props.trigger" />
+                <slot />
             </TooltipTrigger>
             <TooltipContent>
-                <p class="text-xs">{{ props.tooltip }}</p>
+                <p class="text-xsm">{{ props.tooltip }}</p>
             </TooltipContent>
         </Tooltip>
     </TooltipProvider>

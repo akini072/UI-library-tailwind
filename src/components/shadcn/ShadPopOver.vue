@@ -10,14 +10,16 @@ const props = defineProps({
     popoverTrigger: { type: Object, required: true },
     align: { type: String, required: false },
     alignOffset: { type: Number, required: false },
-    tooltip: { type: String, required: false }
+    tooltipText: { type: String, required: false }
 })
 </script>
 
 <template>
     <Popover>
         <PopoverTrigger>
-            <ShadToolTip :trigger="props.popoverTrigger" :tooltip="tooltip" v-if="tooltip"/>
+            <ShadToolTip :tooltip="tooltipText" v-if="tooltipText">
+                <component :is="props.popoverTrigger" />
+            </ShadToolTip>
             <component v-else :is="props.popoverTrigger" />
         </PopoverTrigger>
         <PopoverContent :align="align" :alignOffset="alignOffset">
