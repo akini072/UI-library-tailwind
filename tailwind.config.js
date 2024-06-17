@@ -97,6 +97,9 @@ module.exports = {
       spacing: {
         '6.5': '1.625rem', // 26px
         '7.5': '2.5rem' // 30px
+      },
+      padding: {
+        '5.5': '1.375rem'
       }
     },
   },
