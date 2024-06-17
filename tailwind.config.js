@@ -14,6 +14,9 @@ module.exports = {
   ],
 
   theme: {
+    fontSize: {
+      xxs: '0.5625rem'
+    },
     container: {
       center: true,
       padding: '2rem',
@@ -87,6 +90,13 @@ module.exports = {
         'collapsible-down': 'collapsible-down 0.2s ease-in-out',
         'collapsible-up': 'collapsible-up 0.2s ease-in-out',
       },
+      boxShadow: {
+        'search-focus': '0 0 0 1px hsla(220, 100%, 50%, 80%)'
+      },
+      spacing: {
+        '6.5': '1.625rem', // 26px
+        '7.5': '2.5rem' // 30px
+      }
     },
   },
   corePlugins: { preflight: false },
