@@ -25,6 +25,7 @@ import {
 import Lazy from '@/components/base/Lazy'
 import VSwitch from '@/components/base/VSwitch'
 import ShadSelect from '@/components/shadcn/ShadSelect'
+import ShadPopOver from '@/components/shadcn/ShadPopOver'
 
 export {
   VSpinner,
@@ -50,7 +51,8 @@ export {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  ShadSelect
+  ShadSelect,
+  ShadPopOver
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
