@@ -100,7 +100,7 @@ module.exports = {
       },
       padding: {
         '5.5': '1.375rem'
-      }
+      },
     },
   },
   corePlugins: { preflight: false },
