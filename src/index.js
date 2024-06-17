@@ -18,6 +18,7 @@ import ShadPopOver from '@/components/shadcn/ShadPopOver'
 import { ShadInput } from './components/shadcn/input'
 import ShadSearchInput from '@/components/shadcn/ShadSearchInput'
 import ShadNavigationLink from '@/components/shadcn/ShadNavigationLink'
+import ShadToolTip from '@/components/shadcn/ShadToolTip'
 
 import {
   NavigationMenu,
@@ -47,7 +48,8 @@ export {
   NavigationMenuList,
   ShadInput,
   ShadSearchInput,
-  ShadNavigationLink
+  ShadNavigationLink,
+  ShadToolTip
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)

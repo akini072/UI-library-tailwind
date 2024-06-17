@@ -15,7 +15,8 @@ module.exports = {
 
   theme: {
     fontSize: {
-      xxs: '0.5625rem'
+      xxs: '0.5625rem',
+      xsm: '0.75rem'
     },
     container: {
       center: true,
