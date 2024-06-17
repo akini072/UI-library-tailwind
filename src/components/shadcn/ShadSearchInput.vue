@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { useVModel } from "@vueuse/core";
 import { ShadInput } from '@/components/shadcn/input'
 import { cn } from "@/lib/utils";
