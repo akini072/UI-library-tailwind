@@ -36,15 +36,15 @@ export default defineConfig({
       },
     },
   },
+  css: {
+    postcss: {
+      plugins: [tailwind(), autoprefixer()],
+    },
+  },
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
     },
     extensions: ['.vue', '.js'],
-  },
-  css: {
-    postcss: {
-      plugins: [tailwind(), autoprefixer()],
-    },
   },
 })

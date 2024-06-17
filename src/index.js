@@ -1,6 +1,5 @@
 import '@/assets/index.css'
 import '@/assets/styles/global.scss'
-
 import VSpinner from '@/components/base/VSpinner'
 import ExternalLink from '@/components/base/ExternalLink'
 import Loading from '@/components/base/Loading'
@@ -25,6 +24,7 @@ import {
 } from '@/components/shadcn/carousel'
 import Lazy from '@/components/base/Lazy'
 import VSwitch from '@/components/base/VSwitch'
+import ShadSelect from '@/components/shadcn/ShadSelect'
 
 export {
   VSpinner,
@@ -50,4 +50,5 @@ export {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  ShadSelect
 }
