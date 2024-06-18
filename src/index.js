@@ -25,6 +25,17 @@ import {
 } from '@/components/shadcn/carousel'
 import Lazy from '@/components/base/Lazy'
 import VSwitch from '@/components/base/VSwitch'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+  DropdownMenuSub,
+} from '@/components/shadcn/dropdown-menu'
 
 export {
   VSpinner,
@@ -50,4 +61,13 @@ export {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
 }
