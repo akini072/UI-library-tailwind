@@ -13,7 +13,7 @@ const props = defineProps({
   </PopoverTrigger>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 button {
   padding: 0 !important;
   border: none !important;
