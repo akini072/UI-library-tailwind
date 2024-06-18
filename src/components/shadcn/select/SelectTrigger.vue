@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from "vue";
 import { SelectIcon, SelectTrigger, useForwardProps } from "radix-vue";
-import { ChevronDown } from "lucide-vue-next";
+import { ChevronDown, ChevronUp } from "lucide-vue-next";
 import { cn } from "@/lib/utils";
 
 const props = defineProps({
@@ -9,6 +9,7 @@ const props = defineProps({
   asChild: { type: Boolean, required: false },
   as: { type: null, required: false },
   class: { type: null, required: false },
+  isOpen: { type: Boolean, required: false }
 });
 
 const delegatedProps = computed(() => {
@@ -28,7 +29,8 @@ const forwardedProps = useForwardProps(delegatedProps);
     ">
     <slot />
     <SelectIcon as-child>
-      <ChevronDown class="w-4 h-4 stroke-[var(--gray-600)]" />
+      <ChevronDown v-if="!isOpen" class="w-4 h-4 stroke-[var(--gray-600)]" />
+      <ChevronUp v-else class="w-4 h-4 stroke-[var(--gray-600)]" />
     </SelectIcon>
   </SelectTrigger>
 </template>

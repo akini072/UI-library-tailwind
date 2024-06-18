@@ -1,6 +1,5 @@
 <script setup>
 import { SelectRoot, useForwardPropsEmits } from "radix-vue";
-
 const props = defineProps({
   open: { type: Boolean, required: false },
   defaultOpen: { type: Boolean, required: false },
