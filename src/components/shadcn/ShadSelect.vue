@@ -6,6 +6,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/shadcn/select'
+import VIcon from '../base/VIcon.vue';
 import { ref } from 'vue';
 import { cn } from '@/lib/utils';
 const props = defineProps({
@@ -29,12 +30,13 @@ const isOpen = ref(false)
                 <SelectValue :placeholder="placeholder" />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem v-for="option in options" :key="option.value" :value="option.value" :class="cn(itemClass, selectedOption == option.value && 'bg-activeBG')">
+                <SelectItem v-for="option in options" :key="option.value" :value="option.value"
+                    :class="cn(itemClass, selectedOption == option.value && 'bg-activeBG')">
                     <div class="flex items-center">
                         <div class="mr-2 flex select-icon">
-                            <component :is="icon" />
+                            <v-icon :name="icon.name" :color="icon.color" />
                         </div>
-                        {{ option.name }}
+                        <span class="whitespace-nowrap overflow-hidden text-ellipse w-full md:w-auto ">{{ option.name }}</span>
                     </div>
                 </SelectItem>
             </SelectContent>

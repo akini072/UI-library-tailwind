@@ -8,12 +8,12 @@ const props = defineProps({
 </script>
 
 <template>
-  <PopoverTrigger v-bind="props">
+  <PopoverTrigger v-bind="props" class="buttonClass">
     <slot />
   </PopoverTrigger>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 button {
   padding: 0 !important;
   border: none !important;
