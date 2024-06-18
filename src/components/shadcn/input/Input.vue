@@ -19,6 +19,8 @@ const modelValue = useVModel(props, "modelValue", emits, {
 
 <template>
   <input
+    type="text"
+    autocomplete="off"
     v-model="modelValue"
     @focus="emits('focus')"
     @blur="emits('blur')"

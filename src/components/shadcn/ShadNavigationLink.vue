@@ -1,5 +1,5 @@
 <template>
-    <NavigationMenuLink :class="cn(navigationMenuTriggerStyle(), { 'font-medium bg-[var(--primary-25)] text-[var(--primary-500)] items-center': props.active }, props.class)">
+    <NavigationMenuLink :class="cn(navigationMenuTriggerStyle(), { 'font-medium bg-activeBG text-[var(--primary-500)] items-center hover:!bg-activeBG hover:!text-[var(--primary-500)]': props.active }, props.class)">
         <div class="flex items-center">
             <div class=" flex flex-row mr-1 relative right-[1px]" v-if="menuData.icon">
                 <component :is="menuData.icon" />
