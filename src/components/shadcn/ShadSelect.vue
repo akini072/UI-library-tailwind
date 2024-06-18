@@ -29,7 +29,7 @@ const isOpen = ref(false)
                 <SelectValue :placeholder="placeholder" />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem v-for="option in options" :key="option.value" :value="option.value" :class="cn(itemClass, selectedOption == option.value && 'bg-[var(--primary-25)]')">
+                <SelectItem v-for="option in options" :key="option.value" :value="option.value" :class="cn(itemClass, selectedOption == option.value && 'bg-[var(--primary-50)]')">
                     <div class="flex items-center">
                         <div class="mr-2 flex select-icon">
                             <component :is="icon" />
