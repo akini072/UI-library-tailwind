@@ -37,6 +37,17 @@ import {
   NavigationMenuItem,
   NavigationMenuList
 } from '@/components/shadcn/navigation-menu'
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+  DropdownMenuSub,
+} from '@/components/shadcn/dropdown-menu'
 
 export {
   VSpinner,
@@ -70,7 +81,16 @@ export {
   ShadInput,
   ShadSearchInput,
   ShadNavigationLink,
-  ShadToolTip
+  ShadToolTip,
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
