@@ -27,7 +27,12 @@ const isOpen = ref(false)
     <div :style="{ width, }">
         <Select v-model:modelValue="selectedOption" v-model:open="isOpen" :defaultValue="defaultValue">
             <SelectTrigger :isOpen="isOpen" :class="triggerClass">
-                <SelectValue :placeholder="placeholder" />
+                <!-- <SelectValue :placeholder="placeholder" /> -->
+                <div class="flex gap-2 items-center" v-if="options.length">
+                    <v-icon :name="icon.name" :color="icon.color" />
+                    <span class="whitespace-nowrap overflow-hidden text-ellipse w-full md:w-auto ">{{ selectedOption }}</span>
+                </div>
+                <span v-else>{{ placeholder }}</span>
             </SelectTrigger>
             <SelectContent>
                 <SelectItem v-for="option in options" :key="option.value" :value="option.value"
@@ -36,7 +41,7 @@ const isOpen = ref(false)
                         <div class="mr-2 flex select-icon">
                             <v-icon :name="icon.name" :color="icon.color" />
                         </div>
-                        <span class="whitespace-nowrap overflow-hidden text-ellipse w-full md:w-auto ">{{ option.name }}</span>
+                        {{ option.name }}
                     </div>
                 </SelectItem>
             </SelectContent>
