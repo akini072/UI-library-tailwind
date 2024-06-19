@@ -94,7 +94,7 @@ module.exports = {
       },
       boxShadow: {
         'search-focus': '0 0 0 1px hsla(220, 100%, 50%, 80%)',
-        'popover-xl': '0 5px 10px rgba(0, 0, 0, .08);'
+        'custom': '0 5px 10px rgba(0, 0, 0, .08);'
       },
       spacing: {
         '6.5': '1.625rem', // 26px

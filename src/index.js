@@ -26,7 +26,6 @@ import {
 import Lazy from '@/components/base/Lazy'
 import VSwitch from '@/components/base/VSwitch'
 import ShadSelect from '@/components/shadcn/ShadSelect'
-import ShadPopOver from '@/components/shadcn/ShadPopOver'
 import { ShadInput } from './components/shadcn/input'
 import ShadSearchInput from '@/components/shadcn/ShadSearchInput'
 import ShadNavigationLink from '@/components/shadcn/ShadNavigationLink'
@@ -74,7 +73,6 @@ export {
   CarouselNext,
   CarouselPrevious,
   ShadSelect,
-  ShadPopOver,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
