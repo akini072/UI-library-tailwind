@@ -43,7 +43,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   </SelectItem>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .select-item {
   &:hover {
     & .select-icon {
@@ -60,7 +60,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   }
 }
 
-.active {
+.active_select_item {
   background-color: #E9F1FF;
 
   & .select-icon {
