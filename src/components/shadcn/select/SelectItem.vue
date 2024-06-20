@@ -43,7 +43,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   </SelectItem>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .select-item {
   &:hover {
     & .select-icon {
