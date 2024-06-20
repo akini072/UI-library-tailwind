@@ -27,7 +27,7 @@ import Lazy from '@/components/base/Lazy'
 import VSwitch from '@/components/base/VSwitch'
 import { ShadInput } from './components/shadcn/input'
 import ShadSearchInput from '@/components/shadcn/ShadSearchInput'
-import ShadNavigationLink from '@/components/shadcn/ShadNavigationLink'
+import { NavigationMenuLink } from '@/components/shadcn/navigation-menu'
 import ShadToolTip from '@/components/base/VTooltip.vue'
 import {
   Select,
@@ -85,7 +85,7 @@ export {
   NavigationMenuList,
   ShadInput,
   ShadSearchInput,
-  ShadNavigationLink,
+  NavigationMenuLink,
   ShadToolTip,
   DropdownMenu,
   DropdownMenuTrigger,
