@@ -51,10 +51,27 @@ const forwardedProps = useForwardProps(delegatedProps);
         fill: var(--primary-500);
       }
     }
+
     & .item-indicator {
-      & > svg {
+      &>svg {
         stroke: var(--primary-500);
       }
+    }
+  }
+}
+
+.active {
+  background-color: #E9F1FF;
+
+  & .select-icon {
+    & svg {
+      fill: var(--primary-500);
+    }
+  }
+
+  & .item-indicator {
+    &>svg {
+      stroke: var(--primary-500);
     }
   }
 }
