@@ -29,7 +29,7 @@ import ShadSelect from '@/components/shadcn/ShadSelect'
 import { ShadInput } from './components/shadcn/input'
 import ShadSearchInput from '@/components/shadcn/ShadSearchInput'
 import ShadNavigationLink from '@/components/shadcn/ShadNavigationLink'
-import ShadToolTip from '@/components/shadcn/ShadToolTip'
+import ShadToolTip from '@/components/base/VTooltip.vue'
 
 import {
   NavigationMenu,
