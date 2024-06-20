@@ -25,12 +25,16 @@ import {
 } from '@/components/shadcn/carousel'
 import Lazy from '@/components/base/Lazy'
 import VSwitch from '@/components/base/VSwitch'
-import ShadSelect from '@/components/shadcn/ShadSelect'
 import { ShadInput } from './components/shadcn/input'
 import ShadSearchInput from '@/components/shadcn/ShadSearchInput'
 import ShadNavigationLink from '@/components/shadcn/ShadNavigationLink'
 import ShadToolTip from '@/components/base/VTooltip.vue'
-
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem
+} from '@/components/shadcn/select'
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -72,7 +76,10 @@ export {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  ShadSelect,
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
