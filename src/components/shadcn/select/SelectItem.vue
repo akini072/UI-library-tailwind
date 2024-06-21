@@ -29,7 +29,7 @@ const forwardedProps = useForwardProps(delegatedProps);
 
 <template>
   <SelectItem v-bind="forwardedProps" :class="cn(
-    'select-item relative flex w-full justify-between cursor-pointer select-none items-center rounded-sm px-5 py-3 text-base font-medium text-[var(--gray-700)] hover:text-[var(--primary-500)] hover:bg-activeBG outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-slate-800 dark:focus:text-slate-50',
+    'select-item relative flex w-full justify-between cursor-pointer select-none items-center rounded-sm px-[1.1875rem] py-3 text-base font-medium text-[var(--gray-700)] hover:text-[var(--primary-500)] hover:bg-activeBG outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-slate-800 dark:focus:text-slate-50',
     props.class
   )">
     <SelectItemText>
@@ -62,16 +62,11 @@ const forwardedProps = useForwardProps(delegatedProps);
 
 .active_select_item {
   background-color: #E9F1FF;
+  color: var(--primary-500);
 
   & .select-icon {
     & svg {
       fill: var(--primary-500);
-    }
-  }
-
-  & .item-indicator {
-    &>svg {
-      stroke: var(--primary-500);
     }
   }
 }
