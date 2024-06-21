@@ -29,13 +29,13 @@ const forwardedProps = useForwardProps(delegatedProps);
 
 <template>
   <SelectItem v-bind="forwardedProps" :class="cn(
-    'select-item relative flex w-full justify-between cursor-pointer select-none items-center rounded-sm px-[1.1875rem] py-3 text-base font-medium text-[var(--gray-700)] hover:text-[var(--primary-500)] hover:bg-activeBG outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-slate-800 dark:focus:text-slate-50',
+    'select-item relative flex w-full justify-between cursor-pointer select-none items-center px-[1.1875rem] py-3 text-base font-medium text-[var(--gray-700)] hover:text-[var(--primary-500)] hover:bg-activeBG outline-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-slate-800 dark:focus:text-slate-50',
     props.class
   )">
     <SelectItemText>
       <slot />
     </SelectItemText>
-    <span class="flex h-3.5 w-3.5 items-center justify-center">
+    <span class="flex h-3.5 w-3.5 items-center justify-center ml-2 sm:ml-0">
       <SelectItemIndicator class="item-indicator flex">
         <Check class="h-4 w-4" />
       </SelectItemIndicator>
