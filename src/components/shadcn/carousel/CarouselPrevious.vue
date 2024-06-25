@@ -13,7 +13,7 @@ const { orientation, canScrollPrev, scrollPrev } = useCarousel();
 
 <template>
   <Button
-    :disabled="!canScrollPrev"
+    v-if="canScrollPrev"
     :class="
       cn(
         'touch-manipulation absolute h-8 w-8 rounded-full p-0',

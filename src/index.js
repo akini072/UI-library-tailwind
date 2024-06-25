@@ -22,8 +22,6 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  CarouselNextNav,
-  CarouselPreviousNav,
 } from '@/components/shadcn/carousel'
 import Lazy from '@/components/base/Lazy'
 import VSwitch from '@/components/base/VSwitch'
@@ -78,8 +76,6 @@ export {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  CarouselNextNav,
-  CarouselPreviousNav,
   Select,
   SelectTrigger,
   SelectContent,
