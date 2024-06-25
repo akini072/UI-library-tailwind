@@ -26,8 +26,8 @@ const { orientation, canScrollNext, scrollNext } = useCarousel();
     variant="outline"
     @click="scrollNext"
   >
-    <slot />
-      <!-- <ArrowRight class="h-4 w-4 text-current" /> -->
-    <!-- </slot> -->
+    <slot >
+      <ArrowRight class="h-4 w-4 text-current"/>
+    </slot>
   </Button>
 </template>
