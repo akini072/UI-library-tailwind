@@ -51,6 +51,14 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSub,
 } from '@/components/shadcn/dropdown-menu'
+import {
+  Pagination,
+  PaginationFirst,
+  PaginationLast,
+  PaginationList,
+  PaginationNext,
+  PaginationPrev,
+} from '@/components/shadcn/pagination'
 
 export {
   VSpinner,
@@ -95,7 +103,13 @@ export {
   DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubTrigger,
-  DropdownMenuSubContent
+  DropdownMenuSubContent,
+  Pagination,
+  PaginationFirst,
+  PaginationLast,
+  PaginationList,
+  PaginationNext,
+  PaginationPrev,
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
