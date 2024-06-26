@@ -38,7 +38,7 @@ export default {
   computed: {
     icon() {
       return defineAsyncComponent(() =>
-        import(`@/assets/icons/${this.name}.svg`),
+        import(`../../assets/icons/${this.name}.svg`),
       )
     },
   }

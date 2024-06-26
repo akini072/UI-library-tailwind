@@ -13,7 +13,7 @@ const { orientation, canScrollNext, scrollNext } = useCarousel();
 
 <template>
   <Button
-    :disabled="!canScrollNext"
+  v-if="canScrollNext"
     :class="
       cn(
         'touch-manipulation absolute h-8 w-8 rounded-full p-0',
@@ -26,8 +26,8 @@ const { orientation, canScrollNext, scrollNext } = useCarousel();
     variant="outline"
     @click="scrollNext"
   >
-    <slot>
-      <ArrowRight class="h-4 w-4 text-current" />
+    <slot >
+      <ArrowRight class="h-4 w-4 text-current"/>
     </slot>
   </Button>
 </template>

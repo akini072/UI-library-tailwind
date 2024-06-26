@@ -1,6 +1,5 @@
 import '@/assets/index.css'
 import '@/assets/styles/global.scss'
-
 import VSpinner from '@/components/base/VSpinner'
 import ExternalLink from '@/components/base/ExternalLink'
 import Loading from '@/components/base/Loading'
@@ -15,6 +14,7 @@ import VRadio from '@/components/base/VRadio'
 import ConfirmationPopup from '@/components/base/ConfirmationPopup'
 import SelectButton from '@/components/base/SelectButton'
 import QuickActionsBtn from '@/components/base/QuickActionsBtn'
+
 import { ScrollArea, ScrollBar } from '@/components/shadcn/scroll-area'
 import {
   Carousel,
@@ -25,6 +25,22 @@ import {
 } from '@/components/shadcn/carousel'
 import Lazy from '@/components/base/Lazy'
 import VSwitch from '@/components/base/VSwitch'
+import { ShadInput } from './components/shadcn/input'
+import ShadSearchInput from '@/components/shadcn/ShadSearchInput'
+import { NavigationMenuLink } from '@/components/shadcn/navigation-menu'
+import ShadToolTip from '@/components/base/VTooltip.vue'
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+} from '@/components/shadcn/select'
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuList
+} from '@/components/shadcn/navigation-menu'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -36,7 +52,6 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSub,
 } from '@/components/shadcn/dropdown-menu'
-
 export {
   VSpinner,
   ExternalLink,
@@ -61,6 +76,18 @@ export {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuList,
+  ShadInput,
+  ShadSearchInput,
+  NavigationMenuLink,
+  ShadToolTip,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -70,4 +97,12 @@ export {
   DropdownMenuSub,
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
+}
+
+// plugin to register globally for app.use(optional depending on how we want to use the components)
+export default {
+  install: (app, options) => {
+    // set the name of the component
+    app.component("VSpinner", VSpinner);
+  },
 }

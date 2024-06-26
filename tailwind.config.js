@@ -14,6 +14,10 @@ module.exports = {
   ],
 
   theme: {
+    fontSize: {
+      xxs: '0.5625rem',
+      xsm: '0.875rem'
+    },
     container: {
       center: true,
       padding: '2rem',
@@ -56,12 +60,13 @@ module.exports = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        activeBG: '#E9F1FF'
       },
       borderRadius: {
-        xl: 'calc(var(--radius) + 4px)',
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        xl: '1.5rem',
+        lg: '1rem',
+        md: '0.375rem',
+        sm: '0.25rem',
       },
       keyframes: {
         'accordion-down': {
@@ -86,6 +91,17 @@ module.exports = {
         'accordion-up': 'accordion-up 0.2s ease-out',
         'collapsible-down': 'collapsible-down 0.2s ease-in-out',
         'collapsible-up': 'collapsible-up 0.2s ease-in-out',
+      },
+      boxShadow: {
+        'search-focus': '0 0 0 1px hsla(220, 100%, 50%, 80%)',
+        'custom': '0 5px 10px rgba(0, 0, 0, .08);'
+      },
+      spacing: {
+        '6.5': '1.625rem', // 26px
+        '7.5': '1.875rem' // 30px
+      },
+      padding: {
+        '5.5': '1.375rem'
       },
     },
   },
