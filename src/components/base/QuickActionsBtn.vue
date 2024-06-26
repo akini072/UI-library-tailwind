@@ -1,121 +1,118 @@
 <template>
-  <div
-    class="quick-actions-btn d-flex align-center"
-    @click.stop
-    @click.prevent
-    :class="{ disabled }"
-  >
-    <tippy
-      :ref="'quick_action_btn_tippy_' + id"
-      interactive
-      :animate-fill="false"
-      placement="bottom-end"
-      distant="7"
-      theme="light"
-      animation="fade"
-      trigger="click"
-      @state="handleTriggerTippy"
-    >
-      <template #default>
+  <div>
+    <DropdownMenu>
+      <DropdownMenuTrigger as-child >
         <v-button
-          v-tippy
           icon
           variant="text"
           size="medium"
           :color="color"
-          :content="!noTooltip ? content : null"
           :loading="loading"
+          @click="$emit('is-active:dropdown', true)"
         >
-          <v-icon
-            v-if="vertical"
-            name="dots-vertical"
-            height="18px"
-            class="mr-2"
-            color="var(--gray-400)"
-          />
-          <v-icon v-else name="ellipsis" width="18px" color="var(--gray-400)" />
+          <v-tooltip :tooltip="content ">
+            <v-icon
+              v-if="vertical"
+              name="dots-vertical"
+              height="18px"
+              class="mr-2"
+              color="var(--gray-400)"
+            />
+            <v-icon
+              v-else
+              name="ellipsis"
+              width="18px"
+              color="var(--gray-400)"
+            />
+          </v-tooltip>
         </v-button>
-      </template>
-      <template #content>
-        <div class="menu-items py-1">
-          <menu-item
-            v-for="(item, index) in items"
-            :label="item.label || item"
-            :icon="item.icon || ''"
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" class="text--gray-500 min-w-[150px]">
+        <template v-for="(item, index) in items" :key="index">
+          <DropdownMenuSeparator v-if="item === ''" />
+          <DropdownMenuItem
+            v-else
             :active="item.active || false"
             :disabled="item.disabled || false"
-            :key="'menu_item_' + index"
             @click.stop="click(item, $event)"
-          />
-        </div>
-      </template>
-    </tippy>
+          >
+            <v-icon
+              v-if="item.icon"
+              class="mr-2"
+              :name="item.icon"
+              height="16px"
+            />
+            <span class="font-weight-regular">{{ item.label }}</span>
+          </DropdownMenuItem>
+        </template>
+      </DropdownMenuContent>
+    </DropdownMenu>
   </div>
 </template>
 
 <script>
-import MenuItem from '@/components/base/MenuItem.vue'
-import VButton from '@/components/base/VButton.vue'
-import VIcon from '@/components/base/VIcon.vue'
+import { defineAsyncComponent } from 'vue'
 
-let id = 0
 export default {
   name: 'quick-actions-btn',
-  components: { MenuItem, VButton, VIcon },
+  components: {
+    VButton: defineAsyncComponent(() => import('@/components/base/VButton')),
+    VTooltip: defineAsyncComponent(() => import('@/components/base/VTooltip')),
+    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')),
+    DropdownMenu: defineAsyncComponent(() =>
+      import('@/components/shadcn/dropdown-menu/DropdownMenu'),
+    ),
+    DropdownMenuTrigger: defineAsyncComponent(() =>
+      import('@/components/shadcn/dropdown-menu/DropdownMenuTrigger'),
+    ),
+    DropdownMenuItem: defineAsyncComponent(() =>
+      import('@/components/shadcn/dropdown-menu/DropdownMenuItem'),
+    ),
+    DropdownMenuContent: defineAsyncComponent(() =>
+      import('@/components/shadcn/dropdown-menu/DropdownMenuContent'),
+    ),
+    DropdownMenuSeparator: defineAsyncComponent(() =>
+      import('@/components/shadcn/dropdown-menu/DropdownMenuSeparator'),
+    ),
+  },
+  emits: ['itemClick', 'menuClick', 'is-active:dropdown'],
   props: {
     content: {
-      default: 'Quick actions'
+      default: 'Quick actions',
     },
     disabled: {
       default: false,
-      type: Boolean
+      type: Boolean,
     },
     noTooltip: {
       default: false,
-      type: Boolean
+      type: Boolean,
     },
     items: {
-      type: Array
+      type: Array,
     },
     loading: {
       type: Boolean,
-      default: false
+      default: false,
     },
     vertical: {
       type: Boolean,
-      default: false
+      default: false,
     },
     color: {
       type: String,
-      default: ''
-    }
-  },
-  data() {
-    return {
-      id: id++
-    }
+      default: '',
+    },
   },
   methods: {
     click(item, ev) {
       let action = item.label || item
-      let tippy = this.$refs[`quick_action_btn_tippy_${this.id}`]
-      tippy.hide()
       this.$emit('menuClick', { action, event: ev, ...item })
       this.$emit('itemClick', { action, event: ev, ...item })
     },
     handleTriggerTippy({ isVisible }) {
       this.$emit('is-active:tippy', isVisible)
-    }
-  }
+    },
+  },
 }
 </script>
-
-<style lang="scss">
-.disabled {
-  pointer-events: none;
-}
-
-.menu-items {
-  min-width: 150px;
-}
-</style>
