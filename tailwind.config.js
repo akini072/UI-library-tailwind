@@ -14,10 +14,6 @@ module.exports = {
   ],
 
   theme: {
-    fontSize: {
-      xxs: '0.5625rem',
-      xsm: '0.875rem'
-    },
     container: {
       center: true,
       padding: '2rem',

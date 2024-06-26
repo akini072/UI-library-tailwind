@@ -1,5 +1,6 @@
 import '@/assets/index.css'
 import '@/assets/styles/global.scss'
+
 import VSpinner from '@/components/base/VSpinner'
 import ExternalLink from '@/components/base/ExternalLink'
 import Loading from '@/components/base/Loading'

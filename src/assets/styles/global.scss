@@ -48,10 +48,11 @@ body {
 #app {
   height: 100%;
   width: 100%;
-  margin: 0;
+  margin: 0 auto;
   display: flex;
   flex: 1;
   flex-direction: column;
+  max-width: 1900px;
   background-color: white;
 }
 
