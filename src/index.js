@@ -52,6 +52,8 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSub,
 } from '@/components/shadcn/dropdown-menu'
+import DatePicker from './components/base/DatePicker.vue'
+
 export {
   VSpinner,
   ExternalLink,
@@ -97,6 +99,7 @@ export {
   DropdownMenuSub,
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
+  DatePicker,
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)

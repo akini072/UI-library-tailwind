@@ -23,6 +23,7 @@ export default defineConfig({
       name: 'FunnelishComponentLib',
       // the name of the output files when the build is run (should match package.json main/module/exports)
       fileName: 'ui-lib',
+      formats: ['es']
     },
     // vite uses rollup to compile the code
     rollupOptions: {
@@ -32,6 +33,12 @@ export default defineConfig({
         // provide global variables to use in the build
         globals: {
           vue: 'Vue',
+        },
+        inlineDynamicImports: false,
+        manualChunks: (id) => {
+          if (id.includes('moment-timezone')) return 'moment-timezone'
+          if (id.includes('moment')) return 'moment'
+          if (id.includes('date-fns')) return 'date-fns'
         },
       },
     },
