@@ -22,7 +22,7 @@ const delegatedProps = computed(() => {
   <PaginationFirst v-bind="delegatedProps">
     <Button :class="cn('w-10 h-10 p-0', props.class)" variant="outline">
       <slot>
-        <ChevronsLeft class="h-4 w-4" />
+        <ChevronsLeft class="h-[16px] w-[16px]" />
       </slot>
     </Button>
   </PaginationFirst>

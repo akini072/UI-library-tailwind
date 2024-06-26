@@ -60,6 +60,22 @@ const forwardedProps = useForwardProps(delegatedProps);
   }
 }
 
+.footer-select{
+  width: 120px;
+  &:hover {
+    & .select-icon {
+      & svg {
+        fill: var(--gray-700);
+      }
+    }
+
+    & .item-indicator {
+      &>svg {
+        stroke: var(--gray-700);
+      }
+    }
+  }
+}
 .active_select_item {
   background-color: #E9F1FF;
   color: var(--primary-500);
