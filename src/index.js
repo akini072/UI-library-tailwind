@@ -33,7 +33,8 @@ import {
   Select,
   SelectTrigger,
   SelectContent,
-  SelectItem
+  SelectItem,
+  SelectValue,
 } from '@/components/shadcn/select'
 import {
   NavigationMenu,
@@ -58,8 +59,10 @@ import {
   PaginationList,
   PaginationNext,
   PaginationPrev,
+  PaginationListItem,
+  PaginationEllipsis
 } from '@/components/shadcn/pagination'
-
+import VPagination from '@/components/shadcn/VPagination.vue'
 export {
   VSpinner,
   ExternalLink,
@@ -88,6 +91,7 @@ export {
   SelectTrigger,
   SelectContent,
   SelectItem,
+  SelectValue,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
@@ -104,12 +108,15 @@ export {
   DropdownMenuSub,
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
+  VPagination,
   Pagination,
   PaginationFirst,
   PaginationLast,
   PaginationList,
   PaginationNext,
   PaginationPrev,
+  PaginationListItem,
+  PaginationEllipsis
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)

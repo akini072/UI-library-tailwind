@@ -44,7 +44,7 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 </script>
 
 <template>
-  <DropdownMenuPortal style="width: 0 !important;">
+  <DropdownMenuPortal>
     <DropdownMenuContent
       v-bind="forwarded"
       :class="
