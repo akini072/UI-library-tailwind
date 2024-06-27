@@ -54,6 +54,16 @@ import {
   DropdownMenuSub,
 } from '@/components/shadcn/dropdown-menu'
 import DatePicker from './components/base/DatePicker.vue'
+import {
+  PaginationEllipsis,
+  PaginationFirst,
+  PaginationLast,
+  PaginationNext,
+  PaginationPrev,
+  PaginationList,
+  PaginationListItem,
+  Pagination,
+} from '@/components/shadcn/pagination';
 
 export {
   VSpinner,
@@ -101,6 +111,14 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
   DatePicker,
+  PaginationEllipsis,
+  PaginationFirst,
+  PaginationLast,
+  PaginationNext,
+  PaginationPrev,
+  PaginationList,
+  PaginationListItem,
+  Pagination,
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
