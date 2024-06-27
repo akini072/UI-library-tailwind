@@ -53,6 +53,7 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSub,
 } from '@/components/shadcn/dropdown-menu'
+import RangeDatePicker from './components/base/RangeDatePicker.vue'
 import DatePicker from './components/base/DatePicker.vue'
 
 export {
@@ -101,6 +102,7 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
   DatePicker,
+  RangeDatePicker,
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
