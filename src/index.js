@@ -1,5 +1,6 @@
 import '@/assets/index.css'
 import '@/assets/styles/global.scss'
+
 import VSpinner from '@/components/base/VSpinner'
 import ExternalLink from '@/components/base/ExternalLink'
 import Loading from '@/components/base/Loading'
@@ -52,17 +53,8 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSub,
 } from '@/components/shadcn/dropdown-menu'
-import {
-  Pagination,
-  PaginationFirst,
-  PaginationLast,
-  PaginationList,
-  PaginationNext,
-  PaginationPrev,
-  PaginationListItem,
-  PaginationEllipsis
-} from '@/components/shadcn/pagination'
-import VPagination from '@/components/shadcn/VPagination.vue'
+import DatePicker from './components/base/DatePicker.vue'
+
 export {
   VSpinner,
   ExternalLink,
@@ -108,15 +100,7 @@ export {
   DropdownMenuSub,
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
-  VPagination,
-  Pagination,
-  PaginationFirst,
-  PaginationLast,
-  PaginationList,
-  PaginationNext,
-  PaginationPrev,
-  PaginationListItem,
-  PaginationEllipsis
+  DatePicker,
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
