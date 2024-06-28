@@ -64,6 +64,7 @@ import {
   PaginationListItem,
   Pagination,
 } from '@/components/shadcn/pagination';
+import { Checkbox as CheckBox } from '@/components/shadcn/checkbox';
 
 export {
   VSpinner,
@@ -119,6 +120,7 @@ export {
   PaginationList,
   PaginationListItem,
   Pagination,
+  CheckBox,
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
