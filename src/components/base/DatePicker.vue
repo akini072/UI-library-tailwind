@@ -101,6 +101,7 @@ export default {
   },
   methods: {
     formatDate(dateTime) {
+      if (!dateTime) return ''
       if (this.isTimePicker) return `${dateTime.hours}:${dateTime.minutes}`
       return moment(dateTime).format('DD MMM yyyy')
     },
