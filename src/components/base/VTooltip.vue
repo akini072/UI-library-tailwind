@@ -14,7 +14,7 @@ const props = defineProps({
 <template>
   <TooltipProvider>
     <Tooltip :delay-duration="0">
-      <TooltipTrigger as-child>
+      <TooltipTrigger as="div">
         <slot />
       </TooltipTrigger>
       <TooltipContent

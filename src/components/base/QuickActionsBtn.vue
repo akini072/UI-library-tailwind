@@ -1,53 +1,46 @@
 <template>
-  <div>
-    <DropdownMenu>
-      <DropdownMenuTrigger as-child >
-        <v-button
-          icon
-          variant="text"
-          size="medium"
-          :color="color"
-          :loading="loading"
-          @click="$emit('is-active:dropdown', true)"
+  <DropdownMenu>
+    <DropdownMenuTrigger as="div">
+      <v-button
+        icon
+        variant="text"
+        size="medium"
+        :color="color"
+        :loading="loading"
+        @click="$emit('is-active:dropdown', true)"
+      >
+        <v-tooltip :tooltip="content">
+          <v-icon
+            v-if="vertical"
+            name="dots-vertical"
+            height="18px"
+            class="mr-2"
+            color="var(--gray-400)"
+          />
+          <v-icon v-else name="ellipsis" width="18px" color="var(--gray-400)" />
+        </v-tooltip>
+      </v-button>
+    </DropdownMenuTrigger>
+    <DropdownMenuContent align="end" class="text--gray-500 min-w-[150px]">
+      <template v-for="(item, index) in items" :key="index">
+        <DropdownMenuSeparator v-if="item === ''" />
+        <DropdownMenuItem
+          v-else
+          :active="item.active || false"
+          :disabled="item.disabled || false"
+          @click.stop="click(item, $event)"
         >
-          <v-tooltip :tooltip="content ">
-            <v-icon
-              v-if="vertical"
-              name="dots-vertical"
-              height="18px"
-              class="mr-2"
-              color="var(--gray-400)"
-            />
-            <v-icon
-              v-else
-              name="ellipsis"
-              width="18px"
-              color="var(--gray-400)"
-            />
-          </v-tooltip>
-        </v-button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" class="text--gray-500 min-w-[150px]">
-        <template v-for="(item, index) in items" :key="index">
-          <DropdownMenuSeparator v-if="item === ''" />
-          <DropdownMenuItem
-            v-else
-            :active="item.active || false"
-            :disabled="item.disabled || false"
-            @click.stop="click(item, $event)"
-          >
-            <v-icon
-              v-if="item.icon"
-              class="mr-2"
-              :name="item.icon"
-              height="16px"
-            />
-            <span class="font-weight-regular">{{ item.label }}</span>
-          </DropdownMenuItem>
-        </template>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  </div>
+          <v-icon
+            v-if="item.icon"
+            class="mr-2"
+            :name="item.icon"
+            height="16px"
+          />
+          <span class="font-weight-regular">{{ item.label }}</span>
+        </DropdownMenuItem>
+      </template>
+    </DropdownMenuContent>
+  </DropdownMenu>
 </template>
 
 <script>
