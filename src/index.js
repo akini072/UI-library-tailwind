@@ -65,8 +65,7 @@ import {
   PaginationListItem,
   Pagination,
 } from '@/components/shadcn/pagination';
-import { Checkbox as CheckBox } from '@/components/shadcn/checkbox';
-
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/shadcn/popover';
 export {
   VSpinner,
   ExternalLink,
@@ -121,8 +120,10 @@ export {
   PaginationList,
   PaginationListItem,
   Pagination,
-  CheckBox,
   RangeDatePicker,
+  Popover, 
+  PopoverContent, 
+  PopoverTrigger
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
