@@ -125,7 +125,7 @@
         {{ length }} / {{ maxLength }}
       </span>
     </fieldset>
-    <h6 class="__hint">
+    <h6 v-if="hint" class="__hint">
       {{ hint }}
     </h6>
   </div>
