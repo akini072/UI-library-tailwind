@@ -10,7 +10,7 @@ const props = defineProps({
   as: { type: null, required: false },
   class: { type: null, required: false },
   isOpen: { type: Boolean, required: false, default: true },
-  isCheckIcon: { type: Boolean, required: false, default: true }
+  hasCheckIcon: { type: Boolean, required: false, default: true }
 });
 
 const delegatedProps = computed(() => {
@@ -29,7 +29,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   )
     ">
     <slot />
-    <SelectIcon as-child v-if="isCheckIcon">
+    <SelectIcon as-child v-if="hasCheckIcon">
       <ChevronDown v-if="!isOpen" class="w-4 h-4 stroke-[var(--gray-600)]" />
       <ChevronUp v-else class="w-4 h-4 stroke-[var(--gray-600)]" />
     </SelectIcon>
