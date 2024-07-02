@@ -21,7 +21,7 @@
         [variant]: true,
         active: isActive,
         disabled,
-        textarea
+        textarea,
       }"
       :style="{
         width,
@@ -59,7 +59,7 @@
         :class="{
           'px-3': !noInputPadding && !copyButton,
           'pl-3': copyButton,
-          'has-max-length': !!maxLength
+          'has-max-length': !!maxLength,
         }"
         :placeholder="placeholder"
         :value="modelValue"
@@ -90,19 +90,22 @@
         @blur="$emit('blur'), (isActive = false)"
         @dblclick="$refs.input.select"
       />
-      <div v-if="copyButton">
-        <v-button
-          v-tippy="{ hideOnClick: false, duration: [350, 400], visible: true }"
-          ref="shareUrlCopyButton"
-          :content="copyTooltip"
-          class="mr-2"
-          variant="text"
-          :size="size === 'default' ? 'medium' : 'small'"
-          icon
-          @click="copyToClipboard(shareUrl)"
-        >
-          <v-icon name="copy_link" height="16px" color="var(--gray-500)" />
-        </v-button>
+      <div
+        v-if="copyButton"
+        class="border-l h-full pointer d-flex align-center px-2"
+        v-tippy="{ hideOnClick: false, duration: [350, 400], visible: true }"
+        ref="shareUrlCopyButton"
+        :content="copyTooltip"
+        @click="copyToClipboard(shareUrl)"
+      >
+        <v-icon
+          name="copy_link"
+          height="16px"
+          color="var(--gray-700)"
+        />
+        <h6 class="text--gray-700 font-weight-medium ml-1">
+          {{ copyButtonText }}
+        </h6>
       </div>
       <slot v-if="!!$slots.append" name="append" />
       <div
@@ -121,10 +124,10 @@
       >
         {{ length }} / {{ maxLength }}
       </span>
-      <h6 class="__hint">
-        {{ hint }}
-      </h6>
     </fieldset>
+    <h6 class="__hint">
+      {{ hint }}
+    </h6>
   </div>
 </template>
 <script>
@@ -248,6 +251,10 @@ export default {
       type: Number,
       default: 1,
     },
+    copyButtonText: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -307,7 +314,8 @@ export default {
     border: 1px solid var(--primary-300);
   }
 
-  input, textarea {
+  input,
+  textarea {
     font-size: 14px;
     border-radius: 6px;
     height: 100%;
@@ -317,10 +325,6 @@ export default {
     color: var(--gray-900);
     &::placeholder {
       color: var(--gray-400);
-    }
-    &:focus + .__hint {
-      opacity: 1;
-      bottom: -22px;
     }
   }
 
@@ -349,14 +353,6 @@ export default {
     opacity: 0.6;
     pointer-events: none;
   }
-  .__hint {
-    color: var(--gray-400);
-    position: absolute;
-    bottom: -18px;
-    margin-left: 6px;
-    opacity: 0;
-    transition: all 200ms ease;
-  }
 
   .max-length {
     border-radius: 5px 0 5px 0;
@@ -379,5 +375,10 @@ export default {
     background: #fff;
     padding: 0px 4px;
   }
+}
+
+.__hint {
+  color: var(--gray-600);
+  margin-top: 4px;
 }
 </style>

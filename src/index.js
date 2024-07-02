@@ -29,7 +29,7 @@ import VSwitch from '@/components/base/VSwitch'
 import { ShadInput } from './components/shadcn/input'
 import ShadSearchInput from '@/components/shadcn/ShadSearchInput'
 import { NavigationMenuLink } from '@/components/shadcn/navigation-menu'
-import ShadToolTip from '@/components/base/VTooltip.vue'
+import VTooltip from '@/components/base/VTooltip.vue'
 import {
   Select,
   SelectTrigger,
@@ -66,6 +66,8 @@ import {
   Pagination,
 } from '@/components/shadcn/pagination';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/shadcn/popover';
+import Drawer from './components/base/Drawer.vue'
+
 export {
   VSpinner,
   ExternalLink,
@@ -101,7 +103,7 @@ export {
   ShadInput,
   ShadSearchInput,
   NavigationMenuLink,
-  ShadToolTip,
+  VTooltip,
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -123,7 +125,8 @@ export {
   RangeDatePicker,
   Popover, 
   PopoverContent, 
-  PopoverTrigger
+  PopoverTrigger,
+  Drawer,
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)

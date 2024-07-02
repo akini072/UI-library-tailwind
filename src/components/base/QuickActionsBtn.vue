@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div @click.stop>
     <DropdownMenu>
       <DropdownMenuTrigger as="div">
         <v-button
           icon
-          variant="text"
-          size="medium"
+          :size="buttonSize"
+          :variant="buttonVariant"
           :color="color"
           :loading="loading"
           @click="$emit('is-active:dropdown', true)"
@@ -15,14 +15,13 @@
               v-if="vertical"
               name="dots-vertical"
               height="18px"
-              class="mr-2"
-              color="var(--gray-400)"
+              :color="buttonIconColor"
             />
             <v-icon
               v-else
               name="ellipsis"
               width="18px"
-              color="var(--gray-400)"
+              :color="buttonIconColor"
             />
           </v-tooltip>
         </v-button>
@@ -103,6 +102,18 @@ export default {
       type: String,
       default: '',
     },
+    buttonVariant: {
+      type: String,
+      default: 'text'
+    },
+    buttonSize: {
+      type: String,
+      default: 'medium'
+    },
+    buttonIconColor: {
+      type: String,
+      default: 'var(--gray-400)'
+    }
   },
   methods: {
     click(item, ev) {

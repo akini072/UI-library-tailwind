@@ -18,15 +18,10 @@
     <div v-if="loading" class="loading__spinner">
       <v-spinner />
     </div>
-    <div
-      class="d-flex align-center"
-      :class="{ 'btn-content loading': loading }"
-    >
-      <template v-if="label">
-        {{ label }}
-      </template>
-      <slot v-else />
-    </div>
+    <template v-if="label">
+      {{ label }}
+    </template>
+    <slot v-else />
   </button>
 </template>
 
@@ -115,7 +110,7 @@ button {
   background-color: #fff;
   border: 1px solid #d0d5dd;
   color: var(--gray-700);
-  height: 36px;
+  height: 32px;
   min-width: fit-content;
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   transition: background-color 400ms ease;
@@ -170,8 +165,8 @@ button {
     background: var(--gray-100);
   }
   &.icon {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
     padding: 0px;
     &.medium {
       min-width: 28px;
@@ -200,6 +195,10 @@ button {
 
   .loading__spinner {
     position: absolute;
+    background: var(--gray-100);
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
   }
 
   &.color--primary {

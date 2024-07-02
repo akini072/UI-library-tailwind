@@ -25,7 +25,7 @@
       @update:model-value="handleUpdateDate"
     >
       <template #dp-input>
-        <v-button class="picker__btn" :size="size" block>
+        <v-button class="picker__btn" :size="size">
           <v-icon
             v-if="isTimePicker"
             name="clock-outline"
@@ -128,7 +128,7 @@ export default {
     --dp-hover-color: var(--primary-25);
 
     .dp__input {
-      height: 36px;
+      height: 32px;
     }
     .dp__input_icons {
       width: 14px;
