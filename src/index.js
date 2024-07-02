@@ -55,7 +55,17 @@ import {
 } from '@/components/shadcn/dropdown-menu'
 import RangeDatePicker from './components/base/RangeDatePicker.vue'
 import DatePicker from './components/base/DatePicker.vue'
-
+import {
+  PaginationEllipsis,
+  PaginationFirst,
+  PaginationLast,
+  PaginationNext,
+  PaginationPrev,
+  PaginationList,
+  PaginationListItem,
+  Pagination,
+} from '@/components/shadcn/pagination';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/shadcn/popover';
 export {
   VSpinner,
   ExternalLink,
@@ -102,7 +112,18 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
   DatePicker,
+  PaginationEllipsis,
+  PaginationFirst,
+  PaginationLast,
+  PaginationNext,
+  PaginationPrev,
+  PaginationList,
+  PaginationListItem,
+  Pagination,
   RangeDatePicker,
+  Popover, 
+  PopoverContent, 
+  PopoverTrigger
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
