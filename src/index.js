@@ -66,7 +66,7 @@ import {
   Pagination,
 } from '@/components/shadcn/pagination';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/shadcn/popover';
-import { Skeleton } from '@ /components/shadcn/skelton'
+import { Skeleton } from '@/components/shadcn/skelton'
 import Drawer from './components/base/Drawer.vue'
 
 export {
