@@ -70,6 +70,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/shadcn/popover'
+import { Skeleton } from '@ /components/shadcn/skelton'
 import Drawer from './components/base/Drawer.vue'
 import {
   Table,
@@ -153,6 +154,7 @@ export {
   TableHeader,
   TableRow,
   Checkbox,
+  Skeleton,
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
