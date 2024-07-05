@@ -70,7 +70,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/shadcn/popover'
-import { Skeleton } from '@ /components/shadcn/skelton'
+import { Skeleton } from '@ /components/shadcn/skelton';
 import Drawer from './components/base/Drawer.vue'
 import {
   Table,
