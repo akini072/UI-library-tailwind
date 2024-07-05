@@ -221,7 +221,7 @@ export default {
     },
     size: {
       type: String,
-      default: 'default',
+      default: 'small',
     },
     hint: {
       type: String,
@@ -347,7 +347,7 @@ export default {
   }
 
   &.medium {
-    height: 30px;
+    height: 32px;
   }
   &.disabled {
     opacity: 0.6;

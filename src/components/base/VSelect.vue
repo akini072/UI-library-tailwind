@@ -122,7 +122,7 @@ export default {
     },
     size: {
       type: String,
-      default: 'large',
+      default: 'small',
     },
     width: {
       type: String,
@@ -236,6 +236,8 @@ export default {
 }
 
 .multiselect {
+  border-radius: 6px;
+
   &:not(.disabled):hover {
     border: 1px solid var(--primary-300);
   }
