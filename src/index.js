@@ -66,6 +66,7 @@ import {
   Pagination,
 } from '@/components/shadcn/pagination';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/shadcn/popover';
+import { Skeleton } from '@ /components/shadcn/skelton'
 import Drawer from './components/base/Drawer.vue'
 
 export {
@@ -127,6 +128,7 @@ export {
   PopoverContent, 
   PopoverTrigger,
   Drawer,
+  Skeleton,
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
