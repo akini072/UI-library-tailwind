@@ -155,6 +155,15 @@ export {
   TableRow,
   Checkbox,
   Skeleton,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableEmpty,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
   Checkbox,
 }
 
