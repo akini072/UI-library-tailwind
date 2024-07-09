@@ -40,7 +40,7 @@ import {
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuList
+  NavigationMenuList,
 } from '@/components/shadcn/navigation-menu'
 import {
   DropdownMenu,
@@ -64,9 +64,25 @@ import {
   PaginationList,
   PaginationListItem,
   Pagination,
-} from '@/components/shadcn/pagination';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/shadcn/popover';
+} from '@/components/shadcn/pagination'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/shadcn/popover'
 import Drawer from './components/base/Drawer.vue'
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableEmpty,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/shadcn/table'
+import { Checkbox } from '@/components/shadcn/checkbox'
 
 export {
   VSpinner,
@@ -123,16 +139,26 @@ export {
   PaginationListItem,
   Pagination,
   RangeDatePicker,
-  Popover, 
-  PopoverContent, 
+  Popover,
+  PopoverContent,
   PopoverTrigger,
   Drawer,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableEmpty,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+  Checkbox,
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
 export default {
   install: (app, options) => {
     // set the name of the component
-    app.component("VSpinner", VSpinner);
+    // app.component('VSpinner', VSpinner)
   },
 }
