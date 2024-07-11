@@ -86,7 +86,7 @@
         :step="step"
         :maxlength="maxLength"
         @input="onInput"
-        @focus="isActive = true"
+        @focus="$emit('focus'), (isActive = true)"
         @blur="$emit('blur'), (isActive = false)"
         @dblclick="$refs.input.select"
       />
@@ -98,11 +98,7 @@
         :content="copyTooltip"
         @click="copyToClipboard(shareUrl)"
       >
-        <v-icon
-          name="copy_link"
-          height="16px"
-          color="var(--gray-700)"
-        />
+        <v-icon name="copy_link" height="16px" color="var(--gray-700)" />
         <h6 class="text--gray-700 font-weight-medium ml-1">
           {{ copyButtonText }}
         </h6>
