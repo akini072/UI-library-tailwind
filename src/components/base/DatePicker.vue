@@ -102,7 +102,9 @@ export default {
   methods: {
     formatDate(dateTime) {
       if (!dateTime) return ''
-      if (this.isTimePicker) return `${dateTime.hours}:${dateTime.minutes}`
+      let hoursLabel = `${dateTime.hours >= 10 ? dateTime.hours : '0' + dateTime.hours}`
+      let minutesLabels = `${dateTime.minutes >= 10 ? dateTime.minutes : '0' + dateTime.minutes}`
+      if (this.isTimePicker) return `${hoursLabel}:${minutesLabels}`
       return moment(dateTime).format('DD MMM yyyy')
     },
     handleUpdateDate(dateTime) {
