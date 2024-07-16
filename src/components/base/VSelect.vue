@@ -2,7 +2,7 @@
   <div class="custom__select" ref="element">
     <label v-if="label" class="d-flex align-center custom-select__label">
       <span class="text-nowrap font-weight-medium">
-        {{ label }}
+        {{ label }}<sup class="required" v-if="required">*</sup>
       </span>
       <span class="font-weight-regular ml-2" v-if="optional">(optional)</span>
       <info-icon
@@ -164,6 +164,9 @@ export default {
       type: Boolean,
       default: false,
     },
+    required: {
+      type: Boolean,
+    },
     disabled: {
       type: Boolean,
       default: false,
@@ -233,6 +236,9 @@ export default {
 .custom-select__label {
   margin-bottom: 6px;
   color: var(--gray-600);
+  .required {
+    color: var(--error-500);
+  }
 }
 
 .multiselect {

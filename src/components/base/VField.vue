@@ -2,7 +2,7 @@
   <div>
     <label v-if="label" class="d-flex align-center text--gray-600">
       <span class="text-nowrap font-weight-medium">
-        {{ label }}
+        {{ label }}<sup class="required" v-if="required">*</sup>
       </span>
       <span class="font-weight-regular ml-2" v-if="optional">(optional)</span>
       <info-icon
@@ -255,6 +255,9 @@ export default {
       type: String,
       default: '',
     },
+    required: {
+      type: Boolean,
+    }
   },
   data() {
     return {
@@ -281,6 +284,9 @@ export default {
 </script>
 
 <style lang="scss">
+.required {
+  color: var(--error-500);
+}
 .v-input__fieldset {
   display: flex;
   align-items: center;

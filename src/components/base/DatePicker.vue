@@ -116,6 +116,14 @@ export default {
 </script>
 <style lang="scss">
 .date-picker__wrapper {
+  .picker__btn {
+    justify-content: flex-start;
+    .icon {
+      svg {
+        color: var(--gray-300);
+      }
+    }
+  }
   .picker-icon__btn {
     display: none;
   }
