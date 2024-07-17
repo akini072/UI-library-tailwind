@@ -56,6 +56,10 @@ body {
   background-color: white;
 }
 
+*:focus-visible {
+  outline: none;
+}
+
 a {
   color: var(--primary-500);
 }

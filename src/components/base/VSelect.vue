@@ -114,7 +114,7 @@ export default {
       required: false,
     },
     modelValue: {
-      type: [Number, String, Array, Object],
+      type: [Number, String, Array, Object, Boolean],
     },
     info: {
       type: String,

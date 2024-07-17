@@ -298,13 +298,14 @@ export default {
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 
   &.textarea {
-    height: auto;
+    height: auto!important;
     overflow: hidden;
 
     textarea {
       flex: 1;
       height: auto;
       padding: 10px 12px;
+      resize: vertical;
 
       &.has-max-length {
         resize: none;

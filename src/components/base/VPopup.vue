@@ -102,9 +102,8 @@ export default {
       width: 800px;
     }
     .actions {
-      display: grid;
+      display: flex;
       grid-gap: 12px;
-      grid-template-columns: repeat(auto-fit, minmax(50px, min-content));
       justify-content: end;
     }
     .loading__spinner {
