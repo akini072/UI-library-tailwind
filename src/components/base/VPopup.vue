@@ -25,7 +25,6 @@
         <div class="divider" />
       </div>
       <slot name="body" />
-
       <div class="border-t px-5 py-3 actions" v-if="$slots.actions">
         <slot name="actions" />
       </div>
