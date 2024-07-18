@@ -85,6 +85,7 @@ import {
 } from '@/components/shadcn/table'
 import { Checkbox } from '@/components/shadcn/checkbox'
 
+
 export {
   VSpinner,
   ExternalLink,
@@ -153,8 +154,8 @@ export {
   TableHead,
   TableHeader,
   TableRow,
-  Checkbox,
   Skeleton,
+  Checkbox,
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
