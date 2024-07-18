@@ -70,9 +70,21 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/shadcn/popover'
-import { Skeleton } from '@/components/shadcn/skeleton'
+import { Skeleton } from '@/components/shadcn/skeleton';
 import Drawer from './components/base/Drawer.vue'
-import { Checkbox } from './components/shadcn/checkbox'
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableEmpty,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/shadcn/table'
+import { Checkbox } from '@/components/shadcn/checkbox'
+
 
 export {
   VSpinner,
@@ -133,6 +145,15 @@ export {
   PopoverContent,
   PopoverTrigger,
   Drawer,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableEmpty,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
   Skeleton,
   Checkbox,
 }
@@ -141,6 +162,6 @@ export {
 export default {
   install: (app, options) => {
     // set the name of the component
-    app.component('VSpinner', VSpinner)
+    // app.component('VSpinner', VSpinner)
   },
 }

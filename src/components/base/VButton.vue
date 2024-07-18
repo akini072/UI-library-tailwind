@@ -108,7 +108,7 @@ button {
   letter-spacing: 0.28px;
   border-radius: 8px;
   background-color: #fff;
-  border: 1px solid #d0d5dd;
+  border: 1px solid var(--gray-300);
   color: var(--gray-700);
   height: 32px;
   min-width: fit-content;

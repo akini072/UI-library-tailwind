@@ -71,7 +71,9 @@ export default {
     }
   },
   mounted() {
-    this.show = true
+    setTimeout(() => {
+      this.show = true
+    }, 100)
   }
 }
 </script>

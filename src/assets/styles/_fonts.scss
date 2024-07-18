@@ -17,6 +17,7 @@ $weights: (
   'regular': 400,
   'medium': 500,
   'bold': 600,
+  'extra-bold': 700
 );
 
 @each $name, $glyph in $weights {

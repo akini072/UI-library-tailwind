@@ -25,7 +25,6 @@
         <div class="divider" />
       </div>
       <slot name="body" />
-
       <div class="border-t px-5 py-3 actions" v-if="$slots.actions">
         <slot name="actions" />
       </div>
@@ -102,9 +101,8 @@ export default {
       width: 800px;
     }
     .actions {
-      display: grid;
+      display: flex;
       grid-gap: 12px;
-      grid-template-columns: repeat(auto-fit, minmax(50px, min-content));
       justify-content: end;
     }
     .loading__spinner {

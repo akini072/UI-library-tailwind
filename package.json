@@ -28,6 +28,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/vue-table": "^8.19.2",
     "@vueform/multiselect": "^2.6.7",
     "@vuepic/vue-datepicker": "^8.8.0",
     "class-variance-authority": "^0.7.0",

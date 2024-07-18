@@ -2,7 +2,7 @@
   <div class="custom__select" ref="element">
     <label v-if="label" class="d-flex align-center custom-select__label">
       <span class="text-nowrap font-weight-medium">
-        {{ label }}
+        {{ label }}<sup class="required" v-if="required">*</sup>
       </span>
       <span class="font-weight-regular ml-2" v-if="optional">(optional)</span>
       <info-icon
@@ -114,7 +114,7 @@ export default {
       required: false,
     },
     modelValue: {
-      type: [Number, String, Array, Object],
+      type: [Number, String, Array, Object, Boolean],
     },
     info: {
       type: String,
@@ -122,7 +122,7 @@ export default {
     },
     size: {
       type: String,
-      default: 'large',
+      default: 'small',
     },
     width: {
       type: String,
@@ -163,6 +163,9 @@ export default {
     allowCreate: {
       type: Boolean,
       default: false,
+    },
+    required: {
+      type: Boolean,
     },
     disabled: {
       type: Boolean,
@@ -233,9 +236,14 @@ export default {
 .custom-select__label {
   margin-bottom: 6px;
   color: var(--gray-600);
+  .required {
+    color: var(--error-500);
+  }
 }
 
 .multiselect {
+  border-radius: 6px;
+
   &:not(.disabled):hover {
     border: 1px solid var(--primary-300);
   }

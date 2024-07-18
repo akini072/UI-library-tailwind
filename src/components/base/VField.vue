@@ -2,7 +2,7 @@
   <div>
     <label v-if="label" class="d-flex align-center text--gray-600">
       <span class="text-nowrap font-weight-medium">
-        {{ label }}
+        {{ label }}<sup class="required" v-if="required">*</sup>
       </span>
       <span class="font-weight-regular ml-2" v-if="optional">(optional)</span>
       <info-icon
@@ -86,7 +86,7 @@
         :step="step"
         :maxlength="maxLength"
         @input="onInput"
-        @focus="isActive = true"
+        @focus="$emit('focus'), (isActive = true)"
         @blur="$emit('blur'), (isActive = false)"
         @dblclick="$refs.input.select"
       />
@@ -98,11 +98,7 @@
         :content="copyTooltip"
         @click="copyToClipboard(shareUrl)"
       >
-        <v-icon
-          name="copy_link"
-          height="16px"
-          color="var(--gray-700)"
-        />
+        <v-icon name="copy_link" height="16px" color="var(--gray-700)" />
         <h6 class="text--gray-700 font-weight-medium ml-1">
           {{ copyButtonText }}
         </h6>
@@ -221,7 +217,7 @@ export default {
     },
     size: {
       type: String,
-      default: 'default',
+      default: 'small',
     },
     hint: {
       type: String,
@@ -255,6 +251,9 @@ export default {
       type: String,
       default: '',
     },
+    required: {
+      type: Boolean,
+    }
   },
   data() {
     return {
@@ -281,6 +280,9 @@ export default {
 </script>
 
 <style lang="scss">
+.required {
+  color: var(--error-500);
+}
 .v-input__fieldset {
   display: flex;
   align-items: center;
@@ -296,13 +298,14 @@ export default {
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 
   &.textarea {
-    height: auto;
+    height: auto!important;
     overflow: hidden;
 
     textarea {
       flex: 1;
       height: auto;
       padding: 10px 12px;
+      resize: vertical;
 
       &.has-max-length {
         resize: none;
@@ -347,7 +350,7 @@ export default {
   }
 
   &.medium {
-    height: 30px;
+    height: 32px;
   }
   &.disabled {
     opacity: 0.6;

@@ -9,6 +9,7 @@ $colors: (
   'gray-700': var(--gray-700),
   'primary-25': var(--primary-25),
   'primary-50': var(--primary-50),
+  'primary-100': var(--primary-100),
   'primary-700': var(--primary-700),
   'primary': var(--primary-500),
   'error-400': var(--error-400),
@@ -27,6 +28,7 @@ $colors: (
   'success-300': var(--success-300),
   'success': var(--success-500),
   'success-600': var(--success-600),
+  'success-700': var(--success-700),
   'purple': var(--purple),
 );
 
@@ -109,6 +111,7 @@ $spacing: (
   '7': 28px,
   '8': 32px,
   '10': 40px,
+  'n1': -4px,
   'n4': -16px,
   'n5': -20px,
   'n6': -24px,
