@@ -1,7 +1,7 @@
 <template>
   <button
     :class="{
-      block: block,
+      'w-full': block,
       disabled: disabled || loading,
       icon: icon,
       [size]: true,
