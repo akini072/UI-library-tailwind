@@ -1,11 +1,6 @@
 <template>
   <div class="icon d-flex">
-    <component
-      :is="icon"
-      :color="color"
-      :height="height"
-      :width="width || height"
-    />
+    <component :is="iconComponent" :color="color" :height="height" :width="width || height" />
   </div>
 </template>
 
@@ -33,13 +28,22 @@ export default {
     folder: {
       type: String,
       default: 'icons',
-    },
+    }
   },
-  computed: {
-    icon() {
-      return defineAsyncComponent(() =>
-        import(`../../assets/icons/${this.name}.svg`),
-      )
+  data() {
+    return {
+      iconComponent: null,
+    }
+  },
+  watch: {
+    name: 'loadIconComponent',
+  },
+  created() {
+    this.loadIconComponent();
+  },
+  methods: {
+    loadIconComponent() {
+      this.iconComponent = defineAsyncComponent(() => import(`../../assets/icons/${this.name}.svg`));
     },
   }
 }

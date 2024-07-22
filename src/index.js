@@ -36,6 +36,7 @@ import {
   SelectContent,
   SelectItem,
   SelectValue,
+  SelectLabel
 } from '@/components/shadcn/select'
 import {
   NavigationMenu,
@@ -103,6 +104,7 @@ export {
   SelectContent,
   SelectItem,
   SelectValue,
+  SelectLabel,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
