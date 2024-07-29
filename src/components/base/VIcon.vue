@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent, markRaw } from 'vue'
 
 export default {
   name: 'VIcon',
@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     loadIconComponent() {
-      this.iconComponent = defineAsyncComponent(() => import(`../../assets/icons/${this.name}.svg`));
+      this.iconComponent = markRaw(defineAsyncComponent(() => import(`../../assets/icons/${this.name}.svg`)));
     },
   }
 }
