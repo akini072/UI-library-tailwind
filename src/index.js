@@ -84,7 +84,10 @@ import {
   TableRow,
 } from '@/components/shadcn/table'
 import { Checkbox } from '@/components/shadcn/checkbox'
-
+import TemplatesPopup from './components/templates/TemplatesPopup.vue'
+import TemplateCard from './components/templates/TemplateCard.vue'
+import TemplateDetails from './components/templates/TemplateDetails.vue'
+import TemplatesMenu from './components/templates/TemplatesMenu.vue'
 
 export {
   VSpinner,
@@ -156,6 +159,10 @@ export {
   TableRow,
   Skeleton,
   Checkbox,
+  TemplatesPopup,
+  TemplateCard,
+  TemplatesMenu,
+  TemplateDetails
 }
 
 // plugin to register globally for app.use(optional depending on how we want to use the components)
