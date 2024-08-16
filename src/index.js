@@ -90,6 +90,9 @@ const TemplateCard = defineAsyncComponent(() => import('./components/templates/T
 const TemplateDetails = defineAsyncComponent(() => import('./components/templates/TemplateDetails.vue'))
 const TemplatesMenu = defineAsyncComponent(() => import('./components/templates/TemplatesMenu.vue'))
 
+const DomainsPopup = defineAsyncComponent(() => import('./components/domain/DomainsPopup.vue'))
+const NewDomainPopup = defineAsyncComponent(() => import('./components/domain/NewDomainPopup.vue'))
+
 export {
   VSpinner,
   ExternalLink,
@@ -164,5 +167,7 @@ export {
   TemplatesPopup,
   TemplateCard,
   TemplatesMenu,
-  TemplateDetails
+  TemplateDetails,
+  DomainsPopup,
+  NewDomainPopup
 }
