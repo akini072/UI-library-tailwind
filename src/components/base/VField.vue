@@ -127,13 +127,15 @@
   </div>
 </template>
 <script>
-import VButton from './VButton'
-import VIcon from './VIcon'
-import InfoIcon from './InfoIcon'
+import { defineAsyncComponent } from 'vue';
 
 export default {
   name: 'VField',
-  components: { VIcon, InfoIcon, VButton },
+  components: {
+    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')),
+    InfoIcon: defineAsyncComponent(() => import('@/components/base/InfoIcon')),
+    VButton: defineAsyncComponent(() => import('@/components/base/VButton')),
+  },
   props: {
     label: {
       type: String,
@@ -253,7 +255,7 @@ export default {
     },
     required: {
       type: Boolean,
-    }
+    },
   },
   data() {
     return {
@@ -298,7 +300,7 @@ export default {
   box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 
   &.textarea {
-    height: auto!important;
+    height: auto !important;
     overflow: hidden;
 
     textarea {

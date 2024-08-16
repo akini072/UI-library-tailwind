@@ -23,27 +23,29 @@
 </template>
 
 <script>
-import VButton from './VButton.vue';
-import VPopup from './VPopup.vue'
+import { defineAsyncComponent } from 'vue';
 
 export default {
   name: 'ConfirmationPopup',
-  components: { VPopup, VButton },
+  components: {
+    VPopup: defineAsyncComponent(() => import('@/components/base/VPopup')),
+    VButton: defineAsyncComponent(() => import('@/components/base/VButton')),
+  },
   props: {
     title: { type: String },
     content: { type: String },
     confirmButton: {
       type: String,
-      default: 'Continue'
+      default: 'Continue',
     },
     cancelButton: {
       type: String,
-      default: 'Cancel'
+      default: 'Cancel',
     },
     loading: {
       type: Boolean,
-      default: false
+      default: false,
     },
-  }
+  },
 }
 </script>

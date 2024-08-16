@@ -100,14 +100,17 @@
 </template>
 
 <script>
-import VSpinner from './VSpinner'
-import VIcon from './VIcon'
-import Multiselect from '@vueform/multiselect'
-import InfoIcon from './InfoIcon'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, defineAsyncComponent } from 'vue'
 
 export default {
-  components: { Multiselect, VSpinner, InfoIcon, VIcon },
+  components: {
+    Multiselect: defineAsyncComponent(() => import('@vueform/multiselect')),
+    VSpinner: defineAsyncComponent(() =>
+      import('@/components/base/VSpinner.vue'),
+    ),
+    InfoIcon: defineAsyncComponent(() => import('@/components/base/InfoIcon')),
+    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')),
+  },
   props: {
     minDropdownWidth: {
       type: Boolean,
