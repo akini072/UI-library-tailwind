@@ -1,24 +1,22 @@
 <template>
-  <v-popup width="500px" :title="title" @close="$emit('cancel')">
+  <v-popup width="560px" :title="title" @close="$emit('cancel')">
     <template v-slot:body>
-      <div class="pa-5">
+      <div class="py-5 px-10 text--gray-500">
         {{ content }}
         <slot />
       </div>
     </template>
     <template v-slot:actions>
       <v-button
-        color="red"
-        variant="outlined"
-        :label="confirmButton"
-        :loading="loading"
-        @click="$emit('confirm')"
-      />
-      <v-button
-        color="primary"
         :label="cancelButton"
         :disabled="loading"
         @click="$emit('cancel')"
+      />
+      <v-button
+        color="red-light"
+        :label="confirmButton"
+        :loading="loading"
+        @click="$emit('confirm')"
       />
     </template>
   </v-popup>
