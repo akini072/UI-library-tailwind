@@ -84,7 +84,6 @@ export default {
     }
   },
   methods: {
-    // ...mapActions(useDomainStore, ['verify', 'validate']),
     resetData() {
       this.steps = [
         {

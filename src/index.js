@@ -57,6 +57,7 @@ const DropdownMenuSub = defineAsyncComponent(() => import('@/components/shadcn/d
 
 const RangeDatePicker = defineAsyncComponent(() => import('./components/base/RangeDatePicker.vue'))
 const DatePicker = defineAsyncComponent(() => import('./components/base/DatePicker.vue'))
+const SaveableInput = defineAsyncComponent(() => import('@/components/base/SaveableInput.vue'))
 
 const PaginationEllipsis = defineAsyncComponent(() => import('@/components/shadcn/pagination').then(m => m.PaginationEllipsis))
 const PaginationFirst = defineAsyncComponent(() => import('@/components/shadcn/pagination').then(m => m.PaginationFirst))
@@ -92,6 +93,8 @@ const TemplatesMenu = defineAsyncComponent(() => import('./components/templates/
 
 const DomainsPopup = defineAsyncComponent(() => import('./components/domain/DomainsPopup.vue'))
 const NewDomainPopup = defineAsyncComponent(() => import('./components/domain/NewDomainPopup.vue'))
+
+const SelectImagePopup = defineAsyncComponent(() => import('./components/images/SelectImagePopup.vue'))
 
 export {
   VSpinner,
@@ -140,6 +143,7 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
   DatePicker,
+  SaveableInput,
   PaginationEllipsis,
   PaginationFirst,
   PaginationLast,
@@ -169,5 +173,6 @@ export {
   TemplatesMenu,
   TemplateDetails,
   DomainsPopup,
-  NewDomainPopup
+  NewDomainPopup,
+  SelectImagePopup,
 }
