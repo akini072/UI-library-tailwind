@@ -18,9 +18,10 @@
 </template>
 
 <script>
-import VIcon from './VIcon.vue'
+import { defineAsyncComponent } from 'vue';
+
 export default {
-  components: { VIcon },
+  components: { VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')) },
   props: {
     label: {
       type: String,

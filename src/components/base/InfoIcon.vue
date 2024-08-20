@@ -35,11 +35,13 @@
 </template>
 
 <script>
-import VIcon from './VIcon.vue'
+import { defineAsyncComponent } from 'vue'
 
 export default {
   name: 'InfoIcon',
-  components: { VIcon },
+  components: {
+    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')),
+  },
   props: {
     small: {
       type: Boolean,

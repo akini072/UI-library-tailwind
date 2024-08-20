@@ -32,16 +32,14 @@
   </div>
 </template>
 <script>
-import VIcon from './VIcon.vue'
-import VButton from './VButton.vue'
-import Loading from './Loading.vue'
+import { defineAsyncComponent } from 'vue';
 
 export default {
   name: 'VPopup',
   components: {
-    VButton,
-    VIcon,
-    Loading,
+    VButton: defineAsyncComponent(() => import('@/components/base/VButton')),
+    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')),
+    Loading: defineAsyncComponent(() => import('@/components/base/Loading')),
   },
   props: {
     width: {

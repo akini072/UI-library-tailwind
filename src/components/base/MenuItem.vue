@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import VIcon from '@/components/base/VIcon.vue'
+import { defineAsyncComponent } from 'vue';
 
 export default {
   name: 'menu-item',
-  components: { VIcon },
+  components: { VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')) },
   props: ['icon', 'label', 'disabled', 'active']
 }
 </script>

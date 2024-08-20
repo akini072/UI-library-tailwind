@@ -26,12 +26,12 @@
 </template>
 
 <script>
-import VSpinner from './VSpinner.vue'
+import { defineAsyncComponent } from 'vue';
 
 export default {
   name: 'VButton',
   components: {
-    VSpinner,
+    VSpinner: defineAsyncComponent(() => import('@/components/base/VSpinner.vue')),
   },
   props: {
     label: {
