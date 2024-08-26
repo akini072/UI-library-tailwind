@@ -1,6 +1,6 @@
 <template>
   <div
-    class="rounded funnel-card"
+    class="rounded template-card"
     :class="{
       'empty-card': isEmpty,
       active: isActive,
@@ -23,6 +23,7 @@
         <b>Trending</b>
       </div>
       <v-button
+        v-if="hasLike"
         class="like__button"
         variant="outlined"
         size="large"
@@ -80,7 +81,7 @@
             Active
           </div>
         </div>
-        <div class="d-flex mt-1">
+        <div v-if="hasLike" class="d-flex mt-1">
           <h6 class="mr-3 d-flex align-center">
             <v-icon
               name="laptop"
@@ -142,6 +143,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    hasLike: {
+      type: Boolean,
+      default: true,
+    },
     id: {
       type: Number,
       default: 0,
@@ -187,8 +192,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.funnel-card {
-  height: 276px;
+.template-card {
+  min-height: 252px;
   outline-color: #eaecf0;
   outline-width: 1px;
   outline-style: solid;
