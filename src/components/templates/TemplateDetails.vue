@@ -202,6 +202,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    hidePreviewOnMobile: {
+      type: Boolean,
+      default: true,
+    },
   },
   data() {
     return {
@@ -234,7 +238,9 @@ export default {
       return this.$screenSize.width <= 620
     },
     allowPreview() {
-      return !this.isMobile && this.$screenSize.height > 450 && this.showPreview
+      return this.hidePreviewOnMobile
+        ? !this.isMobile
+        : true && this.$screenSize.height > 450 && this.showPreview
     },
   },
   methods: {

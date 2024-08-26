@@ -3,12 +3,12 @@
     <div
       class="content d-flex"
       :style="{
-        width: width,
+        width,
         right: show ? 0 : `calc(-${width} + 0px)`
       }"
     >
       <loading v-if="loading" :style="{ width }" />
-      <div class="d-flex flex-column">
+      <div class="d-flex flex-column flex-grow">
         <div
           v-if="title"
           ref="header"
@@ -19,7 +19,7 @@
             <v-icon name="close" height="20px" color="var(--gray-500)" />
           </v-button>
         </div>
-        <div v-else-if="$slots.header" ref="header" :style="{ width }">
+        <div v-else-if="$slots.header" class="header" ref="header">
           <slot name="header" />
         </div>
         <scroll-area
