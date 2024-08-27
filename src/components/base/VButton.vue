@@ -203,7 +203,7 @@ button {
 
   &.color--primary {
     border: 0px;
-    background-color: var(--primary-500);
+    background-color: var(--primary-600);
     color: #fff;
     &:hover {
       border: 0px;
@@ -212,13 +212,13 @@ button {
 
     &.outlined {
       background-color: #fff;
-      border: 1px solid var(--primary-500);
-      color: var(--primary-500);
+      border: 1px solid var(--primary-600);
+      color: var(--primary-600);
       &:hover {
         background-color: var(--primary-50);
-        color: var(--primary-500);
+        color: var(--primary-600);
         svg {
-          color: var(--primary-500);
+          color: var(--primary-600);
         }
       }
     }
@@ -227,12 +227,12 @@ button {
       border: none;
       background-color: transparent;
       box-shadow: none;
-      color: var(--primary-500);
+      color: var(--primary-600);
       &:hover {
         background-color: var(--primary-50);
-        color: var(--primary-500);
+        color: var(--primary-600);
         svg {
-          color: var(--primary-500);
+          color: var(--primary-600);
         }
       }
     }
@@ -241,7 +241,7 @@ button {
       background-color: var(--primary-25);
       border: none;
       box-shadow: none;
-      color: var(--primary-500);
+      color: var(--primary-600);
       &:hover {
         color: var(--primary-700);
       }
@@ -381,7 +381,7 @@ button {
     padding: 0;
     border: none;
     box-shadow: none;
-    color: var(--primary-500);
+    color: var(--primary-600);
     .icon {
       margin-left: 0;
       transition: all 0.2s ease-in-out;

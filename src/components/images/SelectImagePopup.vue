@@ -147,7 +147,6 @@ export default {
         this.$emit(
           'new:folder',
           {
-            funnel_id: parseInt(this.$route.params.funnelId),
             name: this.folderName,
           },
           resolve,
@@ -181,7 +180,6 @@ export default {
         this.$emit(
           'upload:image',
           {
-            funnel_id: parseInt(this.$route.params.funnelId),
             folder_id: this.selectedFolder,
             formData,
           },

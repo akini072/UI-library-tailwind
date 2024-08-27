@@ -11,7 +11,12 @@
         is-empty
         static
       />
-      <v-button color="primary" class="my-4" :loading="loadingCreate" @click="useTemplate">
+      <v-button
+        color="primary"
+        class="my-4"
+        :loading="loadingCreate"
+        @click="useTemplate"
+      >
         Create
       </v-button>
     </div>
@@ -21,8 +26,8 @@
           <div v-if="!hideName" class="mb-2 font-weight-medium text--gray-700">
             {{ template.name }}
           </div>
-          <div class="d-flex">
-            <h6 class="mr-3 d-flex">
+          <div v-if="hasLike" class="d-flex">
+            <h6 class="mr-3 d-flex align-center">
               <v-icon
                 name="laptop"
                 class="mr-1"
@@ -31,7 +36,7 @@
               />
               {{ shortValue(template.uses) }} uses
             </h6>
-            <h6 class="d-flex">
+            <h6 class="d-flex align-center">
               <v-icon
                 v-if="template.liked"
                 name="heart-full"
@@ -51,6 +56,7 @@
           </div>
         </div>
         <v-button
+          v-if="hasLike"
           class="like__button ml-auto"
           variant="outlined"
           size="large"
@@ -74,18 +80,25 @@
         </v-button>
       </div>
       <div class="d-flex flex-wrap mb-5 px-5">
-        <v-button
-          color="primary"
-          class="mr-3 flex-grow"
-          size="medium"
-          :loading="loadingCreate"
-          @click="useTemplate"
-        >
-          Use Template
-        </v-button>
-        <v-button @click="previewTemplate" size="medium" class="flex-grow mr-1">
-          Preview
-        </v-button>
+        <slot v-if="$slots['action-buttons']" name="action-buttons" />
+        <template v-else>
+          <v-button
+            color="primary"
+            class="mr-3 flex-grow"
+            size="medium"
+            :loading="loadingCreate"
+            @click="useTemplate"
+          >
+            Use Template
+          </v-button>
+          <v-button
+            @click="previewTemplate"
+            size="medium"
+            class="flex-grow mr-1"
+          >
+            Preview
+          </v-button>
+        </template>
       </div>
       <div v-if="allowPreview" class="preview__section">
         <div class="divider" />
@@ -173,6 +186,7 @@ export default {
     },
     templateSteps: {
       type: Array,
+      default: () => [],
     },
     stepsMaxHeight: {
       type: String,
@@ -194,6 +208,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    hasLike: {
+      type: Boolean,
+      default: true,
+    },
     loadingCreate: {
       type: Boolean,
       default: false,
@@ -201,6 +219,10 @@ export default {
     hideName: {
       type: Boolean,
       default: false,
+    },
+    hidePreviewOnMobile: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -234,7 +256,9 @@ export default {
       return this.$screenSize.width <= 620
     },
     allowPreview() {
-      return !this.isMobile && this.$screenSize.height > 450 && this.showPreview
+      return this.hidePreviewOnMobile
+        ? !this.isMobile
+        : true && this.$screenSize.height > 450 && this.showPreview
     },
   },
   methods: {

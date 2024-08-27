@@ -279,6 +279,7 @@ export default {
     .multiselect-multiple-label,
     .multiselect-placeholder,
     .multiselect-single-label {
+      font-size: 14px;
       padding: 0 56px 0 8px;
     }
     .arrow {
