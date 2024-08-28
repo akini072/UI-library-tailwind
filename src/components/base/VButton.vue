@@ -336,22 +336,22 @@ button {
   }
   &.color--red-light {
     border: 0px;
-    background-color: var(--error-500);
+    background-color: var(--error-600);
     color: #fff;
     &:hover {
       border: 0px;
-      background: var(--error-500);
+      background: var(--error-600);
     }
 
     &.outlined {
       background-color: #fff;
       border: 1px solid var(--error-200);
-      color: var(--error-500);
+      color: var(--error-600);
       &:hover {
         background-color: var(--error-25);
-        color: var(--error-500);
+        color: var(--error-600);
         svg {
-          color: var(--error-500);
+          color: var(--error-600);
         }
       }
     }
