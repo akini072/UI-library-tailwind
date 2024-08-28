@@ -93,15 +93,15 @@
       <div
         v-if="copyButton"
         class="border-l h-full pointer d-flex align-center px-2"
-        v-tippy="{ hideOnClick: false, duration: [350, 400], visible: true }"
         ref="shareUrlCopyButton"
-        :content="copyTooltip"
         @click="copyToClipboard(shareUrl)"
       >
-        <v-icon name="copy_link" height="16px" color="var(--gray-700)" />
-        <h6 class="text--gray-700 font-weight-medium ml-1">
-          {{ copyButtonText }}
-        </h6>
+        <v-tooltip v-model="showCopyTooltip" :tooltip="copyTooltip">
+          <v-icon name="copy_link" height="16px" color="var(--gray-700)" />
+          <h6 class="text--gray-700 font-weight-medium ml-1">
+            {{ copyButtonText }}
+          </h6>
+        </v-tooltip>
       </div>
       <slot v-if="!!$slots.append" name="append" />
       <div
@@ -127,13 +127,14 @@
   </div>
 </template>
 <script>
-import { defineAsyncComponent } from 'vue';
+import { defineAsyncComponent } from 'vue'
 
 export default {
   name: 'VField',
   components: {
     VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')),
     InfoIcon: defineAsyncComponent(() => import('@/components/base/InfoIcon')),
+    VTooltip: defineAsyncComponent(() => import('@/components/base/VTooltip')),
     VButton: defineAsyncComponent(() => import('@/components/base/VButton')),
   },
   props: {
@@ -151,7 +152,7 @@ export default {
     },
     info: {
       type: String,
-      default: () => null,
+      default: '',
     },
     optional: {
       type: Boolean,
@@ -261,6 +262,7 @@ export default {
     return {
       isActive: false,
       copyTooltip: 'Copy',
+      showCopyTooltip: false,
     }
   },
   computed: {
@@ -271,8 +273,12 @@ export default {
   methods: {
     async copyToClipboard() {
       this.copyTooltip = 'Copied!'
+      this.showCopyTooltip = true
       navigator.clipboard.writeText(this.modelValue)
-      setTimeout(() => (this.copyTooltip = 'Copy'), 1500)
+      setTimeout(
+        () => ((this.copyTooltip = 'Copy'), (this.showCopyTooltip = false)),
+        1500,
+      )
     },
     onInput($event) {
       this.$emit('update:modelValue', $event.target.value)

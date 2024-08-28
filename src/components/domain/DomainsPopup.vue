@@ -6,7 +6,7 @@
         <div class="domains__box">
           <div
             v-for="domain in domains"
-            :key="id"
+            :key="domain.id"
             class="domain__item border-b"
           >
             <p class="text--gray-500">
