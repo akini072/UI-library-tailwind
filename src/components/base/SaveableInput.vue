@@ -14,8 +14,6 @@
       @blur="$emit('blur'), (isActive = false)"
     />
     <v-button
-      v-tippy
-      content="Save changes"
       variant="text"
       icon
       size="small"
@@ -23,11 +21,11 @@
       :loading="loading"
       @click.stop="save"
     >
-      <v-icon name="check" width="14px" color="var(--gray-400)" />
+      <v-tooltip tooltip="Save changes">
+        <v-icon name="check" width="14px" color="var(--gray-400)" />
+      </v-tooltip>
     </v-button>
     <v-button
-      v-tippy
-      content="Cancel"
       class="ml-1 cancel__btn"
       variant="text"
       size="small"
@@ -35,7 +33,9 @@
       icon
       @click.stop="$emit('cancel')"
     >
-      <v-icon name="close-bold" width="16px" color="var(--gray-400)" />
+      <v-tooltip tooltip="Cancel">
+        <v-icon name="close-bold" width="16px" color="var(--gray-400)" />
+      </v-tooltip>
     </v-button>
   </fieldset>
 </template>
@@ -49,6 +49,7 @@ export default {
   components: {
     VButton: defineAsyncComponent(() => import('@/components/base/VButton')),
     VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')),
+    VTooltip: defineAsyncComponent(() => import('@/components/base/VTooltip')),
   },
   props: {
     modelValue: { type: String, default: '' },

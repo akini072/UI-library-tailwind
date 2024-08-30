@@ -1,37 +1,43 @@
 <template>
-  <div
-    v-tippy="{ theme: 'light', content: info }"
-    class="select__button border rounded pa-2 d-flex flex-column align-center pointer"
-    :class="{ selected: modelValue === value }"
-    @click="$emit('update:model-value', value)"
-  >
-    <v-icon
-      v-if="icon"
-      :name="icon"
-      :height="iconSize"
-      class="mb-2"
-      color="var(--primary-500)"
-    />
-    <p
-      class="text--gray-500 text-nowrap"
-      :class="{ 'font-weight-medium': bold }"
-    >
-      {{ title }}
-    </p>
-    <h6
-      v-if="subtitle"
-      class="mt-1 text--primary text-nowrap font-weight-medium"
-    >
-      {{ subtitle }}
-    </h6>
+  <div>
+    <component :is="info ? 'v-tooltip' : 'div'" :tooltip="info" theme="light">
+      <div
+        class="select__button border rounded pa-2 d-flex flex-column align-center pointer"
+        :class="{ selected: modelValue === value }"
+        @click="$emit('update:model-value', value)"
+      >
+        <v-icon
+          v-if="icon"
+          :name="icon"
+          :height="iconSize"
+          class="mb-2"
+          color="var(--primary-500)"
+        />
+        <p
+          class="text--gray-500 text-nowrap"
+          :class="{ 'font-weight-medium': bold }"
+        >
+          {{ title }}
+        </p>
+        <h6
+          v-if="subtitle"
+          class="mt-1 text--primary text-nowrap font-weight-medium"
+        >
+          {{ subtitle }}
+        </h6>
+      </div>
+    </component>
   </div>
 </template>
 
 <script>
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from 'vue'
 
 export default {
-  components: { VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')) },
+  components: {
+    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')),
+    VTooltip: defineAsyncComponent(() => import('@/components/base/VTooltip')),
+  },
   props: {
     selected: {
       type: Boolean,
@@ -47,10 +53,11 @@ export default {
     },
     info: {
       type: String,
+      default: '',
     },
     iconSize: {
       type: String,
-      default: "40px",
+      default: '40px',
     },
     bold: {
       type: Boolean,
@@ -63,7 +70,7 @@ export default {
       default: null,
     },
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>

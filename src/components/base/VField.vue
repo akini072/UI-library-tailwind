@@ -97,10 +97,12 @@
         @click="copyToClipboard(shareUrl)"
       >
         <v-tooltip v-model="showCopyTooltip" :tooltip="copyTooltip">
-          <v-icon name="copy_link" height="16px" color="var(--gray-700)" />
-          <h6 class="text--gray-700 font-weight-medium ml-1">
-            {{ copyButtonText }}
-          </h6>
+          <div class="d-flex align-center">
+            <v-icon name="copy_link" height="16px" color="var(--gray-700)" />
+            <h6 class="text--gray-700 font-weight-medium ml-1">
+              {{ copyButtonText }}
+            </h6>
+          </div>
         </v-tooltip>
       </div>
       <slot v-if="!!$slots.append" name="append" />

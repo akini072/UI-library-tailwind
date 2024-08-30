@@ -1,22 +1,10 @@
-<script setup>
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/shadcn/tooltip'
-const props = defineProps({
-  tooltip: { type: String, required: true },
-  side: { type: String, required: false, default: 'bottom' },
-  align: { type: String, required: false, default: 'center' },
-  theme: { type: String, default: 'dark' },
-  modelValue: { type: Boolean },
-})
-</script>
-
 <template>
   <TooltipProvider>
-    <Tooltip :delay-duration="100" :open="modelValue" @update:open="$emit('update:model-value', $event)">
+    <Tooltip
+      :delay-duration="100"
+      v-bind="bindProps"
+      @update:open="$emit('update:model-value', $event)"
+    >
       <TooltipTrigger as="div">
         <slot />
       </TooltipTrigger>
@@ -37,10 +25,43 @@ const props = defineProps({
             'text--gray-700': theme === 'light-padding' || theme === 'light',
           }"
         >
-          {{ props.tooltip }}
+          {{ tooltip }}
           <slot name="content" />
         </span>
       </TooltipContent>
     </Tooltip>
   </TooltipProvider>
 </template>
+
+<script>
+import { defineAsyncComponent } from 'vue'
+
+export default {
+  components: {
+    Tooltip: defineAsyncComponent(() =>
+      import('@/components/shadcn/tooltip/Tooltip.vue'),
+    ),
+    TooltipContent: defineAsyncComponent(() =>
+      import('@/components/shadcn/tooltip/TooltipContent.vue'),
+    ),
+    TooltipProvider: defineAsyncComponent(() =>
+      import('@/components/shadcn/tooltip/TooltipProvider.vue'),
+    ),
+    TooltipTrigger: defineAsyncComponent(() =>
+      import('@/components/shadcn/tooltip/TooltipTrigger.vue'),
+    ),
+  },
+  props: {
+    tooltip: { type: String, required: true },
+    side: { type: String, required: false, default: 'bottom' },
+    align: { type: String, required: false, default: 'center' },
+    theme: { type: String, default: 'dark' },
+    modelValue: { type: Boolean },
+  },
+  computed: {
+    bindProps() {
+      return this.modelValue ? { modelValue: this.modelValue } : {}
+    },
+  },
+}
+</script>
