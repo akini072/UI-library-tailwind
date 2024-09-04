@@ -10,12 +10,13 @@ import { Check } from "lucide-vue-next";
 import { cn } from "@/lib/utils";
 
 const props = defineProps({
-  value: { type: String, required: true },
+  value: { type: [String, Object], required: true },
   disabled: { type: Boolean, required: false },
   textValue: { type: String, required: false },
   asChild: { type: Boolean, required: false },
   as: { type: null, required: false },
-  class: { type: null, required: false }
+  class: { type: null, required: false },
+  isCheckIcon: { typed: Boolean, required: false, default: true }
 });
 
 const delegatedProps = computed(() => {
@@ -35,7 +36,7 @@ const forwardedProps = useForwardProps(delegatedProps);
     <SelectItemText>
       <slot />
     </SelectItemText>
-    <span class="flex h-3.5 w-3.5 items-center justify-center ml-2 sm:ml-0">
+    <span class="flex h-3.5 w-3.5 items-center justify-center ml-2 sm:ml-0" v-if="isCheckIcon">
       <SelectItemIndicator class="item-indicator flex">
         <Check class="h-4 w-4" />
       </SelectItemIndicator>

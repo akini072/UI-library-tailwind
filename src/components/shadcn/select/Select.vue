@@ -4,7 +4,7 @@ const props = defineProps({
   open: { type: Boolean, required: false },
   defaultOpen: { type: Boolean, required: false },
   defaultValue: { type: String, required: false },
-  modelValue: { type: String, required: false },
+  modelValue: { type: [String, Object], required: false },
   dir: { type: String, required: false },
   name: { type: String, required: false },
   autocomplete: { type: String, required: false },
