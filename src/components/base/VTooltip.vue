@@ -1,29 +1,67 @@
-<script setup>
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/shadcn/tooltip'
-const props = defineProps({
-  tooltip: { type: String, required: true },
-  side: { type: String, required: false, default: 'bottom'}
-})
-</script>
-
 <template>
   <TooltipProvider>
-    <Tooltip :delay-duration="0">
+    <Tooltip
+      :delay-duration="100"
+      v-bind="bindProps"
+      @update:open="$emit('update:model-value', $event)"
+    >
       <TooltipTrigger as="div">
         <slot />
       </TooltipTrigger>
       <TooltipContent
-        class="d-flex align-center bg-[#404042]"
+        class="d-flex align-center"
+        :class="{
+          'bg-[#404242]': theme === 'dark',
+          'bg-[#fff]': theme === 'light-padding' || theme === 'light',
+        }"
+        :align="align"
         :side="side"
         :side-offset="16"
       >
-        <span class="text--white text-sm">{{ props.tooltip }}</span>
+        <span
+          class="text-sm"
+          :class="{
+            'text--white': theme === 'dark',
+            'text--gray-700': theme === 'light-padding' || theme === 'light',
+          }"
+        >
+          {{ tooltip }}
+          <slot name="content" />
+        </span>
       </TooltipContent>
     </Tooltip>
   </TooltipProvider>
 </template>
+
+<script>
+import { defineAsyncComponent } from 'vue'
+
+export default {
+  components: {
+    Tooltip: defineAsyncComponent(() =>
+      import('@/components/shadcn/tooltip/Tooltip.vue'),
+    ),
+    TooltipContent: defineAsyncComponent(() =>
+      import('@/components/shadcn/tooltip/TooltipContent.vue'),
+    ),
+    TooltipProvider: defineAsyncComponent(() =>
+      import('@/components/shadcn/tooltip/TooltipProvider.vue'),
+    ),
+    TooltipTrigger: defineAsyncComponent(() =>
+      import('@/components/shadcn/tooltip/TooltipTrigger.vue'),
+    ),
+  },
+  props: {
+    tooltip: { type: String, required: true },
+    side: { type: String, required: false, default: 'bottom' },
+    align: { type: String, required: false, default: 'center' },
+    theme: { type: String, default: 'dark' },
+    modelValue: { type: Boolean },
+  },
+  computed: {
+    bindProps() {
+      return this.modelValue ? { modelValue: this.modelValue } : {}
+    },
+  },
+}
+</script>

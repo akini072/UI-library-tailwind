@@ -13,7 +13,7 @@ const { orientation, canScrollNext, scrollNext } = useCarousel();
 
 <template>
   <Button
-  v-if="canScrollNext"
+    v-if="canScrollNext"
     :class="
       cn(
         'touch-manipulation absolute h-8 w-8 rounded-full p-0',

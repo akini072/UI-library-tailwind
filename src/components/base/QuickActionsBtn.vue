@@ -121,9 +121,6 @@ export default {
       this.$emit('menuClick', { action, event: ev, ...item })
       this.$emit('itemClick', { action, event: ev, ...item })
     },
-    handleTriggerTippy({ isVisible }) {
-      this.$emit('is-active:tippy', isVisible)
-    },
   },
 }
 </script>

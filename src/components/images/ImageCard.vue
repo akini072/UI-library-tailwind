@@ -5,22 +5,22 @@
         v-if="image.url && !error"
         v-lazy="{
           src: image.url,
-          lifecycle: { error: () => (error = true) }
+          lifecycle: { error: () => (error = true) },
         }"
       />
       <v-icon v-else-if="error" name="image-empty" height="50px" />
     </div>
     <v-button
       class="delete__button"
-      v-tippy
-      content="Delete image"
       variant="text"
       color="red"
       size="small"
       icon
       @click.stop="$emit('show:delete', image)"
     >
-      <v-icon name="trash" height="16px" />
+      <v-tooltip tooltip="Delete image">
+        <v-icon name="trash" height="16px" />
+      </v-tooltip>
     </v-button>
     <div class="label text-ellipsis">
       {{ image.name }}
@@ -35,11 +35,12 @@ export default {
   components: {
     VButton: defineAsyncComponent(() => import('@/components/base/VButton')),
     VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')),
+    VTooltip: defineAsyncComponent(() => import('@/components/base/VTooltip')),
   },
   props: {
     image: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   data() {
     return {
@@ -75,7 +76,7 @@ export default {
     position: absolute;
     top: 10px;
     left: 10px;
-    opacity:0;
+    opacity: 0;
   }
   .label {
     font-size: 10px;

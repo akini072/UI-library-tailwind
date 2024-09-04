@@ -1,37 +1,22 @@
 <template>
-  <div
-    v-if="!!info"
-    class="info-icon__wrapper"
-    :class="{ warn, small, '--hover-effect': infoIconHoverEffect }"
-    :content="info"
-    v-tippy="{ theme }"
-  >
-    <v-icon :name="iconName" :color="iconColor" height="16px" />
-  </div>
-  <tippy
-    v-else-if="!!$slots"
-    interactive
-    :animate-fill="false"
-    :placement="placement"
-    theme="light-padding"
-    animation="fade"
-  >
-    <template #default>
+  <div>
+    <v-tooltip
+      :tooltip="info"
+      :theme="theme"
+      :side="side"
+      :align="info ? 'center' : align"
+    >
       <div
-        class="d-flex align-center info-icon__wrapper"
-        :class="{
-          warn,
-          small,
-          '--hover-effect': infoIconHoverEffect,
-        }"
+        class="info-icon__wrapper"
+        :class="{ warn, small, '--hover-effect': infoIconHoverEffect }"
       >
-        <v-icon :name="iconName" :color="iconColor" height="16px" />
+        <v-icon :name="iconName" :color="iconColor" />
       </div>
-    </template>
-    <template #content>
-      <slot />
-    </template>
-  </tippy>
+      <template #content>
+        <slot />
+      </template>
+    </v-tooltip>
+  </div>
 </template>
 
 <script>
@@ -41,6 +26,7 @@ export default {
   name: 'InfoIcon',
   components: {
     VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')),
+    VTooltip: defineAsyncComponent(() => import('@/components/base/VTooltip')),
   },
   props: {
     small: {
@@ -55,17 +41,17 @@ export default {
       type: Boolean,
       default: false,
     },
-    interactive: {
-      type: Boolean,
-      default: false,
-    },
     info: {
       type: String,
-      default: () => null,
+      default: '',
     },
-    placement: {
+    side: {
       type: String,
-      default: 'bottom-start',
+      default: 'bottom',
+    },
+    align: {
+      type: String,
+      default: 'start',
     },
     iconColor: {
       type: String,
@@ -110,12 +96,8 @@ export default {
     }
   }
   svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
   }
-}
-.tippy-content {
-  width: max-content;
-  max-width: 330px;
 }
 </style>

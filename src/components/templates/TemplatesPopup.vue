@@ -1,41 +1,45 @@
 <template>
-  <v-popup :title="title" width="1380px" @close="close">
-    <template v-slot:body>
-      <div class="d-grid layout-new-funnel">
-        <div class="py-4 px-2 border-b">
-          <v-field
-            v-model="searchTemplate"
-            height="20px"
-            icon="search"
-            icon-color="var(--gray-500)"
-            icon-size="14px"
-            variant="plain"
-            size="small"
-            placeholder="Search"
-            no-input-padding
-          />
-        </div>
-        <div class="border-b">
-          <templates-menu
-            class="py-1"
-            :current-option="menuTemplateSelected"
-            @selected:option="menuTemplateSelected = $event"
-          />
-        </div>
-        <scroll-area class="templates__section">
-          <div class="d-grid column-4 pt-5 px-5 pb-10">
-            <slot
-              name="template-cards"
-              :filtered-templates="filteredTemplates"
-            />
+  <suspense>
+    <template #default>
+      <v-popup :title="title" width="1380px" @close="close">
+        <template v-slot:body>
+          <div class="d-grid layout-new-funnel">
+            <div class="py-4 px-2 border-b">
+              <v-field
+                v-model="searchTemplate"
+                height="20px"
+                icon="search"
+                icon-color="var(--gray-500)"
+                icon-size="14px"
+                variant="plain"
+                size="small"
+                placeholder="Search"
+                no-input-padding
+              />
+            </div>
+            <div class="border-b">
+              <templates-menu
+                class="py-1"
+                :current-option="menuTemplateSelected"
+                @selected:option="menuTemplateSelected = $event"
+              />
+            </div>
+            <scroll-area class="templates__section">
+              <div class="d-grid column-4 pt-5 px-5 pb-10">
+                <slot
+                  name="template-cards"
+                  :filtered-templates="filteredTemplates"
+                />
+              </div>
+            </scroll-area>
+            <scroll-area class="template-details__section pt-3">
+              <slot name="template-details" />
+            </scroll-area>
           </div>
-        </scroll-area>
-        <scroll-area class="template-details__section pt-3">
-          <slot name="template-details" />
-        </scroll-area>
-      </div>
+        </template>
+      </v-popup>
     </template>
-  </v-popup>
+  </suspense>
 </template>
 <script>
 import { defineAsyncComponent } from 'vue'
@@ -49,6 +53,7 @@ export default {
     ),
     TemplatesMenu: defineAsyncComponent(() => import('./TemplatesMenu.vue')),
   },
+  emits: ['click:use-template', 'close', 'select:template'],
   props: {
     title: {
       type: String,

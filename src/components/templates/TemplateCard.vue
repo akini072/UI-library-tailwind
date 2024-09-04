@@ -15,7 +15,7 @@
         height="30px"
         color="var(--primary-500)"
       />
-      Use default template
+      {{ text }}
     </div>
     <div v-else>
       <div v-if="isTrending" class="trending__flag text--white">
@@ -175,6 +175,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    text: {
+      type: String,
+      default: 'Use default template'
+    }
   },
   data() {
     return {

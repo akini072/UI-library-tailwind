@@ -10,6 +10,7 @@
         class="d-flex align-center justify-center mt-3"
         is-empty
         static
+        :text="emptyCardText"
       />
       <v-button
         color="primary"
@@ -79,25 +80,18 @@
           />
         </v-button>
       </div>
-      <div class="d-flex flex-wrap mb-5 px-5">
+      <div class="d-grid column-2 mb-5 px-5">
         <slot v-if="$slots['action-buttons']" name="action-buttons" />
         <template v-else>
           <v-button
             color="primary"
-            class="mr-3 flex-grow"
             size="medium"
             :loading="loadingCreate"
             @click="useTemplate"
           >
-            Use Template
+            {{ submitButton }}
           </v-button>
-          <v-button
-            @click="previewTemplate"
-            size="medium"
-            class="flex-grow mr-1"
-          >
-            Preview
-          </v-button>
+          <v-button @click="previewTemplate" size="medium"> Preview </v-button>
         </template>
       </div>
       <div v-if="allowPreview" class="preview__section">
@@ -200,6 +194,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    emptyCardText: {
+      type: String,
+      default: ''
+    },
     showPreview: {
       type: Boolean,
       default: true,
@@ -224,6 +222,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    submitButton: {
+      type: String,
+      default: 'Use Template'
+    }
   },
   data() {
     return {
@@ -325,6 +327,11 @@ export default {
     background-color: var(--primary-50);
     border-color: var(--primary-100);
   }
+}
+
+.column-2 {
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
 .preview__section {

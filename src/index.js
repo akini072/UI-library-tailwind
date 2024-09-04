@@ -85,7 +85,7 @@ const TableHead = defineAsyncComponent(() => import('@/components/shadcn/table')
 const TableHeader = defineAsyncComponent(() => import('@/components/shadcn/table').then(m => m.TableHeader))
 const TableRow = defineAsyncComponent(() => import('@/components/shadcn/table').then(m => m.TableRow))
 
-const Checkbox = defineAsyncComponent(() => import('@/components/shadcn/checkbox'))
+const Checkbox = defineAsyncComponent(() => import('@/components/shadcn/checkbox/Checkbox.vue'))
 const TemplatesPopup = defineAsyncComponent(() => import('./components/templates/TemplatesPopup.vue'))
 const TemplateCard = defineAsyncComponent(() => import('./components/templates/TemplateCard.vue'))
 const TemplateDetails = defineAsyncComponent(() => import('./components/templates/TemplateDetails.vue'))

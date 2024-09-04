@@ -23,8 +23,10 @@ const [useProvideCarousel, useInjectCarousel] = createInjectionState(
     const canScrollPrev = ref(true);
 
     function onSelect(api) {
-      canScrollNext.value = api.canScrollNext();
-      canScrollPrev.value = api.canScrollPrev();
+      if (api) {
+        canScrollNext.value = api.canScrollNext();
+        canScrollPrev.value = api.canScrollPrev();
+      }
     }
 
     onMounted(() => {
