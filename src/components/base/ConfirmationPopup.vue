@@ -1,7 +1,7 @@
 <template>
   <v-popup width="560px" :title="title" @close="$emit('cancel')">
     <template v-slot:body>
-      <div class="py-5 px-10 text--gray-500">
+      <div class="pa-5 text--gray-500">
         {{ content }}
         <slot />
       </div>

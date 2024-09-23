@@ -20,7 +20,7 @@
     },
     "./global.scss": "./dist/styles/global.css"
   },
-  "version": "1.10.5",
+  "version": "1.10.6",
   "scripts": {
     "build:css": "sass src/assets/styles/global.scss dist/styles/global.css",
     "dev": "vite build",
