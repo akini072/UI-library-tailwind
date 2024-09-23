@@ -7,7 +7,7 @@
       :checked="modelValue === value"
       @change="$emit('update:model-value', $event.target.value)"
     />
-    <span class="radiomark"></span>
+    <span class="radiomark" />
     <span class="font-weight-medium text-capitalize">
       {{ label || value }}
     </span>
@@ -20,22 +20,22 @@ export default {
   props: {
     modelValue: {
       type: [String, Boolean],
-      required: false
+      required: false,
     },
     label: {
-      type: String
+      type: String,
     },
     value: {
-      type: String
+      type: String,
     },
     name: {
-      type: String
-    }
-  }
+      type: String,
+    },
+  },
 }
 </script>
 
-<style>
+<style lang="scss">
 .radio {
   display: flex;
   position: relative;
@@ -62,7 +62,7 @@ export default {
     margin-right: 10px;
   }
 
-  .radio input:checked ~ .radiomark {
+  input:checked ~ .radiomark {
     border-color: var(--primary-500);
   }
 
@@ -72,11 +72,11 @@ export default {
     display: none;
   }
 
-  .radio input:checked ~ .radiomark:after {
+  input:checked ~ .radiomark:after {
     display: block;
   }
 
-  .radio .radiomark:after {
+  .radiomark:after {
     top: 4px;
     left: 4px;
     width: 10px;
