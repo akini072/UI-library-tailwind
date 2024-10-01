@@ -95,6 +95,16 @@ const DomainsPopup = defineAsyncComponent(() => import('./components/domain/Doma
 const NewDomainPopup = defineAsyncComponent(() => import('./components/domain/NewDomainPopup.vue'))
 
 const SelectImagePopup = defineAsyncComponent(() => import('./components/images/SelectImagePopup.vue'))
+const SearchMenu = defineAsyncComponent(() => import('./components/base/SearchMenu.vue'))
+
+const DataTable = defineAsyncComponent(() => import('./components/table/DataTable.vue'))
+const DropdownFilter = defineAsyncComponent(() => import('./components/base/DropdownFilter.vue'))
+const TimeCell = defineAsyncComponent(() => import('./components/table/TimeCell.vue'))
+const TablePagination = defineAsyncComponent(() => import('./components/table/Pagination.vue'))
+const TabsFilter = defineAsyncComponent(() => import('./components/table/TabsFilter.vue'))
+const TagsCell = defineAsyncComponent(() => import('./components/table/TagsCell.vue'))
+const TitleCell = defineAsyncComponent(() => import('./components/table/TitleCell.vue'))
+const StatusCell = defineAsyncComponent(() => import('./components/table/StatusCell.vue'))
 
 export {
   VSpinner,
@@ -175,4 +185,13 @@ export {
   DomainsPopup,
   NewDomainPopup,
   SelectImagePopup,
+  SearchMenu,
+  DataTable, 
+  DropdownFilter,
+  TimeCell,
+  TablePagination,
+  TabsFilter,
+  TagsCell,
+  StatusCell,
+  TitleCell,
 }
