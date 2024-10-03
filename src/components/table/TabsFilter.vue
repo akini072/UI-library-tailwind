@@ -22,6 +22,9 @@ export default {
       type: Array,
       required: true,
     },
+    defaultActive: {
+      type: [String, Number]
+    }
   },
   data() {
     return {
@@ -35,6 +38,9 @@ export default {
       this.$emit('update:tabs', this.activeTab)
     },
   },
+  mounted() {
+    this.activeTab = this.defaultActive
+  }
 }
 </script>
 

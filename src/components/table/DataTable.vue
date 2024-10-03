@@ -138,6 +138,10 @@ export default {
       type: Boolean,
       default: true,
     },
+    hasCheckbox: {
+      type: Boolean,
+      default: true,
+    },
     hasQuickActions: {
       type: Boolean,
       default: true,
@@ -155,12 +159,16 @@ export default {
     },
     loading: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   setup(props, context) {
-    const Checkbox = defineAsyncComponent(() => import('../shadcn/checkbox/Checkbox.vue'));
-    const QuickActionsBtn = defineAsyncComponent(() => import('../base/QuickActionsBtn.vue'));
+    const Checkbox = defineAsyncComponent(() =>
+      import('../shadcn/checkbox/Checkbox.vue'),
+    )
+    const QuickActionsBtn = defineAsyncComponent(() =>
+      import('../base/QuickActionsBtn.vue'),
+    )
 
     const columns = props.headers.map(({ id, label, component, props }) => ({
       accessorKey: id,
@@ -175,43 +183,44 @@ export default {
       },
     }))
 
-    columns.unshift({
-      id: 'select',
-      header: ({ table }) =>
-        h(Checkbox, {
-          checked: table.getIsAllPageRowsSelected(),
-          'onUpdate:checked': (value) => {
-            table.toggleAllPageRowsSelected(!!value)
-            let rows = table.getRowModel()
-            // Emit event on rows checked/unchecked
-            if (value) {
-              context.emit(
-                'allRows:selected',
-                rows.rows.map((el) => el.original.id),
-              )
-            } else {
-              context.emit('allRows:selected', [])
-            }
-          },
-          ariaLabel: 'Select all',
-          theme: 'blue',
-        }),
-      cell: ({ row }) =>
-        h(Checkbox, {
-          checked: row.getIsSelected(),
-          'onUpdate:checked': (value) => {
-            row.toggleSelected(!!value)
-            // Emit event on row checked/unchecked
-            context.emit('row:checked', {
-              selected: value,
-              rowId: row.original.id,
-            })
-          },
-          ariaLabel: 'Select row',
-          theme: 'blue',
-        }),
-    })
-
+    if (props.hasCheckbox) {
+      columns.unshift({
+        id: 'select',
+        header: ({ table }) =>
+          h(Checkbox, {
+            checked: table.getIsAllPageRowsSelected(),
+            'onUpdate:checked': (value) => {
+              table.toggleAllPageRowsSelected(!!value)
+              let rows = table.getRowModel()
+              // Emit event on rows checked/unchecked
+              if (value) {
+                context.emit(
+                  'allRows:selected',
+                  rows.rows.map((el) => el.original.id),
+                )
+              } else {
+                context.emit('allRows:selected', [])
+              }
+            },
+            ariaLabel: 'Select all',
+            theme: 'blue',
+          }),
+        cell: ({ row }) =>
+          h(Checkbox, {
+            checked: row.getIsSelected(),
+            'onUpdate:checked': (value) => {
+              row.toggleSelected(!!value)
+              // Emit event on row checked/unchecked
+              context.emit('row:checked', {
+                selected: value,
+                rowId: row.original.id,
+              })
+            },
+            ariaLabel: 'Select row',
+            theme: 'blue',
+          }),
+      })
+    }
     if (props.hasQuickActions) {
       columns.push({
         id: 'actions',
