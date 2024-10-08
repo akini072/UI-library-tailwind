@@ -52,7 +52,7 @@ export default {
     ),
   },
   props: {
-    tooltip: { type: String, required: true },
+    tooltip: { type: String },
     side: { type: String, required: false, default: 'bottom' },
     align: { type: String, required: false, default: 'center' },
     theme: { type: String, default: 'dark' },
@@ -60,7 +60,7 @@ export default {
   },
   computed: {
     bindProps() {
-      return this.modelValue ? { modelValue: this.modelValue } : {}
+      return this.modelValue !== undefined ? { open: this.modelValue } : {}
     },
   },
 }

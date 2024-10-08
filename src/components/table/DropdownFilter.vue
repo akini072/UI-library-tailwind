@@ -1,9 +1,15 @@
 <template>
   <div class="d-flex align-center">
-    <Popover>
-      <PopoverTrigger as="div">
+    <popover>
+      <popover-trigger as="div">
         <v-button variant="outlined" class="border-dashed" height="36px">
-          <v-icon name="plus-circle" height="16px" class="mr-2" />
+          <v-icon
+            name="close-circle-outline"
+            height="16px"
+            class="mr-2"
+            color="var(--gray-500)"
+            @click="handleClearFilter"
+          />
           <span>{{ label }}</span>
           <div v-if="selected.length > 0" class="border-l pl-2 ml-2">
             <span
@@ -22,8 +28,8 @@
             </div>
           </div>
         </v-button>
-      </PopoverTrigger>
-      <PopoverContent class="p-0" style="width: 200" align="start">
+      </popover-trigger>
+      <popover-content class="p-0" style="width: 200" align="start">
         <div
           class="border-b d-flex align-center hover-bg--gray-100 px-3 py-2 search-field w-full"
         >
@@ -68,18 +74,8 @@
             Clear filters
           </div>
         </template>
-      </PopoverContent>
-    </Popover>
-    <v-button
-      v-if="selected.length > 0"
-      height="36px"
-      variant="text"
-      class="text--gray-600 ml-2"
-      @click="handleClearFilter"
-    >
-      <p>Reset</p>
-      <v-icon class="ml-2" name="close" />
-    </v-button>
+      </popover-content>
+    </popover>
   </div>
 </template>
 
@@ -90,7 +86,7 @@ export default {
   name: 'SelectStatus',
   components: {
     VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')),
-    VButton: defineAsyncComponent(() => import('./VButton')),
+    VButton: defineAsyncComponent(() => import('@/components/base/VButton')),
     Popover: defineAsyncComponent(() =>
       import('@/components/shadcn/popover/Popover'),
     ),

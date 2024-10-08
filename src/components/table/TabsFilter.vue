@@ -23,12 +23,13 @@ export default {
       required: true,
     },
     defaultActive: {
-      type: [String, Number]
+      type: [String, Number],
+      default: 'all'
     }
   },
   data() {
     return {
-      activeTab: 'all',
+      activeTab: '',
     }
   },
   methods: {

@@ -30,13 +30,18 @@
       <table-body>
         <template v-if="loading">
           <table-row
-            v-for="headerGroup in table.getHeaderGroups()"
+            v-for="headerGroup in [
+              ...table.getHeaderGroups(),
+              ...table.getHeaderGroups(),
+              ...table.getHeaderGroups(),
+            ]"
             :key="headerGroup.id"
           >
             <table-cell v-for="header in headerGroup.headers" :key="header.id">
               <skeleton class="flex-grow py-3" />
             </table-cell>
           </table-row>
+          <div class="my-10" />
         </template>
         <template v-else-if="table.getRowModel().rows?.length">
           <table-row
