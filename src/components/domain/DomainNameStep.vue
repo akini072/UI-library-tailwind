@@ -1,33 +1,17 @@
 <template>
   <div>
-    <div class="ma-5">
-      <v-field
-        v-model="domain"
-        class="mb-7"
-        label="Domain name"
-        placeholder="mydomain.com"
-      />
-      <div v-if="errorMessage" class="alert__box error mb-4">
-        <div>
-          <v-icon name="warning" height="28px" />
-        </div>
-        <span v-html="errorMessage" />
+    <v-field
+      :model-value="domainName"
+      class="mb-2"
+      label="Domain name"
+      placeholder="mydomain.com"
+      @update:model-value="$emit('update:domain-name', $event)"
+    />
+    <div v-if="errorMessage" class="alert__box error mb-4">
+      <div>
+        <v-icon name="warning" height="28px" />
       </div>
-    </div>
-    <div class="d-flex border-t justify-space-between py-3 px-5">
-      <v-button
-        label="Cancel"
-        :disabled="loading"
-        @click="$emit('cancel')"
-      />
-      <v-button
-        class="ml-3"
-        label="Connect"
-        color="primary"
-        :disabled="!domain"
-        :loading="loading"
-        @click="$emit('validate:domain', domain)"
-      />
+      <span v-html="errorMessage" />
     </div>
   </div>
 </template>
@@ -39,7 +23,7 @@ export default {
   components: {
     VField: defineAsyncComponent(() => import('@/components/base/VField')),
     VButton: defineAsyncComponent(() => import('@/components/base/VButton')),
-    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon'))
+    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')),
   },
   props: {
     errorMessage: {
@@ -54,19 +38,6 @@ export default {
       type: Boolean,
       default: false,
     },
-  },
-  watch: {
-    domainName: {
-      handler() {
-        this.domain = this.domainName
-      },
-      immediate: true,
-    },
-  },
-  data() {
-    return {
-      domain: '',
-    }
   },
 }
 </script>

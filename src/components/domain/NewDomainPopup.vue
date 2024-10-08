@@ -25,37 +25,70 @@
           />
         </div>
       </div>
-      <div v-if="currentStep.id === 3">
-        <div class="ma-5 d-flex align-center flex-column">
-          <v-icon
-            name="check-circle"
-            color="var(--success-600)"
-            height="40px"
+      <scroll-area max-height="70vh">
+        <div class="ma-5">
+          <div
+            v-if="currentStep.id === 3"
+            class="d-flex align-center flex-column"
+          >
+            <v-icon
+              name="check-circle"
+              color="var(--success-600)"
+              height="40px"
+            />
+            <h5 class="font-weight-bold text--gray-600 mt-3">
+              Congratulations!
+            </h5>
+            <p class="text--gray-600 mt-1">
+              Your domain connection has been verified
+            </p>
+          </div>
+          <component
+            v-else
+            :is="currentStep.component"
+            :error-message="errorMessage"
+            :loading="loading"
+            :domain-name="domain"
+            @verify:domain="verifyDomain"
+            @validate:domain="validateDomain"
+            @cancel="closePopup"
+            @back="backStep"
+            @update:domain-name="domain = $event"
           />
-          <h5 class="font-weight-bold text--gray-600 mt-3">Congratulations!</h5>
-          <p class="text--gray-600 mt-1">
-            Your domain connection has been verified
-          </p>
         </div>
-        <div class="d-flex border-t justify-end py-3 px-5">
-          <v-button
-            class="ml-3"
-            label="Complete setup"
-            color="primary"
-            @click="closePopup"
-          />
-        </div>
-      </div>
-      <component
-        v-else
-        :is="currentStep.component"
-        :error-message="errorMessage"
+      </scroll-area>
+    </template>
+    <template v-slot:actions>
+      <v-button
+        v-if="currentStep.id !== 3"
+        class="mr-auto"
+        label="Cancel"
+        :disabled="loading"
+        @click="handleCancelButton"
+      />
+      <v-button
+        v-if="currentStep.id === 1"
+        class="ml-3"
+        label="Connect"
+        color="primary"
+        :disabled="!domain"
         :loading="loading"
-        :domain-name="domain"
-        @verify:domain="verifyDomain"
-        @validate:domain="validateDomain"
-        @cancel="closePopup"
-        @back="backStep"
+        @click="validateDomain"
+      />
+      <v-button
+        v-else-if="currentStep.id === 2"
+        class="ml-3"
+        label="Verify changes"
+        color="primary"
+        :loading="loading"
+        @click="verifyDomain"
+      />
+      <v-button
+        v-else
+        class="ml-3"
+        label="Complete setup"
+        color="primary"
+        @click="closePopup"
       />
     </template>
   </v-popup>
@@ -72,6 +105,9 @@ export default {
     DomainNameStep: defineAsyncComponent(() => import('./DomainNameStep.vue')),
     DomainConnectionStep: defineAsyncComponent(() =>
       import('./DomainConnectionStep.vue'),
+    ),
+    ScrollArea: defineAsyncComponent(() =>
+      import('@/components/shadcn/scroll-area/ScrollArea.vue'),
     ),
   },
   data() {
@@ -127,8 +163,7 @@ export default {
           this.loading = false
         })
     },
-    async validateDomain(domain) {
-      this.domain = domain
+    async validateDomain() {
       this.errorMessage = ''
       this.loading = true
 
@@ -151,6 +186,10 @@ export default {
 
       this.steps = steps
       this.currentStep = steps.find(({ id }) => id === this.currentStep.id + 1)
+    },
+    handleCancelButton() {
+      if (this.currentStep.id === 1) this.closePopup()
+      else this.backStep()
     },
     backStep() {
       const steps = this.steps
