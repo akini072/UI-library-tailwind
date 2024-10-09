@@ -196,7 +196,7 @@ export default {
     },
     emptyCardText: {
       type: String,
-      default: ''
+      default: 'Use default template'
     },
     showPreview: {
       type: Boolean,

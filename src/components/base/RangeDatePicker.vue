@@ -44,7 +44,7 @@
       :max-date="maxDate"
       :min-date="minDate"
       :timezone="{ emitTimezone: timeZone }"
-      teleport
+      :teleport="teleport"
       auto-apply
       @update:model-timezone-value="handleUpdateDate"
     >
@@ -111,6 +111,10 @@ export default {
       type: String,
       default: 'large',
     },
+    teleport: {
+      type: Boolean,
+      default: true
+    }
   },
   data() {
     return {

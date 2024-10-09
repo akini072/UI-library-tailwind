@@ -98,7 +98,8 @@ const SelectImagePopup = defineAsyncComponent(() => import('./components/images/
 const SearchMenu = defineAsyncComponent(() => import('./components/base/SearchMenu.vue'))
 
 const DataTable = defineAsyncComponent(() => import('./components/table/DataTable.vue'))
-const DropdownFilter = defineAsyncComponent(() => import('./components/base/DropdownFilter.vue'))
+const DropdownFilter = defineAsyncComponent(() => import('./components/table/DropdownFilter.vue'))
+const DateFilter = defineAsyncComponent(() => import('./components/table/DateFilter.vue'))
 const TimeCell = defineAsyncComponent(() => import('./components/table/TimeCell.vue'))
 const TablePagination = defineAsyncComponent(() => import('./components/table/Pagination.vue'))
 const TabsFilter = defineAsyncComponent(() => import('./components/table/TabsFilter.vue'))
@@ -188,6 +189,7 @@ export {
   SearchMenu,
   DataTable, 
   DropdownFilter,
+  DateFilter,
   TimeCell,
   TablePagination,
   TabsFilter,

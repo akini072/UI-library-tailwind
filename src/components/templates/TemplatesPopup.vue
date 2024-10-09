@@ -4,18 +4,8 @@
       <v-popup :title="title" width="1380px" @close="close">
         <template v-slot:body>
           <div class="d-grid layout-new-funnel">
-            <div class="py-4 px-2 border-b">
-              <v-field
-                v-model="searchTemplate"
-                height="20px"
-                icon="search"
-                icon-color="var(--gray-500)"
-                icon-size="14px"
-                variant="plain"
-                size="small"
-                placeholder="Search"
-                no-input-padding
-              />
+            <div class="px-4 py-2 border-b">
+              <search-menu v-model="searchTemplate" />
             </div>
             <div class="border-b">
               <templates-menu
@@ -47,11 +37,13 @@ import { defineAsyncComponent } from 'vue'
 export default {
   components: {
     VPopup: defineAsyncComponent(() => import('@/components/base/VPopup')),
-    VField: defineAsyncComponent(() => import('@/components/base/VField')),
     ScrollArea: defineAsyncComponent(() =>
       import('@/components/shadcn/scroll-area/ScrollArea.vue'),
     ),
     TemplatesMenu: defineAsyncComponent(() => import('./TemplatesMenu.vue')),
+    SearchMenu: defineAsyncComponent(() =>
+      import('@/components/base/SearchMenu.vue'),
+    ),
   },
   emits: ['click:use-template', 'close', 'select:template'],
   props: {

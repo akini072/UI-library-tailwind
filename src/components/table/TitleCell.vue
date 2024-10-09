@@ -1,8 +1,10 @@
 <template>
   <div class="d-flex text--gray-700 title__cell">
     <p class="font-weight-medium">
-      <slot />
-      {{ row.title }}
+      <slot v-if="$slots.default" />
+      <span v-else>
+        {{ row.title }}
+      </span>
     </p>
   </div>
 </template>
