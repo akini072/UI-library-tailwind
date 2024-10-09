@@ -24,13 +24,18 @@ export default {
     },
     defaultActive: {
       type: [String, Number],
-      default: 'all'
-    }
+      default: 'all',
+    },
   },
   data() {
     return {
       activeTab: '',
     }
+  },
+  watch: {
+    defaultActive() {
+      this.activeTab = this.defaultActive
+    },
   },
   methods: {
     handleClickTab(tab) {
@@ -41,7 +46,7 @@ export default {
   },
   mounted() {
     this.activeTab = this.defaultActive
-  }
+  },
 }
 </script>
 
@@ -49,8 +54,7 @@ export default {
 .tab__btn {
   transition: 200ms all ease;
   &.active {
-    box-shadow:
-      0px 1px 3px 0px rgba(16, 24, 40, 0.1),
+    box-shadow: 0px 1px 3px 0px rgba(16, 24, 40, 0.1),
       0px 1px 2px 0px rgba(16, 24, 40, 0.06);
     background-color: white;
     color: var(--gray-700);
