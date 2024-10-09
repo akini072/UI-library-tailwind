@@ -2,14 +2,14 @@
   <div class="d-flex align-center">
     <popover>
       <popover-trigger as="div">
-        <v-button variant="outlined" class="border-dashed" height="36px">
-          <v-icon
-            name="close-circle-outline"
-            height="16px"
-            class="mr-2"
-            color="var(--gray-500)"
-            @click="handleClearFilter"
-          />
+        <v-button variant="outlined" class="border-dashed pl-2" height="36px">
+          <v-button variant="text" icon @click.stop="handleClearFilter">
+            <v-icon
+              name="close-circle-outline"
+              height="16px"
+              color="var(--gray-500)"
+            />
+          </v-button>
           <span>{{ label }}</span>
           <div v-if="selected.length > 0" class="border-l pl-2 ml-2">
             <span
@@ -60,10 +60,17 @@
             >
               <label class="d-flex align-center flex-grow h-full px-3 py-2">
                 <checkbox v-model:checked="option.checked" />
+                <v-icon
+                  :name="option.icon"
+                  height="16px"
+                  class="font-weight-medium ml-2"
+                />
                 <span class="ml-2">
                   {{ option.label || option.value }}
                 </span>
-                <h6 class="ml-auto text--gray-600">{{ option.total }}</h6>
+                <h6 class="ml-auto text--gray-600">
+                  {{ counts[option.value] }}
+                </h6>
               </label>
             </div>
           </div>
@@ -106,6 +113,10 @@ export default {
       type: Array,
       default: () => [],
     },
+    counts: {
+      type: Object,
+      default: () => {},
+    },
   },
   emits: ['update:selected'],
   data() {
@@ -120,6 +131,7 @@ export default {
       )
     },
     selected() {
+      console.log(this.options)
       return this.options.filter(({ checked }) => checked)
     },
   },
