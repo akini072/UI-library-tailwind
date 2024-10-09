@@ -2,14 +2,14 @@
   <div class="d-flex align-center">
     <popover>
       <popover-trigger as="div">
-        <v-button variant="outlined" class="border-dashed" height="36px">
-          <v-icon
-            name="close-circle-outline"
-            height="16px"
-            class="mr-2"
-            color="var(--gray-500)"
-            @click="handleClearFilter"
-          />
+        <v-button variant="outlined" class="border-dashed pl-2" height="36px">
+          <v-button variant="text" icon @click.stop="handleClearFilter">
+            <v-icon
+              name="close-circle-outline"
+              height="16px"
+              color="var(--gray-500)"
+            />
+          </v-button>
           <span>{{ label }}</span>
           <div v-if="isActive" class="border-l pl-2 ml-2">
             <span class="mx-1 px-2 py-1 bg--gray-100 rounded-md">
@@ -65,10 +65,10 @@ export default {
     },
     isActive: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-  emits: ['update:selected'],
+  emits: ['update:date'],
   data() {
     return {
       startDate: new Date(),
