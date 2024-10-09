@@ -61,6 +61,7 @@
               <label class="d-flex align-center flex-grow h-full px-3 py-2">
                 <checkbox v-model:checked="option.checked" />
                 <v-icon
+                  v-if="option.icon"
                   :name="option.icon"
                   height="16px"
                   class="font-weight-medium ml-2"
@@ -68,7 +69,7 @@
                 <span class="ml-2">
                   {{ option.label || option.value }}
                 </span>
-                <h6 class="ml-auto text--gray-600">
+                <h6 v-if="counts[option.value]" class="ml-auto text--gray-600">
                   {{ counts[option.value] }}
                 </h6>
               </label>
@@ -115,7 +116,7 @@ export default {
     },
     counts: {
       type: Object,
-      default: () => {},
+      default: {},
     },
   },
   emits: ['update:selected'],
@@ -131,7 +132,6 @@ export default {
       )
     },
     selected() {
-      console.log(this.options)
       return this.options.filter(({ checked }) => checked)
     },
   },
