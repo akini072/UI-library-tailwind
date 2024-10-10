@@ -35,6 +35,7 @@
     "clsx": "^2.1.1",
     "embla-carousel": "^8.0.4",
     "embla-carousel-vue": "^8.0.4",
+    "file-saver": "^2.0.5",
     "lucide-vue-next": "^0.394.0",
     "moment-timezone": "^0.5.45",
     "radix-vue": "^1.8.3",
