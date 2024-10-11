@@ -1,5 +1,5 @@
 <template>
-  <v-popup width="560px" :title="title" @close="$emit('close')" class="export-csv">
+  <v-popup width="560px" :title="`Export ${title}`" @close="$emit('close')" class="export-csv">
     <template #body>
       <div class="automation-progress-panel popup_progress_panel ma-4">
         <div class="item-prog d-flex" :class="{ deactivated: step.status === 'deactivated' }" v-for="step in steps"
@@ -57,7 +57,7 @@
             Your CSV is ready to download
           </p>
         </div>
-        <a @click="downloadEvent()" class="btn">Download .CSV</a>
+        <a @click="downloadFile()" class="btn">Download .CSV</a>
       </div>
     </template>
     <template v-slot:actions>
@@ -83,6 +83,10 @@ export default {
     title: { type: String },
     exporting: { type: Boolean, default: false },
     downloadRes: { default: null },
+    exportData: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     const startDate = moment().startOf('day').toDate()
@@ -93,10 +97,6 @@ export default {
       currentRange: 'Last 30 days'
     }
     return {
-      exportData: {
-        id: 0,
-        funnel_id: 0
-      },
       date: date,
       steps: [
         {
@@ -138,9 +138,6 @@ export default {
     exportEvent() {
       this.exportCSV(false)
     },
-    downloadEvent() {
-      this.exportCSV(true)
-    },
     nextStep(numberStep) {
       this.stepState = numberStep
       if (numberStep !== 1) {
@@ -165,41 +162,36 @@ export default {
         }
       }, 10)
     },
-    exportCSV(downloadType = false) {
-      if (downloadType === false) {
-        this.exportData = {}
-        let startDate = moment(this.date.startDate).startOf('day').unix()
-        let endDate = moment(this.date.endDate).endOf('day').unix()
-        if (this.ordersBy === 'all') {
-          startDate = 0
-          endDate = 0
-        }
-        // Async actions will take place in the parent, and they will set the exporting prop!
-        let data = {
-          export_type: this.ordersBy,
-          range_start: startDate || 0,
-          range_end: endDate || 0
-        }
-        // Original method
-        // Trigger a call to the BE with data as a payload
-        this.$emit('get:export-data', data)
-      } else {
-        this.downloadFile(this.exportData.url)
-        this.ordersByType = 'all'
+    exportCSV() {
+      let startDate = moment(this.date.startDate).startOf('day').unix()
+      let endDate = moment(this.date.endDate).endOf('day').unix()
+      if (this.ordersBy === 'all') {
+        startDate = 0
+        endDate = 0
       }
+      // Async actions will take place in the parent, and they will set the exporting prop!
+      let data = {
+        export_type: this.ordersBy,
+        range_start: startDate || 0,
+        range_end: endDate || 0
+      }
+      // Original method
+      // Trigger a call to the BE with data as a payload
+      this.$emit('get:export-data', data)
     },
-    downloadFile(url) {
-      fetch(url)
+    downloadFile() {
+      fetch(this.exportData.url)
         .then((response) => response.blob())
         .then((blob) => {
           const blobURL = URL.createObjectURL(blob)
           const link = document.createElement('a')
           link.href = blobURL
-          link.download = 'orders-export'
+          link.download = `${this.title}-export`
           document.body.appendChild(link)
           link.click()
           document.body.removeChild(link)
           URL.revokeObjectURL(blobURL)
+          this.$emit('close')
         })
         .catch((error) => this.$error(error))
     },
