@@ -20,14 +20,16 @@
         </div>
       </div>
       <div class="col" v-if="stepState === 1">
-        <label class="item switch_checkbox_item radio_box_item">
-          <input type="radio" name="orders_by" value="by_date" v-model="ordersBy" />
-          <div class="switch_checkbox" />
-          By date
-        </label>
-        <div class="datapicker_wrpr" v-if="ordersBy === 'by_date'">
-          <RangeDatePicker :range="date.currentRange" :modelValue="[date.startDate, date.endDate]"
-            @update:model-value="handleDateUpdate" :minDate="minDate" size="medium" />
+        <div class="row d-flex">
+          <label class="item switch_checkbox_item radio_box_item">
+            <input type="radio" name="orders_by" value="by_date" v-model="ordersBy" />
+            <div class="switch_checkbox" />
+            By date
+          </label>
+          <div class="datapicker_wrpr" v-if="ordersBy === 'by_date'">
+            <RangeDatePicker :range="date.currentRange" :modelValue="[date.startDate, date.endDate]"
+              @update:model-value="handleDateUpdate" :minDate="minDate" size="medium" />
+          </div>
         </div>
         <label class="item switch_checkbox_item radio_box_item">
           <input type="radio" name="orders_by" value="all" v-model="ordersBy" />
@@ -115,6 +117,7 @@ export default {
 
 <style lang="scss" scoped>
 .export-csv {
+  z-index: 10;
   .automation-progress-panel {
     display: flex;
     justify-content: space-between;
@@ -150,6 +153,9 @@ export default {
     display: flex;
     flex-direction: column;
     margin-bottom: 14px;
+    .row {
+      height: 38px;
+    }
   }
 
   .switch_checkbox_item {
@@ -162,6 +168,7 @@ export default {
     // display: none;
     margin-right: 10px;
     margin-top: 2px;
+    cursor: pointer;
   }
 
   .switch_checkbox_item input:checked~.switch_checkbox {
