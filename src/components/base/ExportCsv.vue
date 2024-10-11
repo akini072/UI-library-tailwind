@@ -166,7 +166,6 @@ export default {
       }, 10)
     },
     exportCSV(downloadType = false) {
-      console.log('export', downloadType)
       if (downloadType === false) {
         this.exportData = {}
         let startDate = moment(this.date.startDate).startOf('day').unix()
@@ -175,8 +174,6 @@ export default {
           startDate = 0
           endDate = 0
         }
-        // What if it's 0, how BE will know which data to export?
-        // Each parent component should have specific endpoint to communicate with?
         // Async actions will take place in the parent, and they will set the exporting prop!
         let data = {
           export_type: this.ordersBy,
@@ -184,7 +181,7 @@ export default {
           range_end: endDate || 0
         }
         // Original method
-        // this.exportData = await this.dataListStore.exportData(data)
+        // Trigger a call to the BE with data as a payload
         this.$emit('get:export-data', data)
       } else {
         this.downloadFile(this.exportData.url)
