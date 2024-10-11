@@ -83,16 +83,6 @@ export default {
     title: { type: String },
     exporting: { type: Boolean, default: false },
     downloadRes: { default: null },
-    exportData: { 
-      default: {
-        id: 0,
-        funnel_id: 0
-      }
-    },
-    funnel: {
-      type: Object,
-      default: {},
-    }
   },
   data() {
     const startDate = moment().startOf('day').toDate()
@@ -103,6 +93,10 @@ export default {
       currentRange: 'Last 30 days'
     }
     return {
+      exportData: {
+        id: 0,
+        funnel_id: 0
+      },
       date: date,
       steps: [
         {
@@ -173,8 +167,8 @@ export default {
     },
     exportCSV(downloadType = false) {
       console.log('export', downloadType)
-      if (this.funnel && parseInt(this.funnel.id) > 0) funnelId = parseInt(this.funnel.id)
       if (downloadType === false) {
+        this.exportData = {}
         let startDate = moment(this.date.startDate).startOf('day').unix()
         let endDate = moment(this.date.endDate).endOf('day').unix()
         if (this.ordersBy === 'all') {
@@ -185,36 +179,33 @@ export default {
         // Each parent component should have specific endpoint to communicate with?
         // Async actions will take place in the parent, and they will set the exporting prop!
         let data = {
-          funnel_id: funnelId,
-          time: null,
-          data_size: null,
-          file_name: null,
-          done: false,
-          failed: false,
-          time_done: null,
-          expiry_date: null,
-          expired: false,
-          downloads: null,
-          params: JSON.stringify({
-            exportType: this.ordersBy,
-            rangeStart: startDate || 0,
-            rangeEnd: endDate || 0
-          })
+          export_type: this.ordersBy,
+          range_start: startDate || 0,
+          range_end: endDate || 0
         }
         // Original method
         // this.exportData = await this.dataListStore.exportData(data)
         this.$emit('get:export-data', data)
       } else {
-        // Original method
-        // var downloadRes = await this.dataListStore.download(this.exportData.id, funnelId)
-        this.$emit('get:file', {exportDataId: this.exportData.id, funelId: funnelId})
-        if (this.downloadRes) {
-          let blob = new Blob([downloadRes], { type: 'text/csv;charset=utf-8' })
-          saveAs(blob, 'orders-export.csv')
-        }
+        this.downloadFile(this.exportData.url)
         this.ordersByType = 'all'
       }
-    }
+    },
+    downloadFile(url) {
+      fetch(url)
+        .then((response) => response.blob())
+        .then((blob) => {
+          const blobURL = URL.createObjectURL(blob)
+          const link = document.createElement('a')
+          link.href = blobURL
+          link.download = 'orders-export'
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link)
+          URL.revokeObjectURL(blobURL)
+        })
+        .catch((error) => this.$error(error))
+    },
   }
 }
 </script>
