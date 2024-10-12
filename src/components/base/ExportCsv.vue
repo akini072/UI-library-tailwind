@@ -57,7 +57,9 @@
             Your CSV is ready to download
           </p>
         </div>
-        <a @click="downloadFile()" class="btn">Download .CSV</a>
+        <v-button variant="text" @click="downloadFile()">
+          <a  class="btn">Download .CSV</a>
+        </v-button>
       </div>
     </template>
     <template v-slot:actions>
