@@ -96,6 +96,7 @@ const NewDomainPopup = defineAsyncComponent(() => import('./components/domain/Ne
 
 const SelectImagePopup = defineAsyncComponent(() => import('./components/images/SelectImagePopup.vue'))
 const SearchMenu = defineAsyncComponent(() => import('./components/base/SearchMenu.vue'))
+const ExportCsv = defineAsyncComponent(() => import('./components/base/ExportCsv.vue'))
 
 const DataTable = defineAsyncComponent(() => import('./components/table/DataTable.vue'))
 const DropdownFilter = defineAsyncComponent(() => import('./components/table/DropdownFilter.vue'))
@@ -106,6 +107,7 @@ const TabsFilter = defineAsyncComponent(() => import('./components/table/TabsFil
 const TagsCell = defineAsyncComponent(() => import('./components/table/TagsCell.vue'))
 const TitleCell = defineAsyncComponent(() => import('./components/table/TitleCell.vue'))
 const StatusCell = defineAsyncComponent(() => import('./components/table/StatusCell.vue'))
+
 
 export {
   VSpinner,
@@ -130,6 +132,7 @@ export {
   CarouselContent,
   CarouselItem,
   CarouselNext,
+  ExportCsv,
   CarouselPrevious,
   Select,
   SelectTrigger,
