@@ -84,7 +84,6 @@ export default {
   props: {
     title: { type: String },
     exporting: { type: Boolean, default: false },
-    downloadRes: { default: null },
     exportData: {
       type: Object,
       required: true,
