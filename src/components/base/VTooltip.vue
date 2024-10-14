@@ -56,11 +56,11 @@ export default {
     side: { type: String, required: false, default: 'bottom' },
     align: { type: String, required: false, default: 'center' },
     theme: { type: String, default: 'dark' },
-    modelValue: { type: Boolean },
+    modelValue: { type: Boolean, default: null },
   },
   computed: {
     bindProps() {
-      return this.modelValue !== undefined ? { open: this.modelValue } : {}
+      return this.modelValue !== null ? { open: this.modelValue } : {}
     },
   },
 }

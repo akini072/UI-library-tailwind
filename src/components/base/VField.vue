@@ -96,13 +96,20 @@
         ref="shareUrlCopyButton"
         @click="copyToClipboard(shareUrl)"
       >
-        <v-tooltip v-model="showCopyTooltip" :tooltip="copyTooltip">
+        <v-tooltip
+          :model-value="urlCopied || copyUrlTooltip"
+          @update:model-value="copyUrlTooltip = $event"
+        >
           <div class="d-flex align-center">
             <v-icon name="copy_link" height="16px" color="var(--gray-700)" />
             <h6 class="text--gray-700 font-weight-medium ml-1">
               {{ copyButtonText }}
             </h6>
           </div>
+          <template #content>
+            <template v-if="urlCopied"> Copied! </template>
+            <template v-else> Copy URL </template>
+          </template>
         </v-tooltip>
       </div>
       <slot v-if="!!$slots.append" name="append" />
@@ -263,8 +270,8 @@ export default {
   data() {
     return {
       isActive: false,
-      copyTooltip: 'Copy',
-      showCopyTooltip: false,
+      urlCopied: false,
+      copyUrlTooltip: false,
     }
   },
   computed: {
@@ -273,14 +280,15 @@ export default {
     },
   },
   methods: {
-    async copyToClipboard() {
-      this.copyTooltip = 'Copied!'
-      this.showCopyTooltip = true
-      navigator.clipboard.writeText(this.modelValue)
-      setTimeout(
-        () => ((this.copyTooltip = 'Copy'), (this.showCopyTooltip = false)),
-        1500,
-      )
+    async copyToClipboard(url) {
+      await navigator.clipboard.writeText(`https://${url}`)
+      this.copyUrlTooltip = true
+      this.urlCopied = true
+
+      setTimeout(() => {
+        this.urlCopied = false
+        this.copyUrlTooltip = false
+      }, 1000)
     },
     onInput($event) {
       this.$emit('update:modelValue', $event.target.value)
