@@ -71,7 +71,6 @@
 
 <script>
 import { defineAsyncComponent } from 'vue';
-import { saveAs } from 'file-saver'
 import moment from 'moment'
 export default {
   name: 'ExportCsv',
