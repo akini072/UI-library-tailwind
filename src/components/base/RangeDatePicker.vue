@@ -6,7 +6,7 @@
         :class="{
           'h-[28px]': size === 'medium',
           'h-[36px]': size === 'large',
-          [size]: true
+          [size]: true,
         }"
       >
         <h6 class="text--gray-700 font-weight-bold text-nowrap">
@@ -90,6 +90,7 @@ export default {
   props: {
     range: {
       type: String,
+      default: 'Last 30 days',
     },
     modelValue: {
       type: Array[Date],
@@ -113,8 +114,8 @@ export default {
     },
     teleport: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
   data() {
     return {
@@ -134,7 +135,9 @@ export default {
   watch: {
     range: {
       handler() {
-        this.selectedRange = this.range
+        this.selectedRange = this.rangeOptions.includes(this.range)
+          ? this.range
+          : 'Last 30 days'
       },
       immediate: true,
     },
@@ -178,7 +181,7 @@ export default {
   },
   mounted() {
     moment.tz.setDefault(this.timeZone || 'Europe/London')
-    this.handleSelectRange(this.range)
+    this.handleSelectRange(this.selectedRange)
   },
 }
 </script>

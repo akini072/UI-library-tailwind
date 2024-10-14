@@ -3,9 +3,9 @@
     <div
       v-for="(item, index) in items"
       :key="index"
-      class="px-1 bg--gray-100 text-capitalize mr-2 rounded-sm"
+      class="px-1 bg--gray-100 text-nowrap text-capitalize mr-2 rounded-sm"
     >
-      {{ item }}
+      {{ item[valueKey] || item }}
     </div>
   </div>
 </template>
@@ -15,6 +15,9 @@ export default {
   props: {
     value: {
       type: Array,
+    },
+    valueKey: {
+      type: String,
     },
   },
   computed: {

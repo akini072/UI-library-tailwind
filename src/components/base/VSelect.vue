@@ -257,16 +257,19 @@ export default {
 
   &.large {
     min-height: 38px;
+    height: 38px;
     font-size: 14px;
   }
 
   &.medium {
     min-height: 34px;
+    height: 34px;
     font-size: 14px;
   }
 
   &.small {
     min-height: 28px;
+    height: 28px;
     font-size: 12px;
   }
   .multiselect-wrapper {
