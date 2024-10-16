@@ -13,6 +13,7 @@
           class="mb-2"
           color="var(--primary-500)"
         />
+        <slot name="icon" v-else />
         <p
           class="text--gray-500 text-nowrap"
           :class="{ 'font-weight-medium': bold }"
