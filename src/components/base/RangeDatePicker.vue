@@ -90,7 +90,7 @@ export default {
   props: {
     range: {
       type: String,
-      default: 'Last 30 days',
+      default: 'Today',
     },
     modelValue: {
       type: Array[Date],
@@ -137,7 +137,7 @@ export default {
       handler() {
         this.selectedRange = this.rangeOptions.includes(this.range)
           ? this.range
-          : 'Last 30 days'
+          : 'Today'
       },
       immediate: true,
     },

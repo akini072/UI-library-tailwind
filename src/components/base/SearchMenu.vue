@@ -12,7 +12,7 @@
       @update:model-value="onChange"
     />
     <v-button
-      v-if="modelValue"
+      v-if="modelValue && hasCancelButton"
       label="Cancel"
       class="ml-3"
       @click="() => onChange('')"
@@ -33,6 +33,10 @@ export default {
       type: String,
       default: ''
     },
+    hasCancelButton: {
+      type: Boolean,
+      default: true
+    }
   },
   methods: {
     onChange(value) {

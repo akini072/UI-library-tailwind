@@ -1,6 +1,6 @@
 <template>
   <div @click.stop>
-    <DropdownMenu>
+    <DropdownMenu v-model:open="isOpen">
       <DropdownMenuTrigger as="div">
         <v-button
           icon
@@ -8,7 +8,6 @@
           :variant="buttonVariant"
           :color="color"
           :loading="loading"
-          @click="$emit('is-active:dropdown', true)"
         >
           <v-tooltip :tooltip="content">
             <v-icon
@@ -113,6 +112,16 @@ export default {
     buttonIconColor: {
       type: String,
       default: 'var(--gray-400)'
+    }
+  },
+  data() {
+    return {
+      isOpen: false,
+    }
+  },
+  watch: {
+    isOpen() {
+      this.$emit('is-active:dropdown', this.isOpen)
     }
   },
   methods: {
