@@ -277,10 +277,8 @@ export default {
       this.currentStepPreview = step
       this.$emit('get:preview', { mode, step })
     },
-    async previewTemplate() {
-      const url = `https://${this.templateSteps[0].url}?utm_source=fnsh&utm_campaign=get-started`
-
-      window.open(url, '_blank')
+    previewTemplate() {
+      this.$emit('get:previewTemplate')
     },
     async like() {
       this.$emit('like:template', {
