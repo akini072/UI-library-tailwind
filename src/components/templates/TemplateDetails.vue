@@ -91,7 +91,7 @@
           >
             {{ submitButton }}
           </v-button>
-          <v-button @click="previewTemplate" size="medium"> Preview </v-button>
+          <v-button @click="$emit('click:preview-template')" size="medium"> Preview </v-button>
         </template>
       </div>
       <div v-if="allowPreview" class="preview__section">
@@ -276,11 +276,6 @@ export default {
       this.deviceMode = mode
       this.currentStepPreview = step
       this.$emit('get:preview', { mode, step })
-    },
-    async previewTemplate() {
-      const url = `https://${this.templateSteps[0].url}?utm_source=fnsh&utm_campaign=get-started`
-
-      window.open(url, '_blank')
     },
     async like() {
       this.$emit('like:template', {

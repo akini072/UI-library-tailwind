@@ -18,9 +18,10 @@
       "import": "./dist/ui-lib.js",
       "require": "./dist/ui-lib.umd.cjs"
     },
+    "./package.json": "./package.json",
     "./global.scss": "./dist/styles/global.css"
   },
-  "version": "1.12.2",
+  "version": "1.12.3",
   "scripts": {
     "build:css": "sass src/assets/styles/global.scss dist/styles/global.css",
     "dev": "vite",
