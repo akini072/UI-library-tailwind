@@ -108,6 +108,7 @@ const TagsCell = defineAsyncComponent(() => import('./components/table/TagsCell.
 const TitleCell = defineAsyncComponent(() => import('./components/table/TitleCell.vue'))
 const StatusCell = defineAsyncComponent(() => import('./components/table/StatusCell.vue'))
 
+const SaveTemplatePopup = defineAsyncComponent(() => import('./components/base/SaveTemplatePopup.vue'))
 
 export {
   VSpinner,
@@ -199,4 +200,5 @@ export {
   TagsCell,
   StatusCell,
   TitleCell,
+  SaveTemplatePopup
 }
