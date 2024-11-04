@@ -91,7 +91,7 @@
           >
             {{ submitButton }}
           </v-button>
-          <v-button @click="previewTemplate" size="medium"> Preview </v-button>
+          <v-button @click="click:preview-template" size="medium"> Preview </v-button>
         </template>
       </div>
       <div v-if="allowPreview" class="preview__section">
