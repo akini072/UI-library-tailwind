@@ -277,9 +277,6 @@ export default {
       this.currentStepPreview = step
       this.$emit('get:preview', { mode, step })
     },
-    previewTemplate() {
-      this.$emit('get:preview-template')
-    },
     async like() {
       this.$emit('like:template', {
         id: this.template.id,
