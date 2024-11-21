@@ -7,54 +7,97 @@
             <div
               class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
             >
+              <div
+                class="h-[50px] w-[50px] mx-auto my-2 border rounded-sm"
+              ></div>
+              <p class="text-sm text-center font-medium">My Images</p>
+            </div>
+
+            <div
+              class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
+            >
               <div class="h-[50px] w-[50px] mx-auto my-2">
-                <img
-                  class="h-[50px] w-[50px]"
-                  src="https://seeklogo.com/images/P/pexels-logo-EFB9232709-seeklogo.com.png"
-                />
+                <img class="" src="../../assets/icons/pexels-icon.svg" />
               </div>
 
               <p class="text-sm text-center font-medium">Pexels</p>
             </div>
 
-            <image-folders-list
-              :folders="folders"
-              :selected="selectedFolder"
-              @select:folder="$emit('click:folder', $event)"
-              @delete:folder="setDeletePopup($event, false)"
-            />
+            <hr class="opacity-20" />
 
             <div
               class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
-              v-if="addFolder"
+              v-for="(folder, i) in folders"
+              @dblclick="
+                folderEdit = folder + ('_' + i);
+                folderName = folder;
+              "
             >
               <div class="w-[30px] h-[30px] mx-auto my-2">
-                <RiFolderLine />
+                <img
+                  class="w-[30px] h-[30px]"
+                  src="../../assets/icons/folder-line-icon.svg"
+                />
               </div>
               <input
+                v-if="folderEdit == folder + '_' + i"
                 v-model="folderName"
-                class="text-sm text-center font-medium border w-[100%] rounded"
+                class="text-sm text-center font-medium border w-[100%]"
                 v-focus
-                @blur="addFolder = false"
-                @keyup.enter="newFolder"
+                @blur="editFolder(i)"
+                @keyup.enter="editFolder(i)"
               />
+              <p v-else class="text-sm text-center font-medium">
+                [{{ folder }}]
+              </p>
             </div>
 
             <div
               class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
-              @click="addFolder = true"
+              @click="
+                folders.push('New Folder');
+                folderEdit = 'New Folder' + '_' + (folders.length - 1);
+                folderName = 'New Folder';
+              "
             >
               <div class="w-[24px] h-[24px] mx-auto my-1">
-                <RiAddLine />
+                <img
+                  class="w-[24px] h-[24px]"
+                  src="../../assets/icons/plus-icon.svg"
+                />
               </div>
               <p class="text-sm text-center font-medium">New folder</p>
             </div>
           </scroll-area>
+          <!-- <v-button
+              label="Add new folder"
+              variant="outlined"
+              color="primary"
+              size="small"
+              @click="addFolder = true"
+            />
+  
+            <div v-if="addFolder" class="d-flex align-center mt-3 mr-2">
+              <saveable-input
+                v-model="folderName"
+                size="medium"
+                @save="newFolder"
+                @cancel="(addFolder = false), (folderName = '')"
+              />
+            </div>
+            <scroll-area class="mt-2 pr-3" max-height="65vh">
+              <image-folders-list
+                :folders="folders"
+                :selected="selectedFolder"
+                @select:folder="$emit('click:folder', $event)"
+                @delete:folder="setDeletePopup($event, false)"
+              />
+            </scroll-area> -->
         </div>
         <div class="py-3">
           <div class="h-[40px] d-flex items-center border-b">
             <div class="flex ml-5 mb-3">
-              <RiSearchLine class="w-[15px]" /><input
+              <img class="" src="../../assets/icons/search-icon.svg" /><input
                 class="ml-2"
                 type="text"
                 placeholder="Search"
@@ -122,13 +165,11 @@
 
 <script>
 import { defineAsyncComponent } from "vue";
-import { RiFolderLine, RiAddLine, RiSearchLine } from "vue-remix-icons";
-
+const focus = {
+  mounted: (el) => el.focus(),
+};
 export default {
   components: {
-    RiFolderLine,
-    RiAddLine,
-    RiSearchLine,
     ScrollArea: defineAsyncComponent(() =>
       import("@/components/shadcn/scroll-area/ScrollArea.vue")
     ),
@@ -155,7 +196,7 @@ export default {
     },
     folders: {
       type: Array,
-      default: () => [],
+      default: () => ["Folder 1"],
     },
     selectedFolder: {
       type: Object,
@@ -173,9 +214,13 @@ export default {
       loadingCreateFolder: false,
       folderName: "",
       deleteData: {},
+
+      folderEdit: "",
     };
   },
-
+  directives: {
+    focus, // enables v-focus in template
+  },
   methods: {
     newFolder() {
       new Promise((resolve, reject) => {
@@ -201,6 +246,12 @@ export default {
           this.loadingCreateFolder = false;
         });
     },
+
+    editFolder(i) {
+      this.folders[i] = this.folderName;
+      this.folderEdit = "";
+    },
+
     uploadImage(e) {
       new Promise((resolve, reject) => {
         const fileList = e.target.files;
