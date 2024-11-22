@@ -1,6 +1,7 @@
 <template>
   <div class="search__menu flex-grow d-flex">
     <v-field
+      ref="search"
       :model-value="modelValue"
       class="search__input flex-grow"
       :class="{ active: !!modelValue }"
@@ -31,17 +32,24 @@ export default {
   props: {
     modelValue: {
       type: String,
-      default: ''
+      default: '',
     },
     hasCancelButton: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
+  setup() {},
   methods: {
     onChange(value) {
       this.$emit('update:model-value', value)
     },
+    focusInput() {
+      this.$refs.search.$refs.input.focus()
+    },
+  },
+  mounted() {
+    this.$emit('search-menu:mounted')
   },
 }
 </script>
