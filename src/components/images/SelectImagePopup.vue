@@ -4,19 +4,6 @@
       <div class="container__layout">
         <div class="py-4 pl-3 pr-1 border-r">
           <scroll-area class="pr-3" max-height="75vh">
-            <div
-              class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
-            >
-              <div class="h-[50px] w-[50px] mx-auto my-2">
-                <img
-                  class="h-[50px] w-[50px]"
-                  src="https://seeklogo.com/images/P/pexels-logo-EFB9232709-seeklogo.com.png"
-                />
-              </div>
-
-              <p class="text-sm text-center font-medium">Pexels</p>
-            </div>
-
             <image-folders-list
               :folders="folders"
               :selected="selectedFolder"
@@ -51,11 +38,13 @@
             </div>
           </scroll-area>
         </div>
-        <div class="py-3">
-          <div class="h-[40px] d-flex items-center border-b">
-            <div class="flex ml-5 mb-3">
+        <div class="pb-3">
+          <div class="w-[100%] border-b">
+            <div class="flex ml-5 my-3 items-center">
               <RiSearchLine class="w-[15px]" /><input
-                class="ml-2"
+                @keyup="searchImages(searchInput)"
+                v-model="searchInput"
+                class="ml-2 w-[100%]"
                 type="text"
                 placeholder="Search"
               />
@@ -83,7 +72,7 @@
           <scroll-area class="pa-5" max-height="64vh">
             <div class="d-grid images__layout" v-if="images.length > 0">
               <lazy
-                v-for="image in images"
+                v-for="image in searchImages(searchInput)"
                 :key="image.id"
                 :min-height="160"
                 unrender
@@ -98,6 +87,14 @@
             <div v-else class="d-flex justify-center pt-10 mt-10">
               <h6>
                 <b> There are no images in this folder yet </b>
+              </h6>
+            </div>
+            <div
+              v-if="searchImages(searchInput).length == 0"
+              class="d-flex justify-center pt-10 mt-10"
+            >
+              <h6>
+                <b> Image not found </b>
               </h6>
             </div>
           </scroll-area>
@@ -172,11 +169,22 @@ export default {
       loadingDelete: false,
       loadingCreateFolder: false,
       folderName: "",
+      searchInput: "",
       deleteData: {},
     };
   },
 
+  // mounted() {
+  //   this.searchImages(this.searchInput);
+  // },
+
   methods: {
+    searchImages(input) {
+      return this.images.filter(
+        (image) => image.name.toLowerCase().indexOf(input) > -1
+      );
+    },
+
     newFolder() {
       new Promise((resolve, reject) => {
         this.loadingCreateFolder = true;
@@ -217,7 +225,7 @@ export default {
         this.$emit(
           "upload:image",
           {
-            folder_id: this.selectedFolder,
+            folder_id: this.selectedFolder.id,
             formData,
           },
           resolve,
