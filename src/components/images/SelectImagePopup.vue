@@ -4,10 +4,25 @@
       <div class="container__layout">
         <div class="py-4 pl-3 pr-1 border-r">
           <scroll-area class="pr-3" max-height="75vh">
+            <div
+              class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
+              @click="pexels = true"
+              :class="[pexels && 'selected']"
+            >
+              <div class="h-[50px] w-[50px] mx-auto my-2">
+                <img
+                  class="h-[50px] w-[50px]"
+                  src="https://seeklogo.com/images/P/pexels-logo-EFB9232709-seeklogo.com.png"
+                />
+              </div>
+
+              <p class="text-sm text-center font-medium">Pexels</p>
+            </div>
             <image-folders-list
               :folders="folders"
               :selected="selectedFolder"
-              @select:folder="$emit('click:folder', $event)"
+              :pexels="pexels"
+              @select:folder="(pexels = false), $emit('click:folder', $event)"
               @delete:folder="setDeletePopup($event, false)"
             />
 
@@ -38,7 +53,7 @@
             </div>
           </scroll-area>
         </div>
-        <div class="pb-3">
+        <div v-if="!pexels" class="pb-3">
           <div class="w-[100%] border-b">
             <div class="flex ml-5 my-3 items-center">
               <RiSearchLine class="w-[15px]" /><input
@@ -90,7 +105,7 @@
               </h6>
             </div>
             <div
-              v-if="searchImages(searchInput).length == 0"
+              v-if="searchImages(searchInput).length == 0 && images.length > 0"
               class="d-flex justify-center pt-10 mt-10"
             >
               <h6>
@@ -99,6 +114,13 @@
             </div>
           </scroll-area>
         </div>
+        <Pexels
+          @search:pexels="searchPexels"
+          @get:pexels="getPexelsImages"
+          @select:image="selectImage"
+          :images="pexelsImages"
+          v-else
+        />
       </div>
       <teleport to="body">
         <confirmation-popup
@@ -141,6 +163,7 @@ export default {
       import("@/components/base/SaveableInput.vue")
     ),
     ImageCard: defineAsyncComponent(() => import("./ImageCard.vue")),
+    Pexels: defineAsyncComponent(() => import("./Pexels.vue")),
     ImageFoldersList: defineAsyncComponent(() =>
       import("./ImageFoldersList.vue")
     ),
@@ -165,24 +188,54 @@ export default {
   data() {
     return {
       addFolder: false,
+      pexels: false,
       showDelete: false,
       loadingDelete: false,
       loadingCreateFolder: false,
       folderName: "",
       searchInput: "",
       deleteData: {},
+
+      pexelsImages: [],
     };
   },
 
-  // mounted() {
-  //   this.searchImages(this.searchInput);
-  // },
+  mounted() {
+    this.getPexelsImages(40);
+  },
 
   methods: {
     searchImages(input) {
       return this.images.filter(
         (image) => image.name.toLowerCase().indexOf(input) > -1
       );
+    },
+
+    getPexelsImages(limit) {
+      fetch(`https://api.pexels.com/v1/curated?per_page=${limit}`, {
+        headers: {
+          Authorization:
+            "Y1syk1CDQnoCml0Drzn965LEufoWUBS1ZExXMEnwV2nljBLoounFQUqe",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => (this.pexelsImages = data.photos))
+        .catch((error) => console.error(error));
+    },
+
+    searchPexels(term, limit) {
+      fetch(
+        `https://api.pexels.com/v1/search?query=${term}&per_page=${limit}`,
+        {
+          headers: {
+            Authorization:
+              "Y1syk1CDQnoCml0Drzn965LEufoWUBS1ZExXMEnwV2nljBLoounFQUqe",
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => (this.pexelsImages = data.photos))
+        .catch((error) => console.error(error));
     },
 
     newFolder() {
@@ -286,9 +339,11 @@ export default {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   }
 
-  .folder-card:hover,
-  .folder-card.active {
-    border: 1px solid #4368e0;
+  .folder-card {
+    &:hover,
+    &.selected {
+      border: 1px solid var(--primary-500);
+    }
   }
 }
 </style>

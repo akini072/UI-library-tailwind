@@ -1,18 +1,7 @@
 <template>
-  <div class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer">
-    <div class="h-[50px] w-[50px] mx-auto my-2">
-      <img
-        class="h-[50px] w-[50px]"
-        src="https://seeklogo.com/images/P/pexels-logo-EFB9232709-seeklogo.com.png"
-      />
-    </div>
-
-    <p class="text-sm text-center font-medium">Pexels</p>
-  </div>
-
   <div
     class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
-    :class="{ selected: selected.id === 0 }"
+    :class="{ selected: selected.id === 0 && !pexels }"
     @click="() => $emit('select:folder', { id: 0 })"
   >
     <div class="w-[30px] h-[30px] mx-auto my-2">
@@ -27,7 +16,7 @@
     class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
     v-for="folder in folders"
     :key="folder.id"
-    :class="{ selected: selected.id === folder.id }"
+    :class="{ selected: selected.id === folder.id && !pexels }"
     @click="() => $emit('select:folder', folder)"
     @dblclick="
       folderEdit = folder + ('_' + folder.id);
@@ -85,6 +74,10 @@ export default {
     selected: {
       type: Object,
     },
+
+    pexels: {
+      type: Boolean,
+    },
   },
 
   data() {
@@ -92,6 +85,28 @@ export default {
       folderEdit: "",
       selectedFolder: "",
     };
+  },
+
+  methods: {
+    updateFolder() {
+      new Promise((resolve, reject) => {
+        this.$emit(
+          "update:folder",
+          {
+            name: this.selectedFolder,
+          },
+          resolve,
+          reject
+        );
+      })
+        .then(() => {
+          this.folderEdit = "";
+          this.selectedFolder = "";
+        })
+        .catch((error) => {
+          this.$error(error);
+        });
+    },
   },
 
   directives: {
