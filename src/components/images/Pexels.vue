@@ -40,7 +40,6 @@
           size="medium"
           @click="loadMore()"
         >
-          <v-icon class="mr-2" name="loadMore" height="20px" />
           Load More
         </v-button>
       </div>
