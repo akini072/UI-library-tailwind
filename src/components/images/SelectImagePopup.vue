@@ -298,8 +298,7 @@ export default {
     getPexelsImages(limit) {
       fetch(`https://api.pexels.com/v1/curated?per_page=${limit}`, {
         headers: {
-          Authorization:
-            "Y1syk1CDQnoCml0Drzn965LEufoWUBS1ZExXMEnwV2nljBLoounFQUqe",
+          Authorization: import.meta.env.VITE_PEXELS_KEY,
         },
       })
         .then((res) => res.json())
@@ -312,8 +311,7 @@ export default {
         `https://api.pexels.com/v1/search?query=${term}&per_page=${limit}`,
         {
           headers: {
-            Authorization:
-              "Y1syk1CDQnoCml0Drzn965LEufoWUBS1ZExXMEnwV2nljBLoounFQUqe",
+            Authorization: import.meta.env.VITE_PEXELS_KEY,
           },
         }
       )

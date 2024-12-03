@@ -12,6 +12,7 @@
 
   <hr class="opacity-20" />
 
+  <!-- Commented out for upcoming upload feature
   <div
     class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
     v-for="folder in folders"
@@ -22,6 +23,13 @@
       folderEdit = folder + ('_' + folder.id);
       selectedFolder = folder.name;
     "
+  > -->
+  <div
+    class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
+    v-for="folder in folders"
+    :key="folder.id"
+    :class="{ selected: selected.id === folder.id && !pexels }"
+    @click="() => $emit('select:folder', folder)"
   >
     <lazy @click="() => $emit('select:folder', folder)" unrender>
       <div class="w-[30px] h-[30px] mx-auto my-2">
