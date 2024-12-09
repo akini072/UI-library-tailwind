@@ -1,37 +1,32 @@
 <template>
-    <suspense>
-        <template #default>
-            <v-popup :title="title" @click="$emit('click:close')" medium>
-                <template v-slot:body>
-                    <div class="p-4">
-                        <div class="responsive-container">
-                            <div class="form-section">
-                                <v-field v-model="saveTemplate.name" class="mb-4" label="Name" />
-                                <v-select v-model="saveTemplate.tags" class="mb-4" label="Category" mode="tags"
-                                    :options="tags" allow-create searchable />
-                                <v-radio v-model="saveTemplate.is_type" value="popular" class="mb-4" label="Is popular?" />
-                                <v-radio v-model="saveTemplate.is_type" value="trend" label="Is trending?" />
-                            </div>
+    <v-popup :title="title" @click="$emit('click:close')" medium>
+        <template v-slot:body>
+            <div class="p-4">
+                <div class="responsive-container">
+                    <div class="form-section">
+                        <v-field v-model="saveTemplate.name" class="mb-4" label="Name" />
+                        <v-select v-model="saveTemplate.tags" class="mb-4" label="Category" mode="tags" :options="tags"
+                            allow-create searchable />
+                        <v-radio v-model="saveTemplate.is_type" value="popular" class="mb-4" label="Is popular?" />
+                        <v-radio v-model="saveTemplate.is_type" value="trend" label="Is trending?" />
+                    </div>
 
-                            <div class="upload-section d-flex flex-column justify-center cursor-pointer">
-                                <div class="favicon-preview" @click="$refs.inputImage.click()">
-                                    <img v-if="imageUrl" :src="imageUrl" alt="Favicon Preview" />
-                                    <v-icon v-else name="add-image" height="70px" color="var(--gray-300)"
-                                        class="justify-center" />
-                                    <input ref="inputImage" name="image" type="file" accept="image/*" @change="uploadImage"
-                                        style="display: none;" />
-                                </div>
-                            </div>
+                    <div class="upload-section d-flex flex-column justify-center cursor-pointer">
+                        <div class="favicon-preview" @click="$refs.inputImage.click()">
+                            <img v-if="imageUrl" :src="imageUrl" alt="Favicon Preview" />
+                            <v-icon v-else name="add-image" height="70px" color="var(--gray-300)" class="justify-center" />
+                            <input ref="inputImage" name="image" type="file" accept="image/*" @change="uploadImage"
+                                style="display: none;" />
                         </div>
                     </div>
-                </template>
-                <template v-slot:actions>
-                    <v-button label="Cancel" variant="outlined" color="black" @click="$emit('click:close')" />
-                    <v-button label="Save" color="primary" @click="save" />
-                </template>
-            </v-popup>
+                </div>
+            </div>
         </template>
-    </suspense>
+        <template v-slot:actions>
+            <v-button label="Cancel" variant="outlined" color="black" @click="$emit('click:close')" />
+            <v-button label="Save" color="primary" @click="save" />
+        </template>
+    </v-popup>
 </template>
 
 <script>
@@ -99,6 +94,7 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
     .upload-section {
         border-radius: 6px;
         padding: 4px;
