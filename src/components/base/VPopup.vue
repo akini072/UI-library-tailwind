@@ -78,7 +78,7 @@ export default {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   transition: opacity 0.5s ease;
-  z-index: 999;
+  z-index: 99;
   .content {
     background-color: white;
     position: absolute;
