@@ -5,18 +5,15 @@
         <div class="py-4 pl-3 pr-1 border-r">
           <scroll-area class="pr-3" max-height="75vh">
             <div
-              class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
+              class="folder-card d-block pa-2 my-3 border rounded-md pointer"
               @click="pexels = true"
               :class="[pexels && 'selected']"
             >
-              <div class="h-[50px] w-[50px] mx-auto my-2">
-                <img
-                  class="h-[50px] w-[50px]"
-                  src="https://seeklogo.com/images/P/pexels-logo-EFB9232709-seeklogo.com.png"
-                />
+              <div class="pexelsLogo mx-auto my-2">
+                <img src="@/assets/icons/pexels-logo.png" />
               </div>
 
-              <p class="text-sm text-center font-medium">Pexels</p>
+              <p class="text-center font-weight-medium">Pexels</p>
             </div>
             <image-folders-list
               :folders="folders"
@@ -27,15 +24,15 @@
             />
 
             <div
-              class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
+              class="folder-card d-block pa-2 my-3 border rounded-md pointer"
               v-if="addFolder"
             >
-              <div class="w-[30px] h-[30px] mx-auto my-2">
+              <div class="folderIcon mx-auto my-2">
                 <RiFolderLine />
               </div>
               <input
                 v-model="folderName"
-                class="text-sm text-center font-medium border w-[100%] rounded"
+                class="text-center font-weight-medium border w-full rounded-sm"
                 v-focus
                 @blur="addFolder = false"
                 @keyup.enter="newFolder"
@@ -43,23 +40,27 @@
             </div>
 
             <div
-              class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
+              class="folder-card d-block pa-2 my-3 border rounded-md pointer"
               @click="addFolder = true"
             >
-              <div class="w-[24px] h-[24px] mx-auto my-1">
+              <div class="plusIcon mx-auto my-1">
                 <RiAddLine />
               </div>
-              <p class="text-sm text-center font-medium">New folder</p>
+              <p class="text-center font-weight-medium">New folder</p>
             </div>
           </scroll-area>
         </div>
         <div v-if="!pexels" class="pb-3">
-          <div class="w-[100%] border-b">
-            <div class="flex ml-5 my-3 items-center">
-              <RiSearchLine class="w-[15px]" /><input
+          <div class="w-full border-b">
+            <div class="d-flex ml-5 my-3">
+              <RiSearchLine
+                class="searchIcon"
+                width="15px"
+                color="var(--gray-500)"
+              /><input
                 @keyup="searchImages(searchInput)"
                 v-model="searchInput"
-                class="ml-2 w-[100%]"
+                class="ml-2 w-full"
                 type="text"
                 placeholder="Search"
               />
@@ -99,53 +100,42 @@
                 />
               </lazy>
             </div>
-            <div v-else class="d-flex justify-center items-center h-[50vh]">
+
+            <div
+              v-else
+              @dragover.prevent.stop="dragging = true"
+              @dragleave.prevent.stop="dragging = false"
+              @drop.prevent="onDrop"
+              class="d-flex align-center justify-center w-full dropContainer"
+            >
               <div
-                @dragover.prevent.stop="dragging = true"
-                @dragleave.prevent.stop="dragging = false"
-                @drop.prevent="onDrop"
-                class="flex items-center justify-center w-[80%]"
+                class="dropzone d-flex flex-column align-center justify-center rounded-lg cursor-pointer"
               >
-                <label
-                  for="dropzone-file"
-                  class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                <div
+                  class="d-flex flex-column align-center justify-center pt-5 pb-3"
                 >
-                  <div
-                    class="flex flex-col items-center justify-center pt-5 pb-6"
-                  >
-                    <svg
-                      class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 20 16"
-                    >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                      />
-                    </svg>
-                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                      <span class="font-semibold">Click to upload</span> or drag
-                      and drop
-                    </p>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">
-                      SVG, PNG, JPG or GIF (MAX. 800x400px)
-                    </p>
+                  <div class="uploadIcon pb-2">
+                    <RiUploadCloud2Line class="uploadCloud" />
                   </div>
-                  <input
-                    ref="inputImage"
-                    name="image"
-                    type="file"
-                    accept="image/*"
-                    @change="uploadImage"
-                    id="dropzone-file"
-                    class="hidden"
-                  />
+
+                  <p style="color: var(--gray-900)">
+                    Select a file or drag and drop here
+                  </p>
+                  <p>JPG or PNG, file size no more than 10MB</p>
+                </div>
+
+                <label class="select_btn mb-6" for="dropzone-file">
+                  Select file
                 </label>
+                <input
+                  ref="inputImage"
+                  name="image"
+                  type="file"
+                  accept="image/*"
+                  @change="uploadImage"
+                  id="dropzone-file"
+                  class="hidden"
+                />
               </div>
             </div>
             <div
@@ -185,7 +175,12 @@
 
 <script>
 import { defineAsyncComponent } from "vue";
-import { RiFolderLine, RiAddLine, RiSearchLine } from "vue-remix-icons";
+import {
+  RiFolderLine,
+  RiAddLine,
+  RiSearchLine,
+  RiUploadCloud2Line,
+} from "vue-remix-icons";
 
 const focus = {
   mounted: (el) => el.focus(),
@@ -196,6 +191,7 @@ export default {
     RiFolderLine,
     RiAddLine,
     RiSearchLine,
+    RiUploadCloud2Line,
     ScrollArea: defineAsyncComponent(() =>
       import("@/components/shadcn/scroll-area/ScrollArea.vue")
     ),
@@ -413,6 +409,7 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+// @import "@/assets/styles/utilities.scss";
 .container__layout {
   display: grid;
   grid-template-columns: 124px 1fr;
@@ -427,6 +424,66 @@ export default {
     &:hover,
     &.selected {
       border: 1px solid var(--primary-500);
+    }
+
+    .pexelsLogo {
+      width: 50px;
+      height: 50px;
+
+      img {
+        width: 50px;
+        height: 50px;
+      }
+    }
+
+    p,
+    input {
+      font-size: small;
+    }
+
+    .folderIcon {
+      height: 30px;
+      width: 30px;
+    }
+
+    .plusIcon {
+      height: 24px;
+      width: 24px;
+    }
+  }
+
+  // .searchIcon {
+  //   width: 15px;
+  // }
+  .dropContainer {
+    height: 50vh;
+    .dropzone {
+      background-color: rgba(67, 104, 224, 0.05);
+      border: rgba(67, 104, 224, 0.4);
+      border-style: dashed;
+      width: 80%;
+      padding: 25px 0;
+
+      &:hover {
+        background-color: rgba(67, 104, 224, 0.1);
+      }
+
+      .select_btn {
+        background-color: rgba(67, 104, 224, 1);
+        color: white;
+        padding: 8px;
+        border-radius: 8px;
+        cursor: pointer;
+        &:hover {
+          background-color: rgb(57, 92, 210);
+        }
+      }
+
+      .uploadCloud {
+        color: rgba(0, 0, 0, 0.5);
+        height: 48px;
+        width: 48px;
+      }
     }
   }
 }

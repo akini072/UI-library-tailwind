@@ -1,11 +1,11 @@
 <template>
   <div class="pb-3">
-    <div class="w-[100%] border-b">
-      <div class="flex ml-5 my-3 items-center">
-        <RiSearchLine class="w-[15px]" /><input
+    <div class="w-full border-b">
+      <div class="d-flex ml-5 my-3 align-center">
+        <RiSearchLine width="15px" /><input
           v-model="searchInput"
           @keyup.enter="$emit('search:pexels', searchInput, limit)"
-          class="ml-2 w-[100%]"
+          class="ml-2 w-full"
           type="text"
           placeholder="Search"
         />
@@ -28,7 +28,7 @@
                 })
               "
               :src="image.src.portrait"
-              class="w-[100%] pb-1"
+              class="w-full pb-1"
             />
           </lazy>
         </div>

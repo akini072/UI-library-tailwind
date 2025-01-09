@@ -1,20 +1,20 @@
 <template>
   <div
-    class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
+    class="folder-card d-block pa-2 my-3 border rounded-md cursor-pointer"
     :class="{ selected: selected.id === 0 && !pexels }"
     @click="() => $emit('select:folder', { id: 0 })"
   >
-    <div class="w-[30px] h-[30px] mx-auto my-2">
+    <div class="folderIcon mx-auto my-1">
       <RiFolderImageLine />
     </div>
-    <p class="text-sm text-center font-medium">My images</p>
+    <p class="text-center font-weight-medium">My images</p>
   </div>
 
-  <hr class="opacity-20" />
+  <hr style="opacity: 20%" />
 
-  <!-- Commented out for upcoming upload feature
+  <!-- Commented out for upcoming update feature
   <div
-    class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
+    class="folder-card d-block pa-2 my-3 border rounded-md pointer"
     v-for="folder in folders"
     :key="folder.id"
     :class="{ selected: selected.id === folder.id && !pexels }"
@@ -25,25 +25,27 @@
     "
   > -->
   <div
-    class="folder-card d-block p-3 my-3 border rounded-md cursor-pointer"
+    class="folder-card d-block pa-2 my-3 border rounded-md pointer"
     v-for="folder in folders"
     :key="folder.id"
     :class="{ selected: selected.id === folder.id && !pexels }"
     @click="() => $emit('select:folder', folder)"
   >
     <lazy @click="() => $emit('select:folder', folder)" unrender>
-      <div class="w-[30px] h-[30px] mx-auto my-2">
+      <div class="folderIcon mx-auto my-1">
         <RiFolderLine />
       </div>
       <input
         v-if="folderEdit == folder + '_' + folder.id"
         v-model="selectedFolder"
-        class="text-sm text-center font-medium border w-[100%] rounded"
+        class="text-center font-weight-medium border w-full rounded-sm"
         v-focus
         @blur="folderEdit = ''"
         @keyup.enter=""
       />
-      <p v-else class="text-sm text-center font-medium">{{ folder.name }}</p>
+      <p v-else class="text-center font-weight-medium text-ellipsis">
+        {{ folder.name }}
+      </p>
       <v-button
         class="delete__button"
         icon
@@ -88,6 +90,8 @@ export default {
     },
   },
 
+  emits: ["delete:folder", "update:folder", "select:folder"],
+
   data() {
     return {
       folderEdit: "",
@@ -127,12 +131,22 @@ export default {
 .folder-card {
   position: relative;
 
+  .folderIcon {
+    height: 30px;
+    width: 30px;
+  }
+
   .delete__button {
     position: absolute;
     top: 2.5px;
     left: 2.5px;
     opacity: 0;
     transition: ease 0.2s;
+  }
+
+  p,
+  input {
+    font-size: small;
   }
 
   &:hover {
