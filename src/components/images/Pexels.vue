@@ -103,7 +103,6 @@ export default {
     loadMore() {
       if (this.limit <= 80) {
         this.limit += 20;
-
         if (this.searchInput == "") {
           this.$emit("get:pexels", this.limit);
         } else {
