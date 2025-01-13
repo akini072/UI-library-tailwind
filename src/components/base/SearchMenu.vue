@@ -2,7 +2,7 @@
   <div class="search__menu flex-grow d-flex">
     <v-field
       :model-value="modelValue"
-      class="search__input flex-grow"
+      class="search__input flex-grow mr-3"
       :class="{ active: !!modelValue }"
       icon="search"
       icon-color="var(--gray-500)"
@@ -11,39 +11,30 @@
       placeholder="Search"
       @update:model-value="onChange"
     />
-    <v-button
-      v-if="modelValue && hasCancelButton"
-      label="Cancel"
-      class="ml-3"
-      @click="() => onChange('')"
-    />
+    <v-button v-if="modelValue" label="Cancel" @click="() => onChange('')" />
   </div>
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent } from "vue";
 
 export default {
   components: {
-    VField: defineAsyncComponent(() => import('./VField')),
-    VButton: defineAsyncComponent(() => import('./VButton')),
+    VField: defineAsyncComponent(() => import("./VField")),
+    VButton: defineAsyncComponent(() => import("./VButton")),
   },
   props: {
     modelValue: {
       type: String,
-      default: ''
+      required: true,
     },
-    hasCancelButton: {
-      type: Boolean,
-      default: true
-    }
   },
   methods: {
     onChange(value) {
-      this.$emit('update:model-value', value)
+      this.$emit("update:model-value", value);
     },
   },
-}
+};
 </script>
 
 <style lang="scss">
@@ -70,10 +61,6 @@ export default {
 
       input {
         border-radius: 38px;
-      }
-
-      svg {
-        color: var(--primary-500);
       }
     }
   }

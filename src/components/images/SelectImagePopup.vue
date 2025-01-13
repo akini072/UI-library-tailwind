@@ -52,8 +52,8 @@
         </div>
         <div v-if="!pexels" class="pb-3">
           <div class="w-full border-b">
-            <div class="d-flex ml-5 my-3">
-              <RiSearchLine
+            <div class="">
+              <!-- <RiSearchLine
                 class="searchIcon"
                 width="15px"
                 color="var(--gray-500)"
@@ -63,29 +63,40 @@
                 class="ml-2 w-full"
                 type="text"
                 placeholder="Search"
+              /> -->
+              <SearchMenu
+                :modelValue="searchInput"
+                class="pa-3"
+                @update:model-value="
+                  (val) => {
+                    searchInput = val;
+                    searchImages(val);
+                  }
+                "
               />
             </div>
           </div>
-          <div v-if="images.length > 0" class="px-4 py-4">
-            <input
-              ref="inputImage"
-              name="image"
-              type="file"
-              accept="image/*"
-              style="display: none"
-              @change="uploadImage"
-            />
-            <v-button
-              class="ml-auto"
-              color="primary"
-              size="medium"
-              @click="$refs.inputImage.click()"
-            >
-              <v-icon class="mr-2" name="upload" height="20px" />
-              Upload new image
-            </v-button>
-          </div>
+
           <scroll-area class="px-4" max-height="64vh">
+            <div v-if="images.length > 0" class="pa-4">
+              <input
+                ref="inputImage"
+                name="image"
+                type="file"
+                accept="image/*"
+                style="display: none"
+                @change="uploadImage"
+              />
+              <v-button
+                class="ml-auto"
+                color="primary"
+                size="medium"
+                @click="$refs.inputImage.click()"
+              >
+                <v-icon class="mr-2" name="upload" height="20px" />
+                Upload new image
+              </v-button>
+            </div>
             <div class="d-grid images__layout" v-if="images.length > 0">
               <lazy
                 v-for="image in searchImages(searchInput)"
@@ -197,6 +208,9 @@ export default {
     ),
     VPopup: defineAsyncComponent(() => import("@/components/base/VPopup")),
     VField: defineAsyncComponent(() => import("@/components/base/VField")),
+    SearchMenu: defineAsyncComponent(() =>
+      import("@/components/base/SearchMenu")
+    ),
     VButton: defineAsyncComponent(() => import("@/components/base/VButton")),
     VIcon: defineAsyncComponent(() => import("@/components/base/VIcon")),
     ConfirmationPopup: defineAsyncComponent(() =>
@@ -240,6 +254,8 @@ export default {
       searchInput: "",
       deleteData: {},
 
+      search: false,
+
       pexelsImages: [],
       dragging: false,
     };
@@ -252,6 +268,8 @@ export default {
   directives: {
     focus, // enables v-focus in template
   },
+
+  computed: {},
 
   methods: {
     searchImages(input) {
@@ -382,6 +400,7 @@ export default {
         .then(() => {
           this.addFolder = false;
           this.folderName = "";
+          if (!this.deleteData.isImage) this.$emit("click:folder", { id: 0 });
         })
         .catch((error) => {
           this.$error(error);

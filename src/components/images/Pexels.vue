@@ -1,18 +1,31 @@
 <template>
   <div class="pb-3">
     <div class="w-full border-b">
-      <div class="d-flex ml-5 my-3 align-center">
-        <RiSearchLine width="15px" /><input
+      <div class="">
+        <!-- <RiSearchLine width="15px" /><input
           v-model="searchInput"
           @keyup.enter="$emit('search:pexels', searchInput, limit)"
           class="ml-2 w-full"
           type="text"
           placeholder="Search"
+        /> -->
+
+        <SearchMenu
+          :modelValue="searchInput"
+          class="pa-3"
+          @update:model-value="
+            (val) => {
+              searchInput = val;
+              val !== ''
+                ? $emit('search:pexels', val, limit)
+                : $emit('get:pexels', this.limit);
+            }
+          "
         />
       </div>
     </div>
 
-    <scroll-area class="pa-5" max-height="64vh">
+    <scroll-area class="px-4" max-height="64vh">
       <div class="images__layout" v-if="images.length > 0">
         <div class="grid grid-cols-4 gap-3 py-3">
           <lazy v-for="image in images" :key="image.id" unrender>
@@ -62,6 +75,9 @@ export default {
     ScrollArea: defineAsyncComponent(() =>
       import("@/components/shadcn/scroll-area/ScrollArea.vue")
     ),
+    SearchMenu: defineAsyncComponent(() =>
+      import("@/components/base/SearchMenu")
+    ),
     Lazy: defineAsyncComponent(() => import("@/components/base/Lazy")),
     ImageCard: defineAsyncComponent(() => import("./ImageCard.vue")),
     VButton: defineAsyncComponent(() => import("@/components/base/VButton")),
@@ -77,6 +93,10 @@ export default {
       searchInput: "",
       limit: 40,
     };
+  },
+
+  mounted() {
+    this.$emit("get:pexels", 40);
   },
 
   methods: {
