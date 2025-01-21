@@ -53,17 +53,6 @@
         <div v-if="!pexels" class="pb-3">
           <div class="w-full border-b">
             <div class="">
-              <!-- <RiSearchLine
-                class="searchIcon"
-                width="15px"
-                color="var(--gray-500)"
-              /><input
-                @keyup="searchImages(searchInput)"
-                v-model="searchInput"
-                class="ml-2 w-full"
-                type="text"
-                placeholder="Search"
-              /> -->
               <SearchMenu
                 :modelValue="searchInput"
                 class="pa-3"
@@ -123,16 +112,18 @@
                 class="dropzone d-flex flex-column align-center justify-center rounded-lg cursor-pointer"
               >
                 <div
-                  class="d-flex flex-column align-center justify-center pt-5 pb-3"
+                  class="d-flex flex-column align-center justify-center pt-5 pb-3 px-3"
                 >
                   <div class="uploadIcon pb-2">
                     <RiUploadCloud2Line class="uploadCloud" />
                   </div>
 
-                  <p style="color: var(--gray-900)">
+                  <p class="text-center" style="color: var(--gray-900)">
                     Select a file or drag and drop here
                   </p>
-                  <p>JPG or PNG, file size no more than 10MB</p>
+                  <p class="text-center">
+                    JPG or PNG, file size no more than 10MB
+                  </p>
                 </div>
 
                 <label class="select_btn mb-6" for="dropzone-file">
@@ -431,7 +422,8 @@ export default {
 // @import "@/assets/styles/utilities.scss";
 .container__layout {
   display: grid;
-  grid-template-columns: 124px 1fr;
+  grid-template-columns: 1fr 6fr;
+  overflow: scroll;
 
   .images__layout {
     display: grid;
