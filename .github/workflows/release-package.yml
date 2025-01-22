@@ -14,6 +14,9 @@ jobs:
         with:
           node-version: 16
       - run: npm ci
+      - run: npm run build
+        env:
+          VITE_PEXELS_API: ${{secrets.VITE_PEXELS_API}}
 
   publish-gpr:
     needs: build
@@ -32,4 +35,3 @@ jobs:
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          VITE_PEXELS_API: ${{secrets.VITE_PEXELS_API}}
