@@ -422,7 +422,7 @@ export default {
 // @import "@/assets/styles/utilities.scss";
 .container__layout {
   display: grid;
-  grid-template-columns: 1fr 6fr;
+  grid-template-columns: 124px 1fr;
   overflow: scroll;
 
   .images__layout {
