@@ -94,7 +94,7 @@
         v-if="copyButton"
         class="border-l h-full pointer d-flex align-center px-2"
         ref="shareUrlCopyButton"
-        @click="copyToClipboard(shareUrl)"
+        @click="copyToClipboard()"
       >
         <v-tooltip
           :model-value="urlCopied || copyUrlTooltip"
@@ -280,8 +280,8 @@ export default {
     },
   },
   methods: {
-    async copyToClipboard(url) {
-      await navigator.clipboard.writeText(`https://${url}`)
+    async copyToClipboard() {
+      await navigator.clipboard.writeText(this.modelValue)
       this.copyUrlTooltip = true
       this.urlCopied = true
 

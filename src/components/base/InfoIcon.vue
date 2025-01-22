@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-tooltip
-      :tooltip="info"
       :theme="theme"
       :side="side"
       :align="info ? 'center' : align"
@@ -13,6 +12,7 @@
         <v-icon :name="iconName" :color="iconColor" />
       </div>
       <template #content>
+        <div v-if="info" v-html="info" />
         <slot />
       </template>
     </v-tooltip>

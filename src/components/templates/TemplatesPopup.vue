@@ -107,8 +107,9 @@ export default {
           tags.split(',').includes(option),
         )
       }
-      return templates.filter(({ name }) =>
-        new RegExp(this.searchTemplate, 'i').test(name),
+      return templates.filter(
+        ({ name }) =>
+          name.toLowerCase().indexOf(this.searchTemplate.toLowerCase()) >= 0,
       )
     },
   },
