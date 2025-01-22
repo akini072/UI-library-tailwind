@@ -277,7 +277,6 @@ export default {
     },
 
     getPexelsImages(limit) {
-      console.log('pexels: ', import.meta.env.VITE_PEXELS_KEY)
       fetch(`https://api.pexels.com/v1/curated?per_page=${limit}`, {
         headers: {
           Authorization: import.meta.env.VITE_PEXELS_KEY,
