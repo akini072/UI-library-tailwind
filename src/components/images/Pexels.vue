@@ -2,14 +2,6 @@
   <div class="pb-3">
     <div class="w-full border-b">
       <div class="">
-        <!-- <RiSearchLine width="15px" /><input
-          v-model="searchInput"
-          @keyup.enter="$emit('search:pexels', searchInput, limit)"
-          class="ml-2 w-full"
-          type="text"
-          placeholder="Search"
-        /> -->
-
         <SearchMenu
           :modelValue="searchInput"
           class="pa-3"

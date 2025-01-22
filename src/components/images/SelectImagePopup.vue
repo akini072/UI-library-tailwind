@@ -3,7 +3,7 @@
     <template v-slot:body>
       <div class="container__layout">
         <div class="py-4 pl-3 pr-1 border-r">
-          <scroll-area class="pr-3" max-height="75vh">
+          <div class="pr-3 scrollArea" id="folders">
             <div
               class="folder-card d-block pa-2 my-3 border rounded-md pointer"
               @click="pexels = true"
@@ -15,40 +15,16 @@
 
               <p class="text-center font-weight-medium">Pexels</p>
             </div>
+
             <image-folders-list
               :folders="folders"
               :selected="selectedFolder"
               :pexels="pexels"
               @select:folder="(pexels = false), $emit('click:folder', $event)"
               @delete:folder="setDeletePopup($event, false)"
+              @add:folder="newFolder"
             />
-
-            <div
-              class="folder-card d-block pa-2 my-3 border rounded-md pointer"
-              v-if="addFolder"
-            >
-              <div class="folderIcon mx-auto my-2">
-                <RiFolderLine />
-              </div>
-              <input
-                v-model="folderName"
-                class="text-center font-weight-medium border w-full rounded-sm"
-                v-focus
-                @blur="addFolder = false"
-                @keyup.enter="newFolder"
-              />
-            </div>
-
-            <div
-              class="folder-card d-block pa-2 my-3 border rounded-md pointer"
-              @click="addFolder = true"
-            >
-              <div class="plusIcon mx-auto my-1">
-                <RiAddLine />
-              </div>
-              <p class="text-center font-weight-medium">New folder</p>
-            </div>
-          </scroll-area>
+          </div>
         </div>
         <div v-if="!pexels" class="pb-3">
           <div class="w-full border-b">
@@ -325,14 +301,14 @@ export default {
         .catch((error) => console.error(error));
     },
 
-    newFolder() {
+    newFolder(name) {
       new Promise((resolve, reject) => {
         this.loadingCreateFolder = true;
 
         this.$emit(
           "new:folder",
           {
-            name: this.folderName,
+            name: name,
           },
           resolve,
           reject
@@ -340,13 +316,21 @@ export default {
       })
         .then(() => {
           this.addFolder = false;
-          this.folderName = "";
+          this.$emit("click:folder", this.folders[this.folders.length - 1]);
         })
         .catch((error) => {
           this.$error(error);
         })
         .finally(() => {
           this.loadingCreateFolder = false;
+          // const folderContainer = this.$el.querySelector("#folders");
+          // folderContainer.scrollTo(0, folderContainer.offsetHeight);
+
+          const tst = this.$el.querySelector(
+            `#folder${this.folders.length - 1}`
+          );
+
+          tst.scrollIntoView({ behavior: "smooth" });
         });
     },
     uploadImage(e) {
@@ -422,8 +406,17 @@ export default {
 // @import "@/assets/styles/utilities.scss";
 .container__layout {
   display: grid;
-  grid-template-columns: 124px 1fr;
+  grid-template-columns: 135px 1fr;
   overflow: scroll;
+
+  .scrollArea {
+    max-height: 68vh;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+  }
 
   .images__layout {
     display: grid;

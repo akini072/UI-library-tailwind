@@ -12,6 +12,34 @@
 
   <hr style="opacity: 20%" />
 
+  <div
+    class="folder-card d-block pa-2 my-3 border rounded-md pointer"
+    @click="addFolder = true"
+  >
+    <div class="plusIcon mx-auto my-1">
+      <RiAddLine />
+    </div>
+    <p class="text-center font-weight-medium">New folder</p>
+  </div>
+
+  <div
+    class="folder-card d-block pa-2 my-3 border rounded-md pointer"
+    v-if="addFolder"
+  >
+    <div class="folderIcon mx-auto my-2">
+      <RiFolderLine />
+    </div>
+    <input
+      v-model="folderName"
+      class="text-center font-weight-medium border w-full rounded-sm"
+      v-focus
+      @blur="addFolder = false"
+      @keyup.enter="
+        $emit('add:folder', folderName), (folderName = ''), (addFolder = false)
+      "
+    />
+  </div>
+
   <!-- Commented out for upcoming update feature
   <div
     class="folder-card d-block pa-2 my-3 border rounded-md pointer"
@@ -26,12 +54,13 @@
   > -->
   <div
     class="folder-card d-block pa-2 my-3 border rounded-md pointer"
-    v-for="folder in folders"
+    v-for="(folder, i) in folders"
     :key="folder.id"
+    :id="`${'folder' + i}`"
     :class="{ selected: selected.id === folder.id && !pexels }"
     @click="() => $emit('select:folder', folder)"
   >
-    <lazy @click="() => $emit('select:folder', folder)" unrender>
+    <div @click="() => $emit('select:folder', folder)">
       <div class="folderIcon mx-auto my-1">
         <RiFolderLine />
       </div>
@@ -56,13 +85,13 @@
       >
         <v-icon name="trash" height="14px" />
       </v-button>
-    </lazy>
+    </div>
   </div>
 </template>
 
 <script>
 import { defineAsyncComponent } from "vue";
-import { RiFolderLine, RiFolderImageLine } from "vue-remix-icons";
+import { RiFolderLine, RiFolderImageLine, RiAddLine } from "vue-remix-icons";
 
 const focus = {
   mounted: (el) => el.focus(),
@@ -72,6 +101,7 @@ export default {
   components: {
     RiFolderLine,
     RiFolderImageLine,
+    RiAddLine,
     VButton: defineAsyncComponent(() => import("@/components/base/VButton")),
     Lazy: defineAsyncComponent(() => import("@/components/base/Lazy")),
     VIcon: defineAsyncComponent(() => import("@/components/base/VIcon")),
@@ -90,12 +120,16 @@ export default {
     },
   },
 
-  emits: ["delete:folder", "update:folder", "select:folder"],
+  emits: ["delete:folder", "update:folder", "select:folder", "add:folder"],
 
   data() {
     return {
       folderEdit: "",
       selectedFolder: "",
+      addFolder: false,
+      folderName: "",
+
+      loadingCreateFolder: false,
     };
   },
 
@@ -159,6 +193,11 @@ export default {
   &.selected {
     border: 1px solid var(--primary-500);
     color: var(--primary-500);
+  }
+
+  .plusIcon {
+    height: 24px;
+    width: 24px;
   }
 }
 </style>
