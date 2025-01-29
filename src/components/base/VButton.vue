@@ -14,6 +14,7 @@
       width,
       height,
     }"
+    :disabled="disabled"
   >
     <div v-if="loading" class="loading__spinner">
       <v-spinner />
@@ -398,7 +399,6 @@ button {
   }
   &.disabled {
     cursor: auto;
-    pointer-events: none;
     background-color: var(--gray-100) !important;
     color: var(--gray-400) !important;
     border-color: transparent !important;
