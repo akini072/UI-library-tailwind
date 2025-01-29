@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex align-center py-2 px-5 justify-end border-t">
-    <div class="text--gray-500 mr-auto" v-if="selectedRows">
+    <div class="text--gray-500 mr-auto" v-if="selectedRows && selectedRows > 0">
       {{ selectedRows }} of {{ totalRows }} row(s) selected.
     </div>
     <Pagination
