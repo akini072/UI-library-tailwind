@@ -21,7 +21,7 @@
     "./package.json": "./package.json",
     "./global.scss": "./dist/styles/global.css"
   },
-  "version": "1.12.11",
+  "version": "1.12.12",
   "scripts": {
     "build:css": "sass src/assets/styles/global.scss dist/styles/global.css",
     "dev": "vite",
