@@ -70,7 +70,18 @@
               class="h-24 text-center"
             >
               <slot name="empty" />
-              <span v-if="!$slots.empty">No results.</span>
+              <span v-if="!$slots.empty">
+                <div class="not-found" v-if="!!searchValue.length">
+                  <div class="circle">
+                    <v-icon name="alert" height="24px"/>
+                  </div>
+                  <p class="no-orders mt-4">
+                    <b>No search results found</b>
+                    <span>try a different search term or check back later</span>
+                  </p>
+                </div>
+                <p v-else>No results.</p>
+              </span>
             </table-cell>
           </table-row>
         </template>
@@ -79,7 +90,7 @@
     <pagination
       v-if="hasPagination && table.getRowModel().rows?.length > 0"
       class="pagination__footer"
-      :selected-rows="table.getFilteredSelectedRowModel().rows.length"
+      :selected-rows="displaySelected ? table.getFilteredSelectedRowModel().rows.length : 0"
       :total-rows="table.getFilteredRowModel().rows.length"
       :total="totalCount"
       :current-page="currentPage"
@@ -92,6 +103,7 @@
 <script>
 import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table'
 import { defineAsyncComponent, h } from 'vue'
+import VIcon from '../base/VIcon.vue';
 
 export default {
   components: {
@@ -124,12 +136,21 @@ export default {
     Skeleton: defineAsyncComponent(() =>
       import('@/components/shadcn/skeleton/Skeleton'),
     ),
+    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon.vue'))
   },
   props: {
     headers: { type: Array, default: () => [] },
     data: { type: Array, default: () => [] },
     rowActions: {
       type: Array,
+    },
+    searchValue: {
+      type: String,
+      default: '',
+    },
+    displaySelected: {
+      type: Boolean,
+      default: true
     },
     hasSearch: {
       type: Boolean,
@@ -270,6 +291,32 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 150px;
+  .circle {
+    width: 32px;
+    height: 32px;
+    background: #e4e6f1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+  }
+  .no-orders {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    color: #636a7b;
+    font-size: 13px;
+  }
+}
 .pagination__footer {
   position: sticky;
   z-index: 10;
