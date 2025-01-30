@@ -71,7 +71,7 @@
             >
               <slot name="empty" />
               <span v-if="!$slots.empty">
-                <div class="not-found" v-if="searchValue.length > 0">
+                <div class="not-found" v-if="searchValue && searchValue.length > 0">
                   <div class="circle">
                     <v-icon name="alert" height="24px"/>
                   </div>
