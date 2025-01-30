@@ -71,7 +71,7 @@
             >
               <slot name="empty" />
               <span v-if="!$slots.empty">
-                <div class="not-found" v-if="!!searchValue.length">
+                <div class="not-found" v-if="searchValue && searchValue.length > 0">
                   <div class="circle">
                     <v-icon name="alert" height="24px"/>
                   </div>
@@ -145,7 +145,7 @@ export default {
       type: Array,
     },
     searchValue: {
-      type: String,
+      type: [String, null],
       default: '',
     },
     displaySelected: {
