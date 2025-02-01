@@ -107,6 +107,8 @@ const TabsFilter = defineAsyncComponent(() => import('./components/table/TabsFil
 const TagsCell = defineAsyncComponent(() => import('./components/table/TagsCell.vue'))
 const TitleCell = defineAsyncComponent(() => import('./components/table/TitleCell.vue'))
 const StatusCell = defineAsyncComponent(() => import('./components/table/StatusCell.vue'))
+const OrderStatusCell = defineAsyncComponent(() => import('./components/table/OrderStatusCell.vue'))
+
 
 const SaveAsTemplatePopup = defineAsyncComponent(() => import('./components/base/SaveAsTemplatePopup.vue'))
 
@@ -141,6 +143,7 @@ export {
   SelectItem,
   SelectLabel,
   SelectValue,
+  OrderStatusCell,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
