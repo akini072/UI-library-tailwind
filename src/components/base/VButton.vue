@@ -117,6 +117,7 @@ button {
   transition: background-color 400ms ease;
   position: relative;
   white-space: nowrap;
+
   &.small {
     border-radius: 6.567px;
     height: 25px;
@@ -125,21 +126,25 @@ button {
     .spinner {
       height: 18px;
       width: 18px;
+
       svg {
         width: 18px;
         height: 18px;
       }
     }
   }
+
   &.medium {
     border-radius: 6.567px;
     height: 28px;
     font-size: 12px;
   }
+
   &.plain {
     background-color: var(--gray-100);
     border: none;
     box-shadow: none;
+
     &:hover {
       color: #1d2939;
     }
@@ -149,6 +154,7 @@ button {
     border: none;
     background-color: transparent;
     box-shadow: none;
+
     &:hover {
       background-color: var(--gray-100);
     }
@@ -162,13 +168,16 @@ button {
     box-shadow: 0px 0px 0px 4px #f4ebff, 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     outline: none;
   }
+
   &:hover {
     background: var(--gray-100);
   }
+
   &.icon {
     width: 32px;
     height: 32px;
     padding: 0px;
+
     &.medium {
       min-width: 28px;
       min-height: 28px;
@@ -183,6 +192,7 @@ button {
         }
       }
     }
+
     &.small {
       min-width: 25px;
       min-height: 25px;
@@ -190,6 +200,7 @@ button {
       height: 25px;
     }
   }
+
   .btn-content.loading {
     opacity: 0;
   }
@@ -206,6 +217,7 @@ button {
     border: 0px;
     background-color: var(--primary-600);
     color: #fff;
+
     &:hover {
       border: 0px;
       background: var(--primary-700);
@@ -215,9 +227,11 @@ button {
       background-color: #fff;
       border: 1px solid var(--primary-600);
       color: var(--primary-600);
+
       &:hover {
         background-color: var(--primary-50);
         color: var(--primary-600);
+
         svg {
           color: var(--primary-600);
         }
@@ -229,9 +243,11 @@ button {
       background-color: transparent;
       box-shadow: none;
       color: var(--primary-600);
+
       &:hover {
         background-color: var(--primary-50);
         color: var(--primary-600);
+
         svg {
           color: var(--primary-600);
         }
@@ -243,15 +259,18 @@ button {
       border: none;
       box-shadow: none;
       color: var(--primary-600);
+
       &:hover {
         color: var(--primary-700);
       }
     }
   }
+
   &.color--success {
     border: 0px;
     background-color: var(--success-500);
     color: #fff;
+
     &:hover {
       border: 0px;
       background: var(--success-700);
@@ -261,9 +280,11 @@ button {
       background-color: #fff;
       border: 1px solid var(--success-500);
       color: var(--success-500);
+
       &:hover {
         background-color: var(--success-50);
         color: var(--success-500);
+
         svg {
           color: var(--success-500);
         }
@@ -275,19 +296,23 @@ button {
       background-color: transparent;
       box-shadow: none;
       color: var(--success-500);
+
       &:hover {
         background-color: var(--success-50);
         color: var(--success-500);
+
         svg {
           color: var(--success-500);
         }
       }
     }
   }
+
   &.color--red {
     border: 0px;
     background-color: var(--error-700);
     color: #fff;
+
     &:hover {
       border: 0px;
       background: var(--error-700);
@@ -297,9 +322,11 @@ button {
       background-color: #fff;
       border: 1px solid var(--error-300);
       color: var(--error-700);
+
       &:hover {
-        background-color: var(--error-25);
+        background-color: var(--error-50);
         color: var(--error-700);
+
         svg {
           color: var(--error-700);
         }
@@ -315,6 +342,7 @@ button {
       &:hover {
         background-color: var(--error-100);
         color: var(--error-500);
+
         svg {
           color: var(--error-500);
         }
@@ -326,19 +354,23 @@ button {
       border: none;
       box-shadow: none;
       color: var(--error-700);
+
       &:hover {
         background-color: var(--error-25);
         color: var(--error-700);
+
         svg {
           color: var(--error-700);
         }
       }
     }
   }
+
   &.color--red-light {
     border: 0px;
     background-color: var(--error-600);
     color: #fff;
+
     &:hover {
       border: 0px;
       background: var(--error-600);
@@ -348,19 +380,23 @@ button {
       background-color: #fff;
       border: 1px solid var(--error-200);
       color: var(--error-600);
+
       &:hover {
         background-color: var(--error-25);
         color: var(--error-600);
+
         svg {
           color: var(--error-600);
         }
       }
     }
   }
+
   &.color--white {
     border: 0px;
     background-color: #fff;
     color: var(--gray-700);
+
     &:hover {
       border: 0px;
       background: var(--gray-100);
@@ -370,26 +406,32 @@ button {
       background-color: transparent;
       border: 1px solid #fff;
       color: #fff;
+
       &:hover {
         background-color: transparent;
       }
     }
   }
+
   &.no-hover:hover {
     background-color: inherit;
   }
+
   &.link {
     padding: 0;
     border: none;
     box-shadow: none;
     color: var(--primary-600);
+
     .icon {
       margin-left: 0;
       transition: all 0.2s ease-in-out;
     }
+
     &:hover {
       text-decoration: underline;
       background: none;
+
       .icon {
         &.right {
           margin-left: 3px;
@@ -397,6 +439,7 @@ button {
       }
     }
   }
+
   &.disabled {
     cursor: auto;
     background-color: var(--gray-100) !important;
