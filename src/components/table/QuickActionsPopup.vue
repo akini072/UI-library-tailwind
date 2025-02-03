@@ -2,8 +2,8 @@
   <div class="relative">
     <QuickActionsBtn
       vertical
-      :items="actions"
-      @menuClick="handleMenuClick"
+      :items="dropdownItems"
+      @menu-click="handleMenuClick"
     />
   </div>
 </template>
@@ -21,31 +21,42 @@ export default {
     value: {
       type: Object,
     },
-    rowActions: {
-      type: Array,
-      required: true,
-    },
+    row: {
+      type: Object
+    }
   },
   computed: {
-    actions() {
-      return this.rowActions.map((item) => {
-        if (item.id === "fulfill")
-          return { ...item, disabled: this.value.is_fulfilled || this.value.is_canceled };
-        if (item.id === "truck")
-          return { ...item, disabled: this.value.is_canceled || !this.value.is_fulfilled };
-        if (item.id === "cancel")
-          return { ...item, disabled: this.value.is_canceled };
-        if (item.id === "refund")
-          return { ...item, disabled: this.value.is_canceled || this.value.payment_status == "draft" || this.value.payment_status == "succeeded" };
-        return item;
-      });
-    },
+    dropdownItems() {
+      return [
+        {
+          label: 'Fulfill',
+          icon: 'fulfill',
+          disabled: this.row.is_fulfilled || this.row.is_canceled
+        },
+        {
+          label: 'Update tracking info',
+          icon: 'truck',
+          disabled: this.row.is_canceled || !this.row.is_fulfilled
+        },
+        {
+          label: this.row.is_archived ? 'Unarchive' : 'Archive',
+          icon: 'archive'
+        },
+        { label: 'Cancel order', disabled: this.row.is_canceled, icon: 'close-circle-outline' },
+        { label: 'Refund', disabled:  this.row.is_canceled, icon: 'refund-2' },
+        {
+          label: 'Delete order',
+          disabled: false,
+          icon: 'trash'
+        }
+      ]
+    }
   },
   methods: {
     handleMenuClick(evt) {
-      this.$emit("click", {
+      this.$emit("click:item", {
         ...evt,
-        selected: this.value,
+        selected: this.row,
       });
     },
   },

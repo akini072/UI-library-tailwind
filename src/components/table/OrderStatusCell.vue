@@ -1,15 +1,16 @@
 <template>
-  <span
-    :class="{
-      'rounded-lg py-1 px-2 font-weight-medium text-capitalize': true,
-      'border--error-200 text--error-700 bg--error-50': value === 'Failed' || value === 'Cancelled',
-      'border--gray-200 text--gray-700 bg--gray-50': value === 'Draft' || value === 'Archieved' ,
-      'border--success-200 text--success-700 bg--success-50': value === 'Succeeded' || value === 'Fulfilled' ,
-      'border--warn-200 text--warn-700 bg--warn-50': value === 'Processing' || value === 'Refunded',     
-    }"
-  >
-    {{ value }}
-  </span>
+    <span
+      class="status d-flex align-center"
+      :class="{
+        failed: value === 'Failed' || value === 'Cancelled',
+        archived: value === 'Draft' || value === 'Archieved',
+        success: value === 'Succeeded' || value === 'Fulfilled',
+        processing: value === 'Processing' || value === 'Refunded',
+      }"
+      :style="row.is_archived ? { opacity: 0.5 } : {}"
+    >
+      {{ value }}
+    </span>
 </template>
 
 <script>
@@ -17,7 +18,42 @@ export default {
   props: {
     value: {
       type: String,
-    }
+    },
+    row: {
+      type: Object,
+    },
   },
-}
+};
 </script>
+<style lang="scss" scoped>
+.status {
+  font-weight: 500;
+  padding: 1px 8px;
+  border-radius: 16px;
+  display: inline-block;
+
+  &.success {
+    border: 1px solid #abefc6;
+    background-color: #ecfdf3;
+    color: #067647;
+  }
+
+  &.processing {
+    border: 1px solid #fedf89;
+    background-color: #fffaeb;
+    color: #b54708;
+  }
+
+  &.failed {
+    border: 1px solid #fecdca;
+    background-color: #fef3f2;
+    color: #b42318;
+  }
+
+  &.archived {
+    border: 1px solid #e4e6f1;
+    background-color: #f9fafb;
+    color: #344054;
+  }
+}
+</style>

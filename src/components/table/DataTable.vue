@@ -57,6 +57,7 @@
               @click="$emit('click:cell', cell, $event)"
             >
               <flex-render
+                @click:item="handleQuickMenuClick"
                 :render="cell.column.columnDef.cell"
                 :props="cell.getContext()"
               />
@@ -264,6 +265,9 @@ export default {
     handleClickRow(row) {
       row.toggleSelected(!row.getIsSelected())
       this.$emit('click:row', row)
+    },
+    handleQuickMenuClick(evt) {
+      this.$emit("quickAction:triggered", evt);
     },
   },
 }
