@@ -57,7 +57,7 @@
               @click="$emit('click:cell', cell, $event)"
             >
               <flex-render
-                @click:item="handleQuickMenuClick"
+                @quickAction:triggered="handleQuickMenuClick"
                 :render="cell.column.columnDef.cell"
                 :props="cell.getContext()"
               />
