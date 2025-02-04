@@ -107,8 +107,6 @@ const TabsFilter = defineAsyncComponent(() => import('./components/table/TabsFil
 const TagsCell = defineAsyncComponent(() => import('./components/table/TagsCell.vue'))
 const TitleCell = defineAsyncComponent(() => import('./components/table/TitleCell.vue'))
 const StatusCell = defineAsyncComponent(() => import('./components/table/StatusCell.vue'))
-const OrderStatusCell = defineAsyncComponent(() => import('./components/table/OrderStatusCell.vue'))
-const QuickActionsPopup = defineAsyncComponent(()=> import('./components/table/QuickActionsPopup.vue') )
 
 const SaveAsTemplatePopup = defineAsyncComponent(() => import('./components/base/SaveAsTemplatePopup.vue'))
 
@@ -127,7 +125,6 @@ export {
   SelectButton,
   InfoIcon,
   QuickActionsBtn,
-  QuickActionsPopup,
   ScrollArea,
   ScrollBar,
   Lazy,
@@ -144,7 +141,6 @@ export {
   SelectItem,
   SelectLabel,
   SelectValue,
-  OrderStatusCell,
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
