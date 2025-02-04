@@ -1,44 +1,110 @@
 <template>
-  <ul>
-    <li
-      class="d-flex justify-space-between image-folder__item pointer"
-      :class="{ selected: selected.id === 0 }"
-      @click="() => $emit('select:folder', { id: 0 })"
-    >
-      <h6 class="font-weight-medium">All Images</h6>
-    </li>
-    <li v-for="folder in folders" :key="folder.id" class="pointer">
-      <lazy
-        class="d-flex justify-space-between image-folder__item"
-        :class="{ selected: selected.id === folder.id }"
-        @click="() => $emit('select:folder', folder)"
-        :min-height="20"
-        unrender
+  <div
+    class="folder-card d-block pa-2 my-3 border rounded-md cursor-pointer"
+    :class="{ selected: selected.id === 0 && !pexels }"
+    @click="() => $emit('select:folder', { id: 0 })"
+  >
+    <div class="folderIcon mx-auto my-1">
+      <RiFolderImageLine />
+    </div>
+    <p class="text-center font-weight-medium">My images</p>
+  </div>
+
+  <hr style="opacity: 20%" />
+
+  <div
+    class="folder-card d-block pa-2 my-3 border rounded-md pointer"
+    @click="addFolder = true"
+  >
+    <div class="plusIcon mx-auto my-1">
+      <RiAddLine />
+    </div>
+    <p class="text-center font-weight-medium">New folder</p>
+  </div>
+
+  <div
+    class="folder-card d-block pa-2 my-3 border rounded-md pointer"
+    v-if="addFolder"
+  >
+    <div class="folderIcon mx-auto my-2">
+      <RiFolderLine />
+    </div>
+    <input
+      v-model="folderName"
+      class="text-center font-weight-medium border w-full rounded-sm"
+      v-focus
+      @blur="addFolder = false"
+      @keyup.enter="
+        $emit('add:folder', folderName), (folderName = ''), (addFolder = false)
+      "
+    />
+  </div>
+
+  <!-- Commented out for upcoming update feature
+  <div
+    class="folder-card d-block pa-2 my-3 border rounded-md pointer"
+    v-for="folder in folders"
+    :key="folder.id"
+    :class="{ selected: selected.id === folder.id && !pexels }"
+    @click="() => $emit('select:folder', folder)"
+    @dblclick="
+      folderEdit = folder + ('_' + folder.id);
+      selectedFolder = folder.name;
+    "
+  > -->
+  <div
+    class="folder-card d-block pa-2 my-3 border rounded-md pointer"
+    v-for="(folder, i) in folders"
+    :key="folder.id"
+    :id="`${'folder' + i}`"
+    :class="{ selected: selected.id === folder.id && !pexels }"
+    @click="() => $emit('select:folder', folder)"
+  >
+    <div @click="() => $emit('select:folder', folder)">
+      <div class="folderIcon mx-auto my-1">
+        <RiFolderLine />
+      </div>
+      <input
+        v-if="folderEdit == folder + '_' + folder.id"
+        v-model="selectedFolder"
+        class="text-center font-weight-medium border w-full rounded-sm"
+        v-focus
+        @blur="folderEdit = ''"
+        @keyup.enter=""
+      />
+      <p v-else class="text-center font-weight-medium text-ellipsis">
+        {{ folder.name }}
+      </p>
+      <v-button
+        class="delete__button"
+        icon
+        variant="text"
+        size="small"
+        color="red"
+        @click="() => $emit('delete:folder', folder)"
       >
-        <h6 class="font-weight-medium">{{ folder.name }}</h6>
-        <v-button
-          class="delete__button"
-          icon
-          variant="text"
-          size="small"
-          color="red"
-          @click="() => $emit('delete:folder', folder)"
-        >
-          <v-icon name="trash" height="14px" />
-        </v-button>
-      </lazy>
-    </li>
-  </ul>
+        <v-icon name="trash" height="14px" />
+      </v-button>
+    </div>
+  </div>
 </template>
 
 <script>
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent } from "vue";
+import { RiFolderLine, RiFolderImageLine, RiAddLine } from "vue-remix-icons";
+
+const focus = {
+  mounted: (el) => el.focus(),
+};
 
 export default {
   components: {
-    VButton: defineAsyncComponent(() => import('@/components/base/VButton')),
-    Lazy: defineAsyncComponent(() => import('@/components/base/Lazy')),
-    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')),
+    RiFolderLine,
+    RiFolderImageLine,
+    RiAddLine,
+    VButton: defineAsyncComponent(() => import("@/components/base/VButton")),
+    Lazy: defineAsyncComponent(() => import("@/components/base/Lazy")),
+    VIcon: defineAsyncComponent(() => import("@/components/base/VIcon")),
   },
   props: {
     folders: {
@@ -48,33 +114,90 @@ export default {
     selected: {
       type: Object,
     },
+
+    pexels: {
+      type: Boolean,
+    },
   },
-}
+
+  emits: ["delete:folder", "update:folder", "select:folder", "add:folder"],
+
+  data() {
+    return {
+      folderEdit: "",
+      selectedFolder: "",
+      addFolder: false,
+      folderName: "",
+
+      loadingCreateFolder: false,
+    };
+  },
+
+  methods: {
+    updateFolder() {
+      new Promise((resolve, reject) => {
+        this.$emit(
+          "update:folder",
+          {
+            name: this.selectedFolder,
+          },
+          resolve,
+          reject
+        );
+      })
+        .then(() => {
+          this.folderEdit = "";
+          this.selectedFolder = "";
+        })
+        .catch((error) => {
+          this.$error(error);
+        });
+    },
+  },
+
+  directives: {
+    focus, // enables v-focus in template
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-.image-folder__item {
-  border-radius: 5px;
-  padding: 0px 10px;
-  margin-bottom: 6px;
-  height: 30px;
-  display: flex;
-  align-items: center;
+.folder-card {
+  position: relative;
 
-  &.selected {
-    background-color: var(--primary-25);
-    h6 {
-      color: var(--primary-500);
-    }
+  .folderIcon {
+    height: 30px;
+    width: 30px;
   }
+
   .delete__button {
+    position: absolute;
+    top: 2.5px;
+    left: 2.5px;
     opacity: 0;
+    transition: ease 0.2s;
   }
+
+  p,
+  input {
+    font-size: small;
+  }
+
   &:hover {
+    border: 1px solid var(--primary-500);
+
     .delete__button {
       opacity: 1;
     }
-    background-color: var(--primary-25);
+  }
+  &.selected {
+    border: 1px solid var(--primary-500);
+    color: var(--primary-500);
+  }
+
+  .plusIcon {
+    height: 24px;
+    width: 24px;
   }
 }
 </style>

@@ -95,9 +95,9 @@ export default {
       type: Object,
       default: {
         hours: 0,
-        minutes: 0
-      }
-    }
+        minutes: 0,
+      },
+    },
   },
   methods: {
     formatDate(dateTime) {
@@ -120,15 +120,18 @@ export default {
 .date-picker__wrapper {
   .picker__btn {
     justify-content: flex-start;
+
     .icon {
       svg {
         color: var(--gray-300);
       }
     }
   }
+
   .picker-icon__btn {
     display: none;
   }
+
   .dp__theme_light {
     --dp-primary-color: var(--primary-500);
     --dp-row-margin: 0px;
@@ -140,33 +143,27 @@ export default {
     .dp__input {
       height: 32px;
     }
+
     .dp__input_icons {
       width: 14px;
       height: 14px;
       color: var(--gray-600);
     }
+
     .dp__calendar_header_item {
       font-size: 9px;
       font-weight: 400;
       color: var(--gray-400);
     }
+
     .dp__range_start {
-      border-radius: 5px 0px 0px 5px;
+      border-radius: 5px 0 0 5px;
     }
+
     .dp__date_hover:hover {
       border: 1px solid var(--primary-500);
     }
   }
 }
-@media (max-width: 760px) {
-  .date-picker__wrapper {
-    .range__btn,
-    .picker__btn {
-      display: none;
-    }
-    .picker-icon__btn {
-      display: flex;
-    }
-  }
-}
+
 </style>

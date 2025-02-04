@@ -9,7 +9,7 @@
         loading: loading,
       }"
       :style="{
-        width,
+        width
       }"
     >
       <loading v-if="loading" class="loading__spinner" />
@@ -24,7 +24,11 @@
         </div>
         <div class="divider" />
       </div>
-      <slot name="body" />
+      <div class="body" :style="{
+        'max-height': !!$slots.actions ? 'calc(90vh - 100px)' : 'calc(90vh - 45px)'
+      }">
+        <slot name="body" />
+      </div>
       <div class="border-t px-5 py-3 actions" v-if="$slots.actions">
         <slot name="actions" />
       </div>
@@ -97,6 +101,9 @@ export default {
     }
     &.large {
       width: 800px;
+    }
+    .body {
+      overflow-y: auto;
     }
     .actions {
       display: flex;

@@ -21,10 +21,11 @@
     "./package.json": "./package.json",
     "./global.scss": "./dist/styles/global.css"
   },
-  "version": "1.12.5",
+  "version": "1.12.12",
   "scripts": {
     "build:css": "sass src/assets/styles/global.scss dist/styles/global.css",
     "dev": "vite",
+    "host": "vite --host",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -43,7 +44,8 @@
     "tailwindcss-animate": "^1.0.7",
     "vite-plugin-css-injected-by-js": "^3.4.0",
     "vite-svg-loader": "^5.1.0",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "vue-remix-icons": "^3.14.0"
   },
   "peerDependencies": {
     "vue": "^3.0.0"
