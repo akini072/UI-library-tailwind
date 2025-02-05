@@ -57,7 +57,6 @@
               @click="$emit('click:cell', cell, $event)"
             >
               <flex-render
-                @quickAction:triggered="handleQuickMenuClick"
                 :render="cell.column.columnDef.cell"
                 :props="cell.getContext()"
               />
@@ -72,9 +71,12 @@
             >
               <slot name="empty" />
               <span v-if="!$slots.empty">
-                <div class="not-found" v-if="searchValue && searchValue.length > 0">
+                <div
+                  class="not-found"
+                  v-if="searchValue && searchValue.length > 0"
+                >
                   <div class="circle">
-                    <v-icon name="alert" height="24px"/>
+                    <v-icon name="alert" height="24px" />
                   </div>
                   <p class="no-orders mt-4">
                     <b>No results found</b>
@@ -90,7 +92,9 @@
     <pagination
       v-if="hasPagination && table.getRowModel().rows?.length > 0"
       class="pagination__footer"
-      :selected-rows="displaySelected ? table.getFilteredSelectedRowModel().rows.length : 0"
+      :selected-rows="
+        displaySelected ? table.getFilteredSelectedRowModel().rows.length : 0
+      "
       :total-rows="table.getFilteredRowModel().rows.length"
       :total="totalCount"
       :current-page="currentPage"
@@ -101,9 +105,9 @@
 </template>
 
 <script>
-import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table'
-import { defineAsyncComponent, h } from 'vue'
-import VIcon from '../base/VIcon.vue';
+import { FlexRender, getCoreRowModel, useVueTable } from "@tanstack/vue-table";
+import { defineAsyncComponent, h } from "vue";
+import VIcon from "../base/VIcon.vue";
 
 export default {
   components: {
@@ -111,32 +115,32 @@ export default {
     getCoreRowModel,
     useVueTable,
     Table: defineAsyncComponent(() =>
-      import('@/components/shadcn/table/Table'),
+      import("@/components/shadcn/table/Table")
     ),
     TableBody: defineAsyncComponent(() =>
-      import('@/components/shadcn/table/TableBody'),
+      import("@/components/shadcn/table/TableBody")
     ),
     TableCell: defineAsyncComponent(() =>
-      import('@/components/shadcn/table/TableCell'),
+      import("@/components/shadcn/table/TableCell")
     ),
     TableHead: defineAsyncComponent(() =>
-      import('@/components/shadcn/table/TableHead'),
+      import("@/components/shadcn/table/TableHead")
     ),
     TableHeader: defineAsyncComponent(() =>
-      import('@/components/shadcn/table/TableHeader'),
+      import("@/components/shadcn/table/TableHeader")
     ),
     TableRow: defineAsyncComponent(() =>
-      import('@/components/shadcn/table/TableRow'),
+      import("@/components/shadcn/table/TableRow")
     ),
-    VButton: defineAsyncComponent(() => import('@/components/base/VButton')),
+    VButton: defineAsyncComponent(() => import("@/components/base/VButton")),
     SearchMenu: defineAsyncComponent(() =>
-      import('@/components/base/SearchMenu.vue'),
+      import("@/components/base/SearchMenu.vue")
     ),
-    Pagination: defineAsyncComponent(() => import('./Pagination.vue')),
+    Pagination: defineAsyncComponent(() => import("./Pagination.vue")),
     Skeleton: defineAsyncComponent(() =>
-      import('@/components/shadcn/skeleton/Skeleton'),
+      import("@/components/shadcn/skeleton/Skeleton")
     ),
-    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon.vue'))
+    VIcon: defineAsyncComponent(() => import("@/components/base/VIcon.vue")),
   },
   props: {
     headers: { type: Array, default: () => [] },
@@ -146,11 +150,11 @@ export default {
     },
     searchValue: {
       type: [String, null],
-      default: '',
+      default: "",
     },
     displaySelected: {
       type: Boolean,
-      default: true
+      default: true,
     },
     hasSearch: {
       type: Boolean,
@@ -190,107 +194,123 @@ export default {
   },
   setup(props, context) {
     const Checkbox = defineAsyncComponent(() =>
-      import('../shadcn/checkbox/Checkbox.vue'),
-    )
+      import("../shadcn/checkbox/Checkbox.vue")
+    );
     const QuickActionsBtn = defineAsyncComponent(() =>
-      import('../base/QuickActionsBtn.vue'),
-    )
+      import("../base/QuickActionsBtn.vue")
+    );
 
     const columns = props.headers.map(({ id, label, component, props }) => ({
       accessorKey: id,
-      header: () => h('div', label),
+      header: () => h("div", label),
       cell: ({ row }) => {
-        const value = row.getValue(id)
-        const cellRender = component
-          ? h(component, { value, row: row.original, ...props }, () => value)
-          : h('div', value)
+        // console.log(component.emits ? component.emits : "null");
+        const value = row.getValue(id);
+        // const cellRender = component
+        if (component) {
+          const cellRender = h(
+            component,
+            {
+              value,
+              row: row.original,
+              ...props,
+            },
+            () => value
+          );
+          component.emits &&
+            component.emits.map((emit) => {
+              context.emit(emit, row);
+            });
 
-        return cellRender
+          return cellRender;
+        } else {
+          return h("div", value);
+        }
       },
-    }))
+    }));
 
     if (props.hasCheckbox) {
       columns.unshift({
-        id: 'select',
+        id: "select",
         header: ({ table }) =>
           h(Checkbox, {
             checked: table.getIsAllPageRowsSelected(),
-            'onUpdate:checked': (value) => {
-              table.toggleAllPageRowsSelected(!!value)
-              let rows = table.getRowModel()
+            "onUpdate:checked": (value) => {
+              table.toggleAllPageRowsSelected(!!value);
+              let rows = table.getRowModel();
               // Emit event on rows checked/unchecked
               if (value) {
                 context.emit(
-                  'allRows:selected',
-                  rows.rows.map((el) => el.original.id),
-                )
+                  "allRows:selected",
+                  rows.rows.map((el) => el.original.id)
+                );
               } else {
-                context.emit('allRows:selected', [])
+                context.emit("allRows:selected", []);
               }
             },
-            ariaLabel: 'Select all',
-            theme: 'blue',
+            ariaLabel: "Select all",
+            theme: "blue",
           }),
         cell: ({ row }) =>
           h(Checkbox, {
             checked: row.getIsSelected(),
-            'onUpdate:checked': (value) => {
-              row.toggleSelected(!!value)
+            "onUpdate:checked": (value) => {
+              row.toggleSelected(!!value);
               // Emit event on row checked/unchecked
-              context.emit('row:checked', {
+              context.emit("row:checked", {
                 selected: value,
                 rowId: row.original.id,
-              })
+              });
             },
-            ariaLabel: 'Select row',
-            theme: 'blue',
+            ariaLabel: "Select row",
+            theme: "blue",
           }),
-      })
+      });
     }
     if (props.hasQuickActions) {
       columns.push({
-        id: 'actions',
+        id: "actions",
         cell: ({ row }) => {
           return h(
-            'div',
-            { class: 'relative' },
+            "div",
+            { class: "relative" },
             h(QuickActionsBtn, {
               vertical: true,
               items: props.rowActions,
               onMenuClick: (evt) => {
-                context.emit('quickAction:triggered', {
+                context.emit("quickAction:triggered", {
                   ...evt,
                   selected: row.original,
-                })
+                });
               },
-            }),
-          )
+            })
+          );
         },
-      })
+      });
     }
 
     const table = useVueTable({
       get data() {
-        return props.data
+        return props.data;
       },
       get columns() {
-        return columns
+        return columns;
       },
       getCoreRowModel: getCoreRowModel(),
-    })
+    });
 
-    return { table }
+    return { table };
   },
   methods: {
     handleClickRow(row) {
-      row.toggleSelected(!row.getIsSelected())
-      this.$emit('click:row', row)
+      row.toggleSelected(!row.getIsSelected());
+      this.$emit("click:row", row);
     },
-    handleQuickMenuClick(evt) {
-      this.$emit("quickAction:triggered", evt);
-    },
+    // handleQuickMenuClick(evt) {
+    //   this.$emit("quickAction:triggered", evt);
+    // },
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>
