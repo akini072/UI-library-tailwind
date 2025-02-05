@@ -204,28 +204,28 @@ export default {
       accessorKey: id,
       header: () => h("div", label),
       cell: ({ row }) => {
-        // console.log(component.emits ? component.emits : "null");
         const value = row.getValue(id);
-        // const cellRender = component
-        if (component) {
-          const cellRender = h(
-            component,
-            {
-              value,
-              row: row.original,
-              ...props,
-            },
-            () => value
-          );
-          component.emits &&
-            component.emits.map((emit) => {
-              context.emit(emit, row);
-            });
+        const cellRender = component
+          ? h(
+              component,
+              {
+                value,
+                row: row.original,
+                ...props,
+                ...(component.emits
+                  ? component.emits.map(
+                      (emit) => ({
+                        [emit]: context.emit(emit),
+                      }),
+                      {}
+                    )
+                  : {}),
+              },
+              () => value
+            )
+          : h("div", value);
 
-          return cellRender;
-        } else {
-          return h("div", value);
-        }
+        return cellRender;
       },
     }));
 
