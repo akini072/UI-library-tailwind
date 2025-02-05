@@ -100,7 +100,7 @@
       v-if="hasPagination && table.getRowModel().rows?.length > 0"
       class="pagination__footer"
       :selected-rows="
-        displaySelected ? table.getFilteredSelectedRowModel().rows.length : 0
+        hasCheckbox ? table.getFilteredSelectedRowModel().rows.length : 0
       "
       :total-rows="table.getFilteredRowModel().rows.length"
       :total="totalCount"
