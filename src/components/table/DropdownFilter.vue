@@ -3,13 +3,20 @@
     <popover>
       <popover-trigger as="div">
         <v-button variant="outlined" class="border-dashed pl-2" height="36px">
-          <v-button variant="text" icon @click.stop="handleClearFilter">
+          <v-button v-if="selected.length > 0" variant="text" icon @click.stop="handleClearFilter">
             <v-icon
               name="close-circle-outline"
               height="16px"
               color="var(--gray-500)"
             />
           </v-button>
+          <v-icon
+            v-else
+            class="mx-2"
+            name="plus-circle"
+            height="14px"
+            color="var(--gray-500)"
+          />
           <span>{{ label }}</span>
           <div v-if="selected.length > 0" class="border-l pl-2 ml-2">
             <span
@@ -86,7 +93,6 @@
     </popover>
   </div>
 </template>
-
 <script>
 import { defineAsyncComponent } from 'vue'
 
@@ -148,14 +154,15 @@ export default {
   },
 }
 </script>
-
 <style lang="scss" scoped>
 .border-dashed {
   border-style: dashed;
 }
+
 .text-sm {
   font-size: 12px;
 }
+
 .check-box {
   height: 16px;
   width: 16px;
