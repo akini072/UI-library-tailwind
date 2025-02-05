@@ -77,8 +77,7 @@
                     <v-icon name="alert" height="24px"/>
                   </div>
                   <p class="no-orders mt-4">
-                    <b>No search results found</b>
-                    <span>try a different search term or check back later</span>
+                    <b>No results found</b>
                   </p>
                 </div>
                 <p v-else>No results.</p>
