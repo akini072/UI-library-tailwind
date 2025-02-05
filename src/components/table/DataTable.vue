@@ -205,6 +205,12 @@ export default {
       header: () => h("div", label),
       cell: ({ row }) => {
         const value = row.getValue(id);
+        let emits = {};
+        component?.emits?.map((event) => {
+          emits[`on${event.charAt(0).toUpperCase()}` + event.slice(1)] = (
+            args
+          ) => context.emit(event, args);
+        });
         const cellRender = component
           ? h(
               component,
@@ -212,14 +218,7 @@ export default {
                 value,
                 row: row.original,
                 ...props,
-                ...(component.emits
-                  ? component.emits.map(
-                      (emit) => ({
-                        [emit]: context.emit(emit),
-                      }),
-                      {}
-                    )
-                  : {}),
+                ...emits,
               },
               () => value
             )
