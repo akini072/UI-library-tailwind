@@ -79,10 +79,17 @@
                     <v-icon name="alert" height="24px" />
                   </div>
                   <p class="no-orders mt-4">
+                    <b>No results matched "{{ searchValue }}"</b>
+                  </p>
+                </div>
+                <div v-else class="not-found">
+                  <div class="circle">
+                    <v-icon name="alert" height="24px" />
+                  </div>
+                  <p class="no-orders mt-4">
                     <b>No results found</b>
                   </p>
                 </div>
-                <p v-else>No results.</p>
               </span>
             </table-cell>
           </table-row>
