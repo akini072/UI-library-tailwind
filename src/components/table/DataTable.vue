@@ -312,9 +312,6 @@ export default {
       row.toggleSelected(!row.getIsSelected());
       this.$emit("click:row", row);
     },
-    // handleQuickMenuClick(evt) {
-    //   this.$emit("quickAction:triggered", evt);
-    // },
   },
 };
 </script>
