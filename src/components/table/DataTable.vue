@@ -160,10 +160,6 @@ export default {
       type: [String, null],
       default: "",
     },
-    displaySelected: {
-      type: Boolean,
-      default: true,
-    },
     hasSearch: {
       type: Boolean,
       default: true,
