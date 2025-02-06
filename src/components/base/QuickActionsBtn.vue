@@ -1,13 +1,14 @@
 <template>
   <div @click.stop>
     <DropdownMenu v-model:open="isOpen">
-      <DropdownMenuTrigger as="div">
+      <DropdownMenuTrigger as="div" :disabled="disabled">
         <v-button
           icon
           :size="buttonSize"
           :variant="buttonVariant"
           :color="color"
           :loading="loading"
+          :disabled="disabled"
         >
           <v-tooltip :tooltip="content">
             <v-icon
@@ -47,7 +48,6 @@
     </DropdownMenu>
   </div>
 </template>
-
 <script>
 import { defineAsyncComponent } from 'vue'
 
@@ -103,16 +103,16 @@ export default {
     },
     buttonVariant: {
       type: String,
-      default: 'text'
+      default: 'text',
     },
     buttonSize: {
       type: String,
-      default: 'medium'
+      default: 'medium',
     },
     buttonIconColor: {
       type: String,
-      default: 'var(--gray-400)'
-    }
+      default: 'var(--gray-400)',
+    },
   },
   data() {
     return {
@@ -122,7 +122,7 @@ export default {
   watch: {
     isOpen() {
       this.$emit('is-active:dropdown', this.isOpen)
-    }
+    },
   },
   methods: {
     click(item, ev) {
