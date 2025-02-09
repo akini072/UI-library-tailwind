@@ -5,6 +5,8 @@
       <search-menu
         v-else
         class="pr-5 mr-3"
+        :model-value="searchValue"
+        :loading="loading"
         @update:model-value="$emit('update:search', $event)"
       />
     </div>
@@ -27,23 +29,9 @@
           </table-head>
         </table-row>
       </table-header>
-      <table-body>
-        <template v-if="loading">
-          <table-row
-            v-for="headerGroup in [
-              ...table.getHeaderGroups(),
-              ...table.getHeaderGroups(),
-              ...table.getHeaderGroups(),
-            ]"
-            :key="headerGroup.id"
-          >
-            <table-cell v-for="header in headerGroup.headers" :key="header.id">
-              <skeleton class="flex-grow py-3" />
-            </table-cell>
-          </table-row>
-          <div class="my-10" />
-        </template>
-        <template v-else-if="table.getRowModel().rows?.length">
+      <table-body class="relative">
+        <template v-if="table.getRowModel().rows?.length">
+          <v-spinner v-if="loading" />
           <table-row
             v-for="row in table.getRowModel().rows"
             :key="row.id"
@@ -62,6 +50,21 @@
               />
             </table-cell>
           </table-row>
+        </template>
+        <template v-else-if="loading">
+          <table-row
+            v-for="headerGroup in [
+              ...table.getHeaderGroups(),
+              ...table.getHeaderGroups(),
+              ...table.getHeaderGroups(),
+            ]"
+            :key="headerGroup.id"
+          >
+            <table-cell v-for="header in headerGroup.headers" :key="header.id">
+              <skeleton class="flex-grow py-3" />
+            </table-cell>
+          </table-row>
+          <div class="my-10" />
         </template>
         <template v-else>
           <table-row>
@@ -111,11 +114,9 @@
     />
   </div>
 </template>
-
 <script>
-import { FlexRender, getCoreRowModel, useVueTable } from "@tanstack/vue-table";
-import { defineAsyncComponent, h } from "vue";
-import VIcon from "../base/VIcon.vue";
+import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table';
+import { defineAsyncComponent, h } from 'vue';
 
 export default {
   components: {
@@ -123,32 +124,33 @@ export default {
     getCoreRowModel,
     useVueTable,
     Table: defineAsyncComponent(() =>
-      import("@/components/shadcn/table/Table")
+      import('@/components/shadcn/table/Table'),
     ),
     TableBody: defineAsyncComponent(() =>
-      import("@/components/shadcn/table/TableBody")
+      import('@/components/shadcn/table/TableBody'),
     ),
     TableCell: defineAsyncComponent(() =>
-      import("@/components/shadcn/table/TableCell")
+      import('@/components/shadcn/table/TableCell'),
     ),
     TableHead: defineAsyncComponent(() =>
-      import("@/components/shadcn/table/TableHead")
+      import('@/components/shadcn/table/TableHead'),
     ),
     TableHeader: defineAsyncComponent(() =>
-      import("@/components/shadcn/table/TableHeader")
+      import('@/components/shadcn/table/TableHeader'),
     ),
     TableRow: defineAsyncComponent(() =>
-      import("@/components/shadcn/table/TableRow")
+      import('@/components/shadcn/table/TableRow'),
     ),
-    VButton: defineAsyncComponent(() => import("@/components/base/VButton")),
+    VButton: defineAsyncComponent(() => import('@/components/base/VButton')),
+    VSpinner: defineAsyncComponent(() => import('@/components/base/VSpinner')),
     SearchMenu: defineAsyncComponent(() =>
-      import("@/components/base/SearchMenu.vue")
+      import('@/components/base/SearchMenu.vue'),
     ),
-    Pagination: defineAsyncComponent(() => import("./Pagination.vue")),
+    Pagination: defineAsyncComponent(() => import('./Pagination.vue')),
     Skeleton: defineAsyncComponent(() =>
-      import("@/components/shadcn/skeleton/Skeleton")
+      import('@/components/shadcn/skeleton/Skeleton'),
     ),
-    VIcon: defineAsyncComponent(() => import("@/components/base/VIcon.vue")),
+    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon.vue')),
   },
   props: {
     headers: { type: Array, default: () => [] },
@@ -158,7 +160,7 @@ export default {
     },
     searchValue: {
       type: [String, null],
-      default: "",
+      default: '',
     },
     hasSearch: {
       type: Boolean,
@@ -198,35 +200,35 @@ export default {
   },
   setup(props, context) {
     const Checkbox = defineAsyncComponent(() =>
-      import("../shadcn/checkbox/Checkbox.vue")
+      import('../shadcn/checkbox/Checkbox.vue'),
     );
     const QuickActionsBtn = defineAsyncComponent(() =>
-      import("../base/QuickActionsBtn.vue")
+      import('../base/QuickActionsBtn.vue'),
     );
 
     const columns = props.headers.map(({ id, label, component, props }) => ({
       accessorKey: id,
-      header: () => h("div", label),
+      header: () => h('div', label),
       cell: ({ row }) => {
         const value = row.getValue(id);
         let emits = {};
         component?.emits?.map((event) => {
           emits[`on${event.charAt(0).toUpperCase()}` + event.slice(1)] = (
-            args
+            args,
           ) => context.emit(event, args);
         });
         const cellRender = component
           ? h(
-              component,
-              {
-                value,
-                row: row.original,
-                ...props,
-                ...emits,
-              },
-              () => value
-            )
-          : h("div", value);
+            component,
+            {
+              value,
+              row: row.original,
+              ...props,
+              ...emits,
+            },
+            () => value,
+          )
+          : h('div', value);
 
         return cellRender;
       },
@@ -234,59 +236,59 @@ export default {
 
     if (props.hasCheckbox) {
       columns.unshift({
-        id: "select",
+        id: 'select',
         header: ({ table }) =>
           h(Checkbox, {
             checked: table.getIsAllPageRowsSelected(),
-            "onUpdate:checked": (value) => {
+            'onUpdate:checked': (value) => {
               table.toggleAllPageRowsSelected(!!value);
               let rows = table.getRowModel();
               // Emit event on rows checked/unchecked
               if (value) {
                 context.emit(
-                  "allRows:selected",
-                  rows.rows.map((el) => el.original.id)
+                  'allRows:selected',
+                  rows.rows.map((el) => el.original.id),
                 );
               } else {
-                context.emit("allRows:selected", []);
+                context.emit('allRows:selected', []);
               }
             },
-            ariaLabel: "Select all",
-            theme: "blue",
+            ariaLabel: 'Select all',
+            theme: 'blue',
           }),
         cell: ({ row }) =>
           h(Checkbox, {
             checked: row.getIsSelected(),
-            "onUpdate:checked": (value) => {
+            'onUpdate:checked': (value) => {
               row.toggleSelected(!!value);
               // Emit event on row checked/unchecked
-              context.emit("row:checked", {
+              context.emit('row:checked', {
                 selected: value,
                 rowId: row.original.id,
               });
             },
-            ariaLabel: "Select row",
-            theme: "blue",
+            ariaLabel: 'Select row',
+            theme: 'blue',
           }),
       });
     }
     if (props.hasQuickActions) {
       columns.push({
-        id: "actions",
+        id: 'actions',
         cell: ({ row }) => {
           return h(
-            "div",
-            { class: "relative" },
+            'div',
+            { class: 'relative' },
             h(QuickActionsBtn, {
               vertical: true,
               items: props.rowActions,
               onMenuClick: (evt) => {
-                context.emit("quickAction:triggered", {
+                context.emit('quickAction:triggered', {
                   ...evt,
                   selected: row.original,
                 });
               },
-            })
+            }),
           );
         },
       });
@@ -307,19 +309,23 @@ export default {
   methods: {
     handleClickRow(row) {
       row.toggleSelected(!row.getIsSelected());
-      this.$emit("click:row", row);
+      this.$emit('click:row', row);
     },
   },
 };
 </script>
-
 <style lang="scss" scoped>
+.relative {
+  position: relative;
+}
+
 .not-found {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 150px;
+
   .circle {
     width: 32px;
     height: 32px;
@@ -330,6 +336,7 @@ export default {
     justify-content: center;
     padding: 6px;
   }
+
   .no-orders {
     display: flex;
     flex-direction: column;
@@ -340,6 +347,7 @@ export default {
     font-size: 13px;
   }
 }
+
 .pagination__footer {
   position: sticky;
   z-index: 10;
