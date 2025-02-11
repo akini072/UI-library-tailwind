@@ -115,8 +115,6 @@
   </div>
 </template>
 <script>
-import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table'
-import { defineAsyncComponent, h } from 'vue'
 import VIcon from '../base/VIcon.vue';
 import VSpinner from '../base/VSpinner.vue';
 import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table';
