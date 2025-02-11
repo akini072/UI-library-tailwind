@@ -5,6 +5,8 @@
       <search-menu
         v-else
         class="pr-5 mr-3"
+        :model-value="searchValue"
+        :loading="loading"
         @update:model-value="$emit('update:search', $event)"
       />
     </div>
@@ -27,23 +29,9 @@
           </table-head>
         </table-row>
       </table-header>
-      <table-body>
-        <template v-if="loading">
-          <table-row
-            v-for="headerGroup in [
-              ...table.getHeaderGroups(),
-              ...table.getHeaderGroups(),
-              ...table.getHeaderGroups(),
-            ]"
-            :key="headerGroup.id"
-          >
-            <table-cell v-for="header in headerGroup.headers" :key="header.id">
-              <skeleton class="flex-grow py-3" />
-            </table-cell>
-          </table-row>
-          <div class="my-10" />
-        </template>
-        <template v-else-if="table.getRowModel().rows?.length">
+      <table-body class="relative">
+        <template v-if="table.getRowModel().rows?.length">
+          <v-spinner v-if="loading" />
           <table-row
             v-for="row in table.getRowModel().rows"
             :key="row.id"
@@ -63,6 +51,21 @@
             </table-cell>
           </table-row>
         </template>
+        <template v-else-if="loading">
+          <table-row
+            v-for="headerGroup in [
+              ...table.getHeaderGroups(),
+              ...table.getHeaderGroups(),
+              ...table.getHeaderGroups(),
+            ]"
+            :key="headerGroup.id"
+          >
+            <table-cell v-for="header in headerGroup.headers" :key="header.id">
+              <skeleton class="flex-grow py-3" />
+            </table-cell>
+          </table-row>
+          <div class="my-10" />
+        </template>
         <template v-else>
           <table-row>
             <table-cell
@@ -71,16 +74,26 @@
             >
               <slot name="empty" />
               <span v-if="!$slots.empty">
-                <div class="not-found" v-if="searchValue && searchValue.length > 0">
+                <div
+                  class="not-found"
+                  v-if="searchValue && searchValue.length > 0"
+                >
                   <div class="circle">
-                    <v-icon name="alert" height="24px"/>
+                    <v-icon name="alert" height="24px" />
                   </div>
                   <p class="no-orders mt-4">
-                    <b>No search results found</b>
+                    <b>No results match "{{ searchValue }}"</b>
                     <span>try a different search term or check back later</span>
                   </p>
                 </div>
-                <p v-else>No results.</p>
+                <div v-else class="not-found">
+                  <div class="circle">
+                    <v-icon name="alert" height="24px" />
+                  </div>
+                  <p class="no-orders mt-4">
+                    <b>No results found</b>
+                  </p>
+                </div>
               </span>
             </table-cell>
           </table-row>
@@ -90,7 +103,9 @@
     <pagination
       v-if="hasPagination && table.getRowModel().rows?.length > 0"
       class="pagination__footer"
-      :selected-rows="displaySelected ? table.getFilteredSelectedRowModel().rows.length : 0"
+      :selected-rows="
+        hasCheckbox ? table.getFilteredSelectedRowModel().rows.length : 0
+      "
       :total-rows="table.getFilteredRowModel().rows.length"
       :total="totalCount"
       :current-page="currentPage"
@@ -99,11 +114,9 @@
     />
   </div>
 </template>
-
 <script>
-import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table'
-import { defineAsyncComponent, h } from 'vue'
-import VIcon from '../base/VIcon.vue';
+import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table';
+import { defineAsyncComponent, h } from 'vue';
 
 export default {
   components: {
@@ -129,6 +142,7 @@ export default {
       import('@/components/shadcn/table/TableRow'),
     ),
     VButton: defineAsyncComponent(() => import('@/components/base/VButton')),
+    VSpinner: defineAsyncComponent(() => import('@/components/base/VSpinner')),
     SearchMenu: defineAsyncComponent(() =>
       import('@/components/base/SearchMenu.vue'),
     ),
@@ -136,7 +150,7 @@ export default {
     Skeleton: defineAsyncComponent(() =>
       import('@/components/shadcn/skeleton/Skeleton'),
     ),
-    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon.vue'))
+    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon.vue')),
   },
   props: {
     headers: { type: Array, default: () => [] },
@@ -147,10 +161,6 @@ export default {
     searchValue: {
       type: [String, null],
       default: '',
-    },
-    displaySelected: {
-      type: Boolean,
-      default: true
     },
     hasSearch: {
       type: Boolean,
@@ -191,23 +201,38 @@ export default {
   setup(props, context) {
     const Checkbox = defineAsyncComponent(() =>
       import('../shadcn/checkbox/Checkbox.vue'),
-    )
+    );
     const QuickActionsBtn = defineAsyncComponent(() =>
       import('../base/QuickActionsBtn.vue'),
-    )
+    );
 
     const columns = props.headers.map(({ id, label, component, props }) => ({
       accessorKey: id,
       header: () => h('div', label),
       cell: ({ row }) => {
-        const value = row.getValue(id)
+        const value = row.getValue(id);
+        let emits = {};
+        component?.emits?.map((event) => {
+          emits[`on${event.charAt(0).toUpperCase()}` + event.slice(1)] = (
+            args,
+          ) => context.emit(event, args);
+        });
         const cellRender = component
-          ? h(component, { value, row: row.original, ...props }, () => value)
-          : h('div', value)
+          ? h(
+            component,
+            {
+              value,
+              row: row.original,
+              ...props,
+              ...emits,
+            },
+            () => value,
+          )
+          : h('div', value);
 
-        return cellRender
+        return cellRender;
       },
-    }))
+    }));
 
     if (props.hasCheckbox) {
       columns.unshift({
@@ -216,16 +241,16 @@ export default {
           h(Checkbox, {
             checked: table.getIsAllPageRowsSelected(),
             'onUpdate:checked': (value) => {
-              table.toggleAllPageRowsSelected(!!value)
-              let rows = table.getRowModel()
+              table.toggleAllPageRowsSelected(!!value);
+              let rows = table.getRowModel();
               // Emit event on rows checked/unchecked
               if (value) {
                 context.emit(
                   'allRows:selected',
                   rows.rows.map((el) => el.original.id),
-                )
+                );
               } else {
-                context.emit('allRows:selected', [])
+                context.emit('allRows:selected', []);
               }
             },
             ariaLabel: 'Select all',
@@ -235,17 +260,17 @@ export default {
           h(Checkbox, {
             checked: row.getIsSelected(),
             'onUpdate:checked': (value) => {
-              row.toggleSelected(!!value)
+              row.toggleSelected(!!value);
               // Emit event on row checked/unchecked
               context.emit('row:checked', {
                 selected: value,
                 rowId: row.original.id,
-              })
+              });
             },
             ariaLabel: 'Select row',
             theme: 'blue',
           }),
-      })
+      });
     }
     if (props.hasQuickActions) {
       columns.push({
@@ -261,42 +286,46 @@ export default {
                 context.emit('quickAction:triggered', {
                   ...evt,
                   selected: row.original,
-                })
+                });
               },
             }),
-          )
+          );
         },
-      })
+      });
     }
 
     const table = useVueTable({
       get data() {
-        return props.data
+        return props.data;
       },
       get columns() {
-        return columns
+        return columns;
       },
       getCoreRowModel: getCoreRowModel(),
-    })
+    });
 
-    return { table }
+    return { table };
   },
   methods: {
     handleClickRow(row) {
-      row.toggleSelected(!row.getIsSelected())
-      this.$emit('click:row', row)
+      row.toggleSelected(!row.getIsSelected());
+      this.$emit('click:row', row);
     },
   },
-}
+};
 </script>
-
 <style lang="scss" scoped>
+.relative {
+  position: relative;
+}
+
 .not-found {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 150px;
+
   .circle {
     width: 32px;
     height: 32px;
@@ -307,6 +336,7 @@ export default {
     justify-content: center;
     padding: 6px;
   }
+
   .no-orders {
     display: flex;
     flex-direction: column;
@@ -317,6 +347,7 @@ export default {
     font-size: 13px;
   }
 }
+
 .pagination__footer {
   position: sticky;
   z-index: 10;
