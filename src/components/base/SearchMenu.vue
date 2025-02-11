@@ -21,13 +21,15 @@
 </template>
 <script>
 import { defineAsyncComponent } from 'vue';
+import VIcon from './VIcon.vue'
+import VSpinner from './VSpinner.vue'
 
 export default {
   components: {
-    VSpinner: defineAsyncComponent(() => import('./VSpinner.vue')),
+    VSpinner,
     VField: defineAsyncComponent(() => import('./VField')),
     VButton: defineAsyncComponent(() => import('./VButton')),
-    VIcon: defineAsyncComponent(() => import('./VIcon')),
+    VIcon,
   },
   props: {
     modelValue: {
@@ -38,18 +40,19 @@ export default {
       type: Boolean,
     },
   },
-  setup() {
-  },
   methods: {
     onChange(value) {
       this.$emit('update:model-value', value);
     },
     focusInput() {
-      this.$refs.search.$refs.input.focus()
+      if (this.$refs.search) this.$refs.search.$refs.input.focus()
     },
   },
   mounted() {
     this.$emit('search-menu:mounted')
+  },
+  updated() {
+    this.focusInput()
   },
 };
 </script>

@@ -25,7 +25,6 @@
     <slot v-else />
   </button>
 </template>
-
 <script>
 import { defineAsyncComponent } from 'vue';
 
@@ -95,7 +94,6 @@ export default {
   },
 }
 </script>
-
 <style lang="scss">
 button {
   display: flex;
@@ -445,6 +443,10 @@ button {
     background-color: var(--gray-100) !important;
     color: var(--gray-400) !important;
     border-color: transparent !important;
+
+    svg {
+      color: var(--gray-400) !important;
+    }
   }
 }
 </style>

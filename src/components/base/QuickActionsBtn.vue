@@ -50,13 +50,14 @@
 </template>
 <script>
 import { defineAsyncComponent } from 'vue'
+import VIcon from './VIcon.vue'
 
 export default {
   name: 'quick-actions-btn',
   components: {
     VButton: defineAsyncComponent(() => import('@/components/base/VButton')),
     VTooltip: defineAsyncComponent(() => import('@/components/base/VTooltip')),
-    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon')),
+    VIcon,
     DropdownMenu: defineAsyncComponent(() =>
       import('@/components/shadcn/dropdown-menu/DropdownMenu'),
     ),

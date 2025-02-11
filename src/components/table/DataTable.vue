@@ -31,7 +31,7 @@
       </table-header>
       <table-body class="relative">
         <template v-if="table.getRowModel().rows?.length">
-          <v-spinner v-if="loading" />
+          <v-spinner v-if="loading" class="spinner__body" />
           <table-row
             v-for="row in table.getRowModel().rows"
             :key="row.id"
@@ -115,14 +115,18 @@
   </div>
 </template>
 <script>
+import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table'
+import { defineAsyncComponent, h } from 'vue'
+import VIcon from '../base/VIcon.vue';
+import VSpinner from '../base/VSpinner.vue';
 import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table';
 import { defineAsyncComponent, h } from 'vue';
+import QuickActionsBtn from '@/components/base/QuickActionsBtn.vue';
 
 export default {
   components: {
     FlexRender,
     getCoreRowModel,
-    useVueTable,
     Table: defineAsyncComponent(() =>
       import('@/components/shadcn/table/Table'),
     ),
@@ -150,7 +154,8 @@ export default {
     Skeleton: defineAsyncComponent(() =>
       import('@/components/shadcn/skeleton/Skeleton'),
     ),
-    VIcon: defineAsyncComponent(() => import('@/components/base/VIcon.vue')),
+    VIcon,
+    VSpinner,
   },
   props: {
     headers: { type: Array, default: () => [] },
@@ -201,9 +206,6 @@ export default {
   setup(props, context) {
     const Checkbox = defineAsyncComponent(() =>
       import('../shadcn/checkbox/Checkbox.vue'),
-    );
-    const QuickActionsBtn = defineAsyncComponent(() =>
-      import('../base/QuickActionsBtn.vue'),
     );
 
     const columns = props.headers.map(({ id, label, component, props }) => ({
@@ -317,6 +319,10 @@ export default {
 <style lang="scss" scoped>
 .relative {
   position: relative;
+
+  .spinner__body {
+    top: 140px;
+  }
 }
 
 .not-found {
