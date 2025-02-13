@@ -10,17 +10,17 @@
       @update:model-value="onChange"
     >
       <template v-slot:prepend>
-        <div v-if="loading" class="search__loading">
+        <div v-show="loading" class="search__loading">
           <v-spinner size="16px" />
         </div>
-        <v-icon v-else name="search" height="14px" color="var(--gray-500)" />
+        <v-icon v-show="!loading" name="search" height="14px" color="var(--gray-500)" />
       </template>
     </v-field>
     <v-button v-if="modelValue" label="Cancel" @click="() => onChange('')" />
   </div>
 </template>
 <script>
-import { defineAsyncComponent } from 'vue';
+import { defineAsyncComponent } from 'vue'
 import VIcon from './VIcon.vue'
 import VSpinner from './VSpinner.vue'
 
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     onChange(value) {
-      this.$emit('update:model-value', value);
+      this.$emit('update:model-value', value)
     },
     focusInput() {
       if (this.$refs.search) this.$refs.search.$refs.input.focus()
@@ -54,7 +54,7 @@ export default {
   updated() {
     this.focusInput()
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 .search__loading {
