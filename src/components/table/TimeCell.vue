@@ -15,14 +15,24 @@ export default {
     timeZone: {
       type: String,
       default: 'Europe/London'
+    },
+    value: {
+      type: String
     }
   },
   computed: {
     formattedDate() {
-      const d = new Date(this.row.updated_at).toISOString()
-      let x = moment.tz(d, this.timeZone)
-      let diff = (new Date() - x) / 3600 / 1000
-      return diff > 24 ? x.format('MMM D, LT') : moment(x).fromNow()
+      let val
+      if (this.value) {
+        const d = new Date(this.value).toISOString()
+        let x = moment.tz(d, this.timeZone)
+        let diff = (new Date() - x) / 3600 / 1000
+        val = diff > 24 ? x.format('MMM D, LT') : moment(x).fromNow()
+      } else {
+        val = '-'
+      }
+      
+      return val
     },
   },
 }
