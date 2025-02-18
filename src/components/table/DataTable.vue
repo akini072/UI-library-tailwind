@@ -7,7 +7,7 @@
         class="pr-5 mr-3"
         :model-value="searchValue"
         :loading="loading"
-        @update:model-value="$emit('update:search', $event)"
+        @update:model-value="$emit('update:search-value', $event)"
       />
     </div>
     <div v-if="!!$slots.filters" class="px-4 py-3 border-b d-flex">
@@ -115,11 +115,11 @@
   </div>
 </template>
 <script>
-import VIcon from '../base/VIcon.vue';
-import VSpinner from '../base/VSpinner.vue';
-import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table';
-import { defineAsyncComponent, h } from 'vue';
-import QuickActionsBtn from '@/components/base/QuickActionsBtn.vue';
+import VIcon from '../base/VIcon.vue'
+import VSpinner from '../base/VSpinner.vue'
+import { FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table'
+import { defineAsyncComponent, h } from 'vue'
+import QuickActionsBtn from '@/components/base/QuickActionsBtn.vue'
 
 export default {
   components: {
@@ -204,19 +204,19 @@ export default {
   setup(props, context) {
     const Checkbox = defineAsyncComponent(() =>
       import('../shadcn/checkbox/Checkbox.vue'),
-    );
+    )
 
     const columns = props.headers.map(({ id, label, component, props }) => ({
       accessorKey: id,
       header: () => h('div', label),
       cell: ({ row }) => {
-        const value = row.getValue(id);
-        let emits = {};
+        const value = row.getValue(id)
+        let emits = {}
         component?.emits?.map((event) => {
           emits[`on${event.charAt(0).toUpperCase()}` + event.slice(1)] = (
             args,
-          ) => context.emit(event, args);
-        });
+          ) => context.emit(event, args)
+        })
         const cellRender = component
           ? h(
             component,
@@ -228,11 +228,11 @@ export default {
             },
             () => value,
           )
-          : h('div', value);
+          : h('div', value)
 
-        return cellRender;
+        return cellRender
       },
-    }));
+    }))
 
     if (props.hasCheckbox) {
       columns.unshift({
@@ -241,16 +241,16 @@ export default {
           h(Checkbox, {
             checked: table.getIsAllPageRowsSelected(),
             'onUpdate:checked': (value) => {
-              table.toggleAllPageRowsSelected(!!value);
-              let rows = table.getRowModel();
+              table.toggleAllPageRowsSelected(!!value)
+              let rows = table.getRowModel()
               // Emit event on rows checked/unchecked
               if (value) {
                 context.emit(
                   'allRows:selected',
                   rows.rows.map((el) => el.original.id),
-                );
+                )
               } else {
-                context.emit('allRows:selected', []);
+                context.emit('allRows:selected', [])
               }
             },
             ariaLabel: 'Select all',
@@ -260,17 +260,17 @@ export default {
           h(Checkbox, {
             checked: row.getIsSelected(),
             'onUpdate:checked': (value) => {
-              row.toggleSelected(!!value);
+              row.toggleSelected(!!value)
               // Emit event on row checked/unchecked
               context.emit('row:checked', {
                 selected: value,
                 rowId: row.original.id,
-              });
+              })
             },
             ariaLabel: 'Select row',
             theme: 'blue',
           }),
-      });
+      })
     }
     if (props.hasQuickActions) {
       columns.push({
@@ -286,33 +286,33 @@ export default {
                 context.emit('quickAction:triggered', {
                   ...evt,
                   selected: row.original,
-                });
+                })
               },
             }),
-          );
+          )
         },
-      });
+      })
     }
 
     const table = useVueTable({
       get data() {
-        return props.data;
+        return props.data
       },
       get columns() {
-        return columns;
+        return columns
       },
       getCoreRowModel: getCoreRowModel(),
-    });
+    })
 
-    return { table };
+    return { table }
   },
   methods: {
     handleClickRow(row) {
-      row.toggleSelected(!row.getIsSelected());
-      this.$emit('click:row', row);
+      row.toggleSelected(!row.getIsSelected())
+      this.$emit('click:row', row)
     },
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 .relative {
